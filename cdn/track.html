@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>RemetricJS Sample</title>
+	</head>
+	<body>
+		<script>
+		  (function(i,s,o,g,r,a,m,y){i[a]=[];i[r]=i[r]||function(){
+		  (i[a].push(arguments))},i[r].l=1*new Date();m=s.createElement(o),
+		  y=s.getElementsByTagName(o)[0];m.async=1;m.src=g;y.parentNode.insertBefore(m,y)
+		  })(window,document,'script','track.js','rm', '_RM');
+			
+			rm('domain', 'http://localhost:8888/remetric');
+		  rm('api_key', 'FROM-TRACK-JS');
+		  rm('event', {
+		  	id: 'PersonID', // Required
+				story: 'upgraded to the {{ plan.name }}', // Required - use dynamic tags from the supplied data
+				createdAt: new Date(), // Optionally set the original time stamp
+				plan: { // Accepts unlimited nested data
+					id: 456,
+					name: "Awesome"
+				}
+		  });
+		</script>
+	</body>
+</html>

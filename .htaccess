@@ -1,0 +1,3 @@
+RewriteEngine	On
+RewriteRule	^track(.js)?$	cdn/track.js	[NC,L]
+RewriteRule	^api/(.*?)/events/(.*?)?$	api/events.php?api_key=$1&event=$2	[NC,L]
