@@ -7,7 +7,11 @@
 - Contacts Index
 - Filters
 - Segments (just saving/naming a filter)
-- CTAs
+- Events
+- Bottom box contact form
+- Inline contact form
+- Popup contact form
+- Chat
 
 ## To add an event:
 
@@ -52,6 +56,7 @@
 			- LastSeenAt
 			- CreatedAt
 			- UpdatedAt
+			- IsUnknown
 			- Data
 - Segments
 	- OrganizationID

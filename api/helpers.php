@@ -19,7 +19,10 @@
 			if (!is_numeric($key)) {
 				$pretty_name = explode("@", $new_key);
 				$pretty_name = array_map(function($word) { return ucfirst($word); }, $pretty_name);
-				$return[$new_key] = implode(" ", $pretty_name);
+				$return[$new_key] = array(
+					"name" => implode(" ", $pretty_name),
+					"type" => strpos($key, 'At') !== false ? 'date' : 'string'
+				);
 			}
 		}
 		

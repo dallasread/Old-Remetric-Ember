@@ -18,7 +18,7 @@
 			$event->createdAt = date('Y-m-d\TH:i:s\Z', time());
 		}
 		
-		$event->lastSeen = $event->createdAt;
+		$event->lastSeenAt = $event->createdAt;
 
 		unset($event->id);
 		$firebase->push("events/$api_key/$person_id", $event);
