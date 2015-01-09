@@ -5,13 +5,14 @@
 - Main UI Design (switching orgs, etc.)
 - Log In
 - Contacts Index
-- Filters
 - Segments (just saving/naming a filter)
 - Events
+- App store upgrade
 - Bottom box contact form
 - Inline contact form
 - Popup contact form
 - Chat
+- API to programatically set User
 
 ## To add an event:
 
@@ -79,9 +80,25 @@
 		- Username
 		- Email
 		- Password
+- Media
+	- OrganizationID
+		- Name
+		- Size
+		- Type
+		- URL
+- Purchases
+	- PurchaseID
+		- Total
+		- Items
+			- Description
+			- Amount
 - Organizations
 	- OrganizationID (public API key)
 		- Name
 		- Users
+		- Total Disk
+		- Stripe Token
+		- Addons
+			- AppID
 			
 * ONLY Logged In can write to People Data *

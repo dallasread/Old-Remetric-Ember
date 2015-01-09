@@ -33,11 +33,14 @@
   };
 
   _RMI.track = function(data) {
-    var base64, img, params;
+    var base64, img;
     img = document.createElement("img");
     img.style.display = "none";
-    params = data;
-    base64 = encodeURIComponent(btoa(JSON.stringify(params)));
+    data.page = {
+      title: document.title,
+      url: document.URL
+    };
+    base64 = encodeURIComponent(btoa(JSON.stringify(data)));
     img.src = "" + _RMI.domain + "/api/" + _RMI.api_key + "/events/" + base64;
     return document.body.appendChild(img);
   };

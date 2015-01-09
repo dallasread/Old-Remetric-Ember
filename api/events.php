@@ -19,11 +19,27 @@
 		}
 		
 		$event->lastSeenAt = $event->createdAt;
+		
+		if (!property_exists($event, "page") && isset($_SERVER["HTTP_REFERER"])) {
+			$url = urldecode(urlencode($_SERVER["HTTP_REFERER"]));
+			$event->page = (object) array(
+				"url" => $url
+			);
+		}
 
 		unset($event->id);
 		$firebase->push("events/$api_key/$person_id", $event);
 		
+		if (property_exists($event, "page")) {
+			$event->lastPage = array(
+				"url" => $event->page->url,
+				"title" => $event->page->title
+			);
+		}
+		
 		unset($event->story);
+		unset($event->page);
+		
 		$firebase->update("people/$api_key/$person_id/data", $event);
 		$firebase->update("organizations/$api_key/peopleData", array_flatten($event));
 	}
