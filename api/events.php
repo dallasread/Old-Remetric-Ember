@@ -7,16 +7,25 @@
 	$event = json_decode( base64_decode($_REQUEST["event"]) );
 
 	if (strlen(trim($api_key)) > 0 && $event && property_exists($event, "id") && property_exists($event, "story")) {
+		require_once 'helpers.php';
 		require_once 'vendor/firebase/firebaseLib.php';
-		
+
 		$firebase = new Firebase('https://remetric.firebaseio.com', 'FAzzQMmLyeDHT78LZOG7BSkmK80lXXaHMK0MMSV0');
 		$person_id = preg_replace("/[^A-Za-z0-9 ]/", '', $event->id);
+		date_default_timezone_set("UTC");
+		
+		if (!property_exists($event, "createdAt")) {
+			$event->createdAt = date('Y-m-d\TH:i:s\Z', time());
+		}
+		
+		$event->lastSeen = $event->createdAt;
 
 		unset($event->id);
 		$firebase->push("events/$api_key/$person_id", $event);
 		
 		unset($event->story);
 		$firebase->update("people/$api_key/$person_id/data", $event);
+		$firebase->update("organizations/$api_key/peopleData", array_flatten($event));
 	}
-
+	
 ?>

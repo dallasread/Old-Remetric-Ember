@@ -1,5 +1,14 @@
 # Remetric
 
+## Next Steps
+
+- Main UI Design (switching orgs, etc.)
+- Log In
+- Contacts Index
+- Filters
+- Segments (just saving/naming a filter)
+- CTAs
+
 ## To add an event:
 
 ```
