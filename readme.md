@@ -2,18 +2,20 @@
 
 ## Next Steps
 
-- Routes
+- App store
 - Activate Remetric with Serial Number
 - Log In / Log Out
+- Invite Users
+- Permissions
 - Contacts Index
-- Segments (just saving/naming a filter)
 - Events
-- App store
 - Bottom box contact form
 - Inline contact form
 - Popup contact form
-- Admins / Permissions
-- Chat
+- Call Me Back contact form
+- Digital Giveaways
+- Segments (just saving/naming a filter) / ElasticSearch
+- Chat / XMPP
 - API to programatically set Visitor
 
 ## To add an event:
