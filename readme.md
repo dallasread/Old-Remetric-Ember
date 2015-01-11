@@ -2,17 +2,19 @@
 
 ## Next Steps
 
-- Main UI Design (switching orgs, etc.)
-- Log In
+- Routes
+- Activate Remetric with Serial Number
+- Log In / Log Out
 - Contacts Index
 - Segments (just saving/naming a filter)
 - Events
-- App store upgrade
+- App store
 - Bottom box contact form
 - Inline contact form
 - Popup contact form
+- Admins / Permissions
 - Chat
-- API to programatically set User
+- API to programatically set Visitor
 
 ## To add an event:
 
@@ -95,6 +97,7 @@
 - Organizations
 	- OrganizationID (public API key)
 		- Name
+		- Activated
 		- Users
 		- Total Disk
 		- Stripe Token
