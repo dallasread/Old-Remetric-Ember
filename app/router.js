@@ -37,6 +37,7 @@ Router.map(function() {
 
 	this.route("organizations");
 	this.route("activate");
+	this.route("signin");
 });
 
 export default Router;
