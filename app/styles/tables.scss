@@ -1,0 +1,52 @@
+.remetric {
+	table.table {
+		width: 100%;
+		font-size: 14px;
+		
+		th {
+			background: $lightest_gray;
+			font-weight: bold;
+			border-top: 1px solid $lighter_gray;
+			border-bottom: 1px solid $lighter_gray;
+		}
+		
+		tr {
+			td, th {
+				font-size: 14px;
+				line-height: 14px;
+				color: #777;
+				font-weight: normal;
+				text-align: left;
+				
+				&:first-child {
+					border-left: 1px solid $lighter_gray;
+				}
+			
+				&:last-child {
+					border-right: 1px solid $lighter_gray;
+				}
+			}
+			
+			th {
+				padding: 17px;
+			}
+			
+			td {
+				border-right: 1px solid $lightest_gray;
+				
+				a {
+					padding: 17px;
+					display: block;
+				}
+			}
+			
+			&:last-child {
+				td {
+					border-bottom: 1px solid $lighter_gray;
+				}
+			}
+		}
+		
+		
+	}
+}

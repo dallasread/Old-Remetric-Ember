@@ -1,0 +1,19 @@
+<div class="topbar">
+	{{#link-to "dashboard" class="logo"}}
+		<img src="/assets/imgs/logo.png">
+	{{/link-to}}
+	
+	<ul class="nav">
+		<li>{{#link-to "dashboard.people"}}People{{/link-to}}</li>
+		<li>{{#link-to "dashboard.activity"}}Activity{{/link-to}}</li>
+		<li>{{#link-to "dashboard.apps"}}Apps{{/link-to}}</li>
+	</ul>
+	
+	{{#link-to "dashboard.account" class="profile"}}
+		<img src="#" class="avatar">
+		<p class="wrapper">
+			<span class="name">Dallas Read</span>
+			<span class="company">BrandInABox.org</span>
+		</p>
+	{{/link-to}}
+</div>

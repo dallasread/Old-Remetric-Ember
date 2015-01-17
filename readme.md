@@ -2,7 +2,8 @@
 
 ## Next Steps
 
-- App store
+- Apps JSON (name, short description, long description, has_trial, price)
+- App store (apps can be two-phase, install or try and upgrade)
 - Activate Remetric with Serial Number
 - Log In / Log Out
 - Invite Users
@@ -15,7 +16,8 @@
 - Call Me Back contact form
 - Digital Giveaways
 - Segments (just saving/naming a filter) / ElasticSearch
-- Chat / XMPP
+- Chat / XMPP - 2 convos per day trial
+- Automessage to signed up users (using followup app)
 - API to programatically set Visitor
 
 ## To add an event:

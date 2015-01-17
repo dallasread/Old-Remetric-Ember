@@ -1,0 +1,77 @@
+.remetric {
+	.topbar {
+		width: 100%;
+		background: $lightest_gray;
+		border-bottom: 1px solid $lighter_gray;
+	
+		a {
+			color: #999;
+			text-decoration: none;
+			display: inline-block;
+		
+			&.active {
+				background: #e2e2e2;
+				color: $maroon;
+			}
+		}
+	
+		.logo {
+			padding: 14px;
+		
+			&.active {
+				background: none;
+			}
+		}
+	
+		.nav {
+			list-style: none;
+			display: inline-block;
+			vertical-align: top;
+			margin-left: 20px;
+		
+			li {
+				display: inline-block;
+				margin-right: 10px;
+			
+				a {
+					padding: 19px 23px;
+					font-size: 18px;
+					line-height: 18px;
+				}
+			}
+		}
+	
+		.profile {
+			float: right;
+			padding: 13px 14px 11px;
+		
+			.avatar {
+				float: left;
+				background: $lighter_gray;
+				width: 32px;
+				height: 32px;
+				border-radius: 4px;
+			}
+		
+			.wrapper {
+				float: left;
+				margin-left: 10px;
+
+				.name {
+					font-weight: bold;
+					font-size: 14px;
+					line-height: 14px;
+					display: block;
+				}
+		
+				.company {
+					color: #999;
+					font-size: 12px;
+					line-height: 12px;
+					display: block;
+					margin-top: 5px;
+				}
+			}
+		}
+	}
+}

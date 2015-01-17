@@ -1,0 +1,21 @@
+<ol class="store">
+	{{#each app in model}}
+		<li class="app">
+			{{#link-to 'dashboard.apps.store.app' app}}
+				<img {{bind-attr src=app.icon}} class="icon">
+				
+				<span class="meta">
+					<span class="name">{{app.name}}</span>
+					
+					<button class="button small white" {{action 'install' app}}>
+						{{app.install}}
+					</button>
+					
+					<span class="excerpt">{{app.excerpt}}</span>
+				</span>
+				
+				<span class="clear"></span>
+			{{/link-to}}
+		</li>
+	{{/each}}
+</ol>

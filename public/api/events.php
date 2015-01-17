@@ -37,11 +37,11 @@
 			);
 		}
 		
-		unset($event->story);
-		unset($event->page);
+		//unset($event->story);
+		//unset($event->page);
 		
-		$firebase->update("people/$api_key/$person_id/data", $event);
-		$firebase->update("organizations/$api_key/peopleData", array_flatten($event));
+		$firebase->update("people/$api_key/$person_id/data", $event->contact);
+		$firebase->update("organizations/$api_key/peopleData", array_flatten($event->contact));
 	}
 	
 ?>

@@ -1,0 +1,54 @@
+.remetric {
+	.dashboard {
+		.store {
+			list-style: none;
+			
+			.app {
+				width: 30%;
+				float: left;
+				margin: 1.5%;
+				
+				a {
+					padding: 15px;
+					background: $lightest_gray;
+					border: 1px solid $lighter_gray;
+					border-radius: 10px;
+					display: block;
+				
+					.icon {
+						width: 25%;
+						border-radius: 10px;
+						float: left;
+					}
+				
+					.meta {
+						float: right;
+						width: 70%;
+						margin-bottom: 0;
+					
+						.name {
+							font-weight: bold;
+							margin-bottom: 10px;
+							font-size: 18px;
+							line-height: 18px;
+							color: #333;
+							display: block;
+						}
+				
+						button {
+							text-transform: uppercase;
+						}
+					
+						.excerpt {
+							display: block;
+							margin-top: 10px;
+							font-size: 12px;
+							line-height: 17px;
+							color: #888;
+						}
+					}
+				}
+			}
+		}
+	}
+}

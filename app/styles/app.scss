@@ -1,0 +1,16 @@
+$lightest_gray: #f2f2f2;
+$lighter_gray: #dddddd;
+$maroon: #8e2825;
+
+@import 'vendor/reset';
+
+@import 'general';
+@import 'buttons';
+@import 'tables';
+
+@import 'dashboard/general';
+@import 'dashboard/topbar';
+
+@import 'dashboard/people/general';
+
+@import 'dashboard/apps/store/general';

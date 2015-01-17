@@ -1,0 +1,25 @@
+.remetric {
+	.dashboard {
+		.meta {
+			margin-bottom: 20px;
+
+			form {
+				float: left;
+			}
+		
+			.actions {
+				float: right;
+				list-style: none;
+			
+				li {
+					float: left;
+					margin-left: 10px;
+				
+					a {
+						display: block;
+					}
+				}
+			}
+		}
+	}
+}

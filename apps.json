@@ -1,0 +1,32 @@
+{
+	"chat": {
+		"name": "Live Chat",
+		"description": "Talk to your visitors live.",
+		"price": 2900,
+		"interval": "monthly",
+		"hasTrial": true
+	},
+	"polls": {
+		"name": "Quick Polls",
+		"description": "Actionable, community-voted data.",
+		"price": 0
+	},
+	"forms": {
+		"name": "Action Forms",
+		"description": "Get your visitors to take action.",
+		"price": 0
+	},
+	"surveys": {
+		"name": "Surveys",
+		"description": "Survey your visitors one-on-one.",
+		"price": 49,
+		"hasTrial": true
+	},
+	"followup": {
+		"name": "Follow Up",
+		"description": "Automatically follow up with visitors.",
+		"price": 2900,
+		"interval": "monthly",
+		"hasTrial": true
+	}
+}
