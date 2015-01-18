@@ -10,7 +10,7 @@ export default DS.FirebaseAdapter.extend({
 			// if (!window.LCSCB) {
 			// 	window.LCSCB = this.container.lookup('session:main').get('chatbox.id');
 			// }
-			return type + "/FROM-TRACK-JS";
+			return Ember.String.pluralize(type) + "/FROM-TRACK-JS";
 		} else {
 			var camelized = Ember.String.camelize(type);
       return Ember.String.pluralize(camelized);

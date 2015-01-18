@@ -10,7 +10,7 @@ Router.map(function() {
 		this.route("people", function() {
 			this.route("segments/:segment_id");
 			this.route("new");
-			this.route(":person_id"); // DIALOG ACCESSIBLE FROM ANYWHERE
+			this.route("person", { path: ":person_id" }); // DIALOG ACCESSIBLE FROM ANYWHERE
 		});
 	
 		this.route("messages", function() {

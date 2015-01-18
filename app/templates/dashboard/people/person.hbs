@@ -1,0 +1,9 @@
+<h1>{{person.info.firstName}} {{person.info.lastName}}</h1>
+
+<ol class="newsfeed">
+	{{#each event in person.events}}
+		<li class="event">
+			<p>{{{story-teller event person.info}}}</p>
+		</li>
+	{{/each}}
+</ol>

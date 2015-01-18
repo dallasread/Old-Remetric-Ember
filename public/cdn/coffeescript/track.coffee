@@ -24,13 +24,13 @@ _RMI.parseEvents = ->
 
 	_RMI.detectPushes()
 
-_RMI.track = (data) ->
+_RMI.track = (event) ->
 	img = document.createElement("img")
 	img.style.display = "none"
-	data.page =
+	event.page =
 		title: document.title
 		url: document.URL
-	base64 = encodeURIComponent btoa(JSON.stringify(data))
+	base64 = encodeURIComponent btoa(JSON.stringify(event))
 	img.src = "#{_RMI.domain}/api/#{_RMI.api_key}/events/#{base64}"
 	document.body.appendChild img
 

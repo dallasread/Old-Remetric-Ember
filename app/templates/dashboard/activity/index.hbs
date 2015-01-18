@@ -1,6 +1,10 @@
-<div class="newsfeed">
-	Newsfeed
-</div>
+<ol class="newsfeed">
+	{{#each event in model}}
+		<li class="event">
+			<p>{{{story-teller event event.person.info}}}</p>
+		</li>
+	{{/each}}
+</ol>
 
 <div class="newsfeed_sidebar">
 	<div class="graph">

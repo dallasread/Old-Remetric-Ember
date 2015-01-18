@@ -28,12 +28,34 @@
 	</thead>
 	
 	<tbody>
-		<tr>
-			<td><a href="#">Dallas</a></td>
-			<td><a href="#">Read</a></td>
-			<td><a href="#">dallas@brandinabox.org</a></td>
-			<td><a href="#">4/5/14 10:05AM</a></td>
-			<td><a href="#">7/3/14 12:30AM</a></td>
-		</tr>
+		{{#each person in model}}
+			<tr>
+				<td>
+					{{#link-to 'dashboard.people.person' person}}
+						{{person.info.firstName}}
+					{{/link-to}}
+				</td>
+				<td>
+					{{#link-to 'dashboard.people.person' person}}
+						{{person.info.lastName}}
+					{{/link-to}}
+				</td>
+				<td>
+					{{#link-to 'dashboard.people.person' person}}
+						{{person.info.email}}
+					{{/link-to}}
+				</td>
+				<td>
+					{{#link-to 'dashboard.people.person' person}}
+						{{#if person.lastSeenAt}}{{moment person.lastSeenAt 'lll'}}{{/if}}
+					{{/link-to}}
+				</td>
+				<td>
+					{{#link-to 'dashboard.people.person' person}}
+						{{#if person.createdAt}}{{moment person.createdAt 'lll'}}{{/if}}
+					{{/link-to}}
+				</td>
+			</tr>
+		{{/each}}
 	</tbody>
 </table>

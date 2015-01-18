@@ -13,8 +13,8 @@
 			rm('domain', 'http://localhost:8888/remetric');
 		  rm('api_key', 'FROM-TRACK-JS');
 		  rm('event', {
-		  	id: 'PersonID', // Required
-				story: 'upgraded to the {{ plan.name }}', // Required - use dynamic tags from the supplied data
+		  	id: 'Person3ID', // Required
+				story: '{{person.firstName}} {{person.lastName}} upgraded to {{ plan.name }}', // Required - use dynamic tags from the supplied data
 				createdAt: new Date(), // Optionally set the original time stamp
 				plan: { // Accepts unlimited nested data
 					id: 456,
