@@ -1,11 +1,10 @@
 <?php
 
-	header('Content-Type: image/gif');
-	echo base64_decode('R0lGODlhAQABAJAAAP8AAAAAACH5BAUQAAAALAAAAAABAAEAAAICBAEAOw==');
+	// header('Content-Type: image/gif');
+	// echo base64_decode('R0lGODlhAQABAJAAAP8AAAAAACH5BAUQAAAALAAAAAABAAEAAAICBAEAOw==');
 
 	$api_key = $_REQUEST["api_key"];
 	$event = json_decode( base64_decode($_REQUEST["event"]) );
-	print_r($event);
 
 	if (strlen(trim($api_key)) > 0 && $event && property_exists($event, "id") && property_exists($event, "story")) {
 		require_once 'helpers.php';
@@ -47,10 +46,11 @@
 			"info" => $event
 		);
 
-		$firebase->push("events/$api_key", $event);
+		$new_event = $firebase->push("events/$api_key", $event);
 		$firebase->update("people/$api_key/$person_id/info", $contact);
 		$firebase->set("people/$api_key/$person_id/lastSeenAt", $event->createdAt);
 		$firebase->update("organizations/$api_key/peopleInfo", array_flatten($contact));
+		$firebase->push("people/$api_key/$person_id/events/" . json_decode($new_event)->name, true);
 	}
 	
 ?>

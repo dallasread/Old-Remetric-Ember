@@ -5,5 +5,5 @@ export default DS.Model.extend({
   info: DS.attr(),
 	createdAt: DS.attr('timestamp'),
 	lastSeenAt: DS.attr('timestamp'),
-	events: DS.hasMany('events', { async: true })
+	events: DS.hasMany('event', { async: true })
 });

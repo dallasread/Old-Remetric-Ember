@@ -1,7 +1,7 @@
 <ol class="newsfeed">
 	{{#each event in model}}
 		<li class="event">
-			<p>{{{story-teller event event.person.info}}}</p>
+			<p>{{story-teller event_info=event.info event_story=event.story person_info=event.person.info person_id=event.person.id}}</p>
 		</li>
 	{{/each}}
 </ol>
