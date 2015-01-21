@@ -5,7 +5,7 @@ export default Ember.Component.extend({
 	realStory: function() {
 		var story = Handlebars.compile( this.get('event_story') );
 		var data = this.get('event_info');
-		data.person = this.get('person_info');
+		data.person = Ember.$.extend(true, {}, this.get('person_info'));
 
 		for (var attr in data.person) {
 			data.person[attr] = new Handlebars.SafeString("<a href=\"/#/dashboard/people/" + this.get('person_id') + "\">" + data.person[attr] + "</a>");

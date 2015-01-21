@@ -1,9 +1,6 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-	model: function() {
-		return this.store.findAll('app');
-  },
 	actions: {
 		install: function(app) {
 			if (this.get('session.organization.apps.' + app.id)) {

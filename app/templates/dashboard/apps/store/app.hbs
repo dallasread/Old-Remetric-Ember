@@ -1,6 +1,12 @@
+{{#link-to 'dashboard.apps.store'}}
+	&larr; &nbsp; Back to App Store
+{{/link-to}}
+
 <h1>{{name}}</h1>
 
 <p>{{description}}</p>
+
+<img {{bind-attr src=icon}}>
 
 <button class="button" {{action 'install' .}}>
 	{{install}}

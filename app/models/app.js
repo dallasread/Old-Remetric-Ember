@@ -7,6 +7,8 @@ export default DS.Model.extend({
 	interval: DS.attr('string'),
 	price: DS.attr('number'),
 	hasTrial: DS.attr('boolean'),
+	isActive: DS.attr('boolean'),
+	isSystem: DS.attr('boolean'),
 	install: function() {
 		return this.get('hasTrial') ? 'Try Free' : 'Get';
 	}.property('hasTrial'),

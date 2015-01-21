@@ -10,7 +10,7 @@ Router.map(function() {
 		this.route("people", function() {
 			this.route("segments/:segment_id");
 			this.route("new");
-			this.route("person", { path: ":person_id" }); // DIALOG ACCESSIBLE FROM ANYWHERE
+			this.route("person", { path: "/:person_id" }); // DIALOG ACCESSIBLE FROM ANYWHERE
 		});
 	
 		this.route("messages", function() {
@@ -23,8 +23,14 @@ Router.map(function() {
 	
 		this.route("apps", function() {
 			this.route("store", function() {
-				this.route("app", { path: ":app_id" });
+				this.route("app", { path: "/:app_id" });
 			});
+			
+			this.route("forms");
+			this.route("social");
+			this.route("chat");
+			
+			this.route("app", { path: "/:app_id" });
 		});
 
 		this.route("account", function() {

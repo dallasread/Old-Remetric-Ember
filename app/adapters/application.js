@@ -1,10 +1,8 @@
-/* globals Firebase */
-
 import Ember from 'ember';
 import DS from 'ember-data';
 
 export default DS.FirebaseAdapter.extend({
-  firebase: new Firebase("https://remetric.firebaseio.com"),
+  firebase: window._RMDB,
   pathForType: function(type) {
 		if (type !== "organization" && type !== "app") {
 			// if (!window.LCSCB) {

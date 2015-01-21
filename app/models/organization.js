@@ -6,5 +6,6 @@ export default DS.Model.extend({
 	interval: DS.attr('string'),
 	price: DS.attr('number'),
 	hasTrial: DS.attr('boolean'),
-	apps: DS.hasMany('apps', { async: true })
+	apps: DS.hasMany('apps', { async: true }),
+	peopleInfo: DS.attr()
 });
