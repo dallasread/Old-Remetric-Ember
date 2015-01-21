@@ -14,9 +14,8 @@ export default Ember.Component.extend({
 			} else {
 				this.get('organization.apps').addObject(app);
 				this.get('organization').save();
+				alert('Visit the Apps page to start using ' + app.get('id') + '!');
 			}
-			
-			return false;
 		}
 	}
 });
