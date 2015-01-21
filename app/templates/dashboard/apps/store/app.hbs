@@ -8,6 +8,4 @@
 
 <img {{bind-attr src=icon}}>
 
-<button class="button" {{action 'install' .}}>
-	{{install}}
-</button>
+{{install-button app=app organization=session.organization}}

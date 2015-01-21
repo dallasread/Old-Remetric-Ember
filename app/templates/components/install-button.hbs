@@ -1,0 +1,7 @@
+<button class="button small white" {{action 'install' app bubbles=false}}>
+	{{#if isInstalled}}
+		Uninstall
+	{{else}}
+		{{app.installText}}
+	{{/if}}
+</button>

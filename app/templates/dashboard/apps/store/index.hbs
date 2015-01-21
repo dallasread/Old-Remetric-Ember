@@ -8,10 +8,8 @@
 				
 						<span class="meta">
 							<span class="name">{{app.name}}</span>
-					
-							<button class="button small white" {{action 'install' app}}>
-								{{app.install}}
-							</button>
+							
+							{{install-button app=app organization=session.organization}}
 					
 							<span class="excerpt">{{app.excerpt}}</span>
 						</span>

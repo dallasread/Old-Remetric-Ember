@@ -9,8 +9,8 @@ export default DS.Model.extend({
 	hasTrial: DS.attr('boolean'),
 	isActive: DS.attr('boolean'),
 	isSystem: DS.attr('boolean'),
-	install: function() {
-		return this.get('hasTrial') ? 'Try Free' : 'Get';
+	installText: function() {
+		return this.get('hasTrial') ? 'Try Free' : 'Free';
 	}.property('hasTrial'),
 	icon: function() {
 		return '/assets/imgs/apps/icons/chat.jpg'; //+ this.get('id') + '.jpg'
