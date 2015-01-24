@@ -6,7 +6,7 @@ export default Ember.ArrayController.extend({
 		var peopleInfo = this.get('session.organization.peopleInfo');
 		
 		for (var key in peopleInfo) {
-			if (peopleInfo[key].type == 'string') {
+			if (peopleInfo[key].type === 'string') {
 				var info = {
 					key: key,
 					name: peopleInfo[key].name,

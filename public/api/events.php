@@ -14,7 +14,7 @@
 		date_default_timezone_set("UTC");
 		
 		$person_id = preg_replace("/[^A-Za-z0-9 ]/", '', $event->id);
-		$contact = $event->contact;
+		$person = $event->person;
 		unset($event->id);
 		
 		if (!property_exists($event, "createdAt")) {
@@ -46,11 +46,11 @@
 			"info" => $event
 		);
 
-		$new_event = $firebase->push("events/$api_key", $event);
-		$firebase->update("people/$api_key/$person_id/info", $contact);
-		$firebase->set("people/$api_key/$person_id/lastSeenAt", $event->createdAt);
-		$firebase->update("organizations/$api_key/peopleInfo", array_flatten($contact));
-		$firebase->push("people/$api_key/$person_id/events/" . json_decode($new_event)->name, true);
+		$new_event = $firebase->push("$api_key/events", $event);
+		$firebase->update("$api_key/people/$person_id/info", $person);
+		$firebase->set("$api_key/people/$person_id/lastSeenAt", $event->createdAt);
+		$firebase->update("$api_key/settings/peopleInfo", array_flatten($person));
+		$firebase->push("$api_key/people/$person_id/events/" . json_decode($new_event)->name, true);
 	}
 	
 ?>

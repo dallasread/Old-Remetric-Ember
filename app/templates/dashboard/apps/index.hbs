@@ -1,7 +1,6 @@
 <ol class="apps">
 	{{#each app in session.organization.apps}}
 		<li class="app">
-			<a href="#" {{action 'uninstall'}} classs="uninstall">&times;</a>
 			{{#link-to 'dashboard.apps.app' app}}
 				<img {{bind-attr src=app.icon}} class="icon">
 				<span class="name">{{app.name}}</span>
