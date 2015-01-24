@@ -2,8 +2,8 @@
 	<form>
 		<input type="search" placeholder="Search...">
 		<select>
-			{{#each peopleInfoArray}}
-				<option {{bind-attr value=key}} {{bind-attr data-type=type}}>{{name}}</option>
+			{{#each info in peopleInfoArray}}
+				<option {{bind-attr value=info.key}} {{bind-attr data-type=info.type}}>{{info.name}}</option>
 			{{/each}}
 		</select>
 	</form>

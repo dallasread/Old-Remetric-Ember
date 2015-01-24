@@ -6,13 +6,15 @@ export default Ember.ArrayController.extend({
 		var peopleInfo = this.get('session.organization.peopleInfo');
 		
 		for (var key in peopleInfo) {
-			var info = {
-				key: key,
-				name: peopleInfo[key].name,
-				type: peopleInfo[key].type
-			};
+			if (peopleInfo[key].type == 'string') {
+				var info = {
+					key: key,
+					name: peopleInfo[key].name,
+					type: peopleInfo[key].type
+				};
 			
-			peopleInfoArray.push(info);
+				peopleInfoArray.push(info);
+			}
 		}
 		
 		return peopleInfoArray;
