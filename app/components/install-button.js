@@ -7,14 +7,11 @@ export default Ember.Component.extend({
 	actions: {
 		install: function(app) {
 			if (this.get('isInstalled')) {
-				// if (confirm('Are you sure you want to uninstall this app?')) {
-					this.get('organization.apps').removeObject(app);
-					this.get('organization').save();
-				// }
+				this.get('organization.apps').removeObject(app);
+				this.get('organization').save();
 			} else {
 				this.get('organization.apps').addObject(app);
 				this.get('organization').save();
-				alert('Visit the Apps page to start using ' + app.get('id') + '!');
 			}
 		}
 	}

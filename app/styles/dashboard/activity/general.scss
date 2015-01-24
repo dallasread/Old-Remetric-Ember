@@ -1,0 +1,38 @@
+.remetric {
+	.dashboard {
+		h2 {
+			font-weight: bold;
+			font-size: 21px;
+			line-height: 32px;
+			color: #444;
+			margin-bottom: 10px;
+		}
+		
+		.newsfeed {
+			width: 65%;
+			padding-right: 20px;
+			float: left;
+			
+			ol {
+				border-top: 1px solid $lightest_gray;
+				
+				li {
+					border-bottom: 1px solid $lightest_gray;
+					padding: 15px 0px;
+				}
+			}
+		}
+		
+		.newsfeed_sidebar {
+			float: right;
+			width: 35%;
+			
+			.sidebar_widget {
+				background: $lightest_gray;
+				color: #333;
+				padding: 15px;
+				margin-bottom: 20px;
+			}
+		}
+	}
+}

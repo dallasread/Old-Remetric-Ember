@@ -13,6 +13,6 @@ export default DS.Model.extend({
 		return this.get('hasTrial') ? 'Try Free' : 'Free';
 	}.property('hasTrial'),
 	icon: function() {
-		return '/assets/imgs/apps/icons/chat.jpg'; //+ this.get('id') + '.jpg'
+		return '/assets/imgs/apps/icons/' + this.get('id') + '.jpg';
 	}.property('id')
 });

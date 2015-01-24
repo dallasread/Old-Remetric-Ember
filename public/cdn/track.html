@@ -13,15 +13,18 @@
 			rm('domain', 'http://localhost:8888/remetric');
 		  rm('api_key', 'FROM-TRACK-JS');
 		  rm('event', {
-		  	id: 'Person3ID', // Required
-				story: '{{person.firstName}} {{person.lastName}} upgraded to {{ plan.name }}', // Required - use dynamic tags from the supplied data
-				createdAt: new Date(), // Optionally set the original time stamp
-				plan: { // Accepts unlimited nested data
-					id: 456,
-					name: "Awesome",
-					price: 19.99,
-					tiers: [1, 3, 6]
+		  	id: 'PersonID', // Required
+				story: '{{person.firstName}} {{person.lastName}} tried to do {{thing.name}}', // Required - use dynamic tags from the supplied data
+				thing: {
+					name: "amazing things"
 				}
+				// createdAt: new Date(), // Optionally set the original time stamp
+				// plan: { // Accepts unlimited nested data
+				// 	id: 456,
+				// 	name: "Awesome",
+				// 	price: 19.99,
+				// 	tiers: [1, 3, 6]
+				// }
 		  });
 		</script>
 	</body>

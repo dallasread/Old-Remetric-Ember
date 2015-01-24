@@ -18,6 +18,7 @@ Router.map(function() {
 		});
 	
 		this.route("activity", function() {
+			this.route("event", { path: "/events/:event_id" });
 			this.route(":description");
 		});
 	

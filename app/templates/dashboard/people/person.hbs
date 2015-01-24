@@ -3,7 +3,7 @@
 <ol class="newsfeed">
 	{{#each event in events}}
 		<li class="event">
-			<p>{{story-teller event_info=event.info event_story=event.story person_info=event.person.info person_id=event.person.id}}</p>
+			<p>{{story-teller event_id=event.id event_info=event.info event_story=event.story person_info=event.person.info person_id=event.person.id}}</p>
 		</li>
 	{{/each}}
 </ol>
