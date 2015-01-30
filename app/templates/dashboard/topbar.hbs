@@ -1,4 +1,4 @@
-<div class="topbar app_topbar" {{bind-attr style=session.currentApp.style}}>
+<div {{bind-attr class=":topbar session.currentApp:app_topbar"}} {{bind-attr style=session.currentApp.style}}>
 
 	{{#if session.currentApp}}
 		{{#link-to 'dashboard.apps' class='back_to_apps'}}

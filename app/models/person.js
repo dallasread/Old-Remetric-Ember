@@ -5,5 +5,5 @@ export default DS.Model.extend({
 	createdAt: DS.attr('timestamp'),
 	lastSeenAt: DS.attr('timestamp'),
 	events: DS.hasMany('event', { async: true }),
-	isUnknown: DS.attr('boolean')
+	isUnknown: DS.attr('boolean', { defaultValue: true })
 });

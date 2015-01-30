@@ -1,0 +1,49 @@
+.remetric {
+	.dashboard {
+		.app_content {
+			margin-top: $topbar_height;
+			padding: 20px;
+
+			&.with_sidebar {
+				margin-left: $sidebar_width;
+
+				.app_actions {
+					left: $sidebar_width;
+				}
+			}
+			
+			.app_sidebar {
+				position: fixed;
+				top: $topbar_height;
+				bottom: 0;
+				width: $sidebar_width;
+				left: 0;
+				border-right: 1px solid $lighter_gray;
+				background: $lightest_gray;
+				
+				&.with_padding {
+					padding: 20px;
+				}
+				
+				.has_button {
+					padding: 20px;
+					
+					.button {
+						display: block;
+					}
+				}
+			}
+			
+			.app_actions {
+				position: fixed;
+				bottom: 0;
+				right: 0;
+				left: 0;
+				padding: 10px;
+				text-align: right;
+				border-top: 1px solid $lighter_gray;
+				background: #fff;
+			}
+		}
+	}
+}

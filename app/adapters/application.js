@@ -22,6 +22,8 @@ export default DS.FirebaseAdapter.extend({
       return Ember.String.pluralize(camelized);
 		} else if (model === 'organization') {
 			return 'FROM-TRACK-JS/settings';
+		} else if (model === 'cta') {
+			return 'FROM-TRACK-JS/ctas';
 		} else {
 			return 'FROM-TRACK-JS/' + Ember.String.pluralize(model);
 		}

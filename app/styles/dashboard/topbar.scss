@@ -5,7 +5,11 @@
 		border-bottom: 1px solid $lighter_gray;
 		
 		&.app_topbar {
-			border-bottom: 1px solid $lighter_gray;
+			border-bottom: 0 none;
+			position: fixed;
+			left: 0;
+			right: 0;
+			top: 0;
 		}
 	
 		a {

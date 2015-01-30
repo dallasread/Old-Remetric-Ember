@@ -5,7 +5,7 @@ export default Ember.Route.extend({
 		// console.log('ok2')
 	},
 	actions: {
-		willTransition: function(transition) {
+		willTransition: function() {
 			this.set( 'session.currentApp', null );
 		}
 	}

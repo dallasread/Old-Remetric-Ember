@@ -1,6 +1,15 @@
+$topbar_height: 57px;
+$sidebar_width: 300px;
+
 $lightest_gray: #f2f2f2;
 $lighter_gray: #dddddd;
 $maroon: #8e2825;
+
+$green: #4F8F5C;
+$blue: #2D6C97;
+$dark_blue: #204C6A;
+$gray: #B9BABD;
+$dark_gray: #868687;
 
 @import 'vendor/reset';
 
@@ -18,3 +27,4 @@ $maroon: #8e2825;
 @import 'dashboard/apps/apps';
 @import 'dashboard/apps/store/general';
 @import 'dashboard/apps/store/app';
+@import 'dashboard/apps/cta_editor';
