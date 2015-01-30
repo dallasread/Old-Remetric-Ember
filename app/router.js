@@ -27,11 +27,10 @@ Router.map(function() {
 				this.route("app", { path: "/:app_id" });
 			});
 			
-			this.route("hellobar");
+			this.route("topbar");
 			this.route("forms");
 			this.route("social");
 			this.route("chat");
-			
 			this.route("app", { path: "/:app_id" });
 		});
 

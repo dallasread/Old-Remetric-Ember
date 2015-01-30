@@ -1,0 +1,41 @@
+.remetric {
+	.dashboard {
+		.app_help {
+			.help_icon {
+				width: 300px;
+				position: fixed;
+				border-radius: 20px;
+			}
+			
+			.help_details {
+				margin-left: 340px;
+				padding: 0px 20px;
+				
+				.back_link {
+					font-size: 12px;
+					color: #777;
+					margin-bottom: 20px;
+					display: inline-block;
+				}
+				
+				.help_name {
+					font-weight: bold;
+					font-size: 48px;
+					line-height: 60px;
+					margin-bottom: 20px;
+				}
+				
+				.help_description {
+					font-size: 15px;
+					color: #444;
+					line-height: 22px;
+					margin-bottom: 20px;
+				}
+			}
+			
+			button {
+				text-transform: uppercase;
+			}
+		}
+	}
+}

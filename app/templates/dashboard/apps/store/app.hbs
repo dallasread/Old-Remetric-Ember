@@ -1,11 +1,16 @@
-{{#link-to 'dashboard.apps.store'}}
-	&larr; &nbsp; Back to App Store
-{{/link-to}}
+<div class="app_help">
+	<img {{bind-attr src=icon}} class="help_icon">
+	
+	<div class="help_details">
+		<a href="#" {{action 'back'}} class="back_link">
+			&larr; &nbsp; Back to App Store
+		</a>
 
-<h1>{{name}}</h1>
+		<h1 class="help_name">{{name}}</h1>
 
-<p>{{description}}</p>
+		<p class="help_description">{{description}}</p>
 
-<img {{bind-attr src=icon}}>
-
-{{install-button app=. organization=session.organization}}
+		{{install-button app=. organization=session.organization}}
+	</div>
+	
+</div>

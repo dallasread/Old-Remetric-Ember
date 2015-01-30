@@ -1,9 +1,15 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
+	installed: function(){
+		var e = this;
+		return this.get('organization.apps').filter(function(app) {
+			return app.get('name') === e.get('app.name');
+		})
+	}.property('organization.apps', 'app'),
 	isInstalled: function() {
-		return this.get('organization.apps').indexOf( this.get('app') ) !== -1;
-	}.property('app', 'organization.apps'),
+		return this.get('installed.length') !== 0;
+	}.property('installed.length'),
 	actions: {
 		install: function(app) {
 			if (this.get('isInstalled')) {

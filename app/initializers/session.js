@@ -46,10 +46,6 @@ export default {
 			app.advanceReadiness();
 		});
 		
-		// container.injection('component', 'store', 'store:main');
-		// container.injection('view', 'store', 'store:main');
-		// session.setProperties(session_vars);
-		
 		app.deferReadiness();
 	}
 };
