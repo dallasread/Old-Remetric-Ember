@@ -9,9 +9,13 @@ export default DS.Model.extend({
 	hasTrial: DS.attr('boolean'),
 	isActive: DS.attr('boolean'),
 	isSystem: DS.attr('boolean'),
+	ordinal: DS.attr('number'),
 	installText: function() {
 		return this.get('hasTrial') ? 'Try Free' : 'Free';
 	}.property('hasTrial'),
+	help: function() {
+		return 'dashboard/apps/store/help/' + this.get('id');
+	}.property('id'),
 	icon: function() {
 		return '/assets/imgs/apps/icons/' + this.get('id') + '.jpg';
 	}.property('id')

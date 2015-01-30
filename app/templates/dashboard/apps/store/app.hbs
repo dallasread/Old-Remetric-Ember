@@ -3,7 +3,7 @@
 	
 	<div class="help_details">
 		<a href="#" {{action 'back'}} class="back_link">
-			&larr; &nbsp; Back to App Store
+			&larr; &nbsp; Go Back
 		</a>
 
 		<h1 class="help_name">{{name}}</h1>
@@ -11,6 +11,7 @@
 		<p class="help_description">{{description}}</p>
 
 		{{install-button app=. organization=session.organization}}
+		
+		{{partial help}}
 	</div>
-	
 </div>

@@ -25,4 +25,22 @@
 		line-height: 17px;
 		padding: 15px;
 	}
+	
+	* {
+		outline: none;
+	}
+	
+	.remetric_help {
+		background: #ccc;
+		font-size: 10px;
+		color: #fefefe;
+		padding: 4px 7px;
+		border-radius: 3px;
+		display: inline-block;
+		
+		&:hover {
+			background: #999;
+			color: #fff;
+		}
+	}
 }

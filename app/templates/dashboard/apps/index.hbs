@@ -1,5 +1,5 @@
 <ol class="apps">
-	{{#each app in session.organization.apps}}
+	{{#each app in apps}}
 		<li class="app">
 			{{#link-to 'dashboard.apps.app' app}}
 				<img {{bind-attr src=app.icon}} class="icon">
