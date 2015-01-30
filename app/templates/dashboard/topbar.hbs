@@ -1,19 +1,27 @@
-<div class="topbar">
-	{{#link-to "dashboard" class="logo"}}
-		<img src="/assets/imgs/logo.png">
-	{{/link-to}}
-	
-	<ul class="nav">
-		<li>{{#link-to "dashboard.apps"}}Apps{{/link-to}}</li>
-		<li>{{#link-to "dashboard.people"}}People{{/link-to}}</li>
-		<li>{{#link-to "dashboard.activity"}}Activity{{/link-to}}</li>
-	</ul>
-	
-	{{#link-to "dashboard.account" class="profile"}}
-		{{gravatar-image email="dallas@excitecreative.ca" class="avatar"}}
-		<p class="wrapper">
-			<span class="name">Dallas Read</span>
-			<span class="company">BrandInABox.org</span>
-		</p>
-	{{/link-to}}
+<div class="topbar app_topbar" {{bind-attr style=session.currentApp.style}}>
+
+	{{#if session.currentApp}}
+		{{#link-to 'dashboard.apps' class='back_to_apps'}}
+			&larr; Back to Apps
+		{{/link-to}}
+		<h1>{{session.currentApp.name}}</h1>
+	{{else}}
+		{{#link-to "dashboard.account" class="profile"}}
+			{{gravatar-image email="dallas@excitecreative.ca" class="avatar"}}
+			<p class="wrapper">
+				<span class="name">Dallas Read</span>
+				<span class="company">BrandInABox.org</span>
+			</p>
+		{{/link-to}}
+		
+		{{#link-to "dashboard" class="logo"}}
+			<img src="/assets/imgs/logo.png">
+		{{/link-to}}
+
+		<ul class="nav">
+			<li>{{#link-to "dashboard.apps"}}Apps{{/link-to}}</li>
+			<li>{{#link-to "dashboard.people"}}People{{/link-to}}</li>
+			<li>{{#link-to "dashboard.activity"}}Activity{{/link-to}}</li>
+		</ul>
+	{{/if}}
 </div>

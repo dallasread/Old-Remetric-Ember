@@ -5,7 +5,7 @@ export default Ember.Component.extend({
 		var e = this;
 		return this.get('organization.apps').filter(function(app) {
 			return app.get('name') === e.get('app.name');
-		})
+		});
 	}.property('organization.apps', 'app'),
 	isInstalled: function() {
 		return this.get('installed.length') !== 0;

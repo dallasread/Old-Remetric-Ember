@@ -3,6 +3,10 @@
 		width: 100%;
 		background: $lightest_gray;
 		border-bottom: 1px solid $lighter_gray;
+		
+		&.app_topbar {
+			border-bottom: 1px solid $lighter_gray;
+		}
 	
 		a {
 			color: #999;
@@ -22,6 +26,15 @@
 				background: none;
 			}
 		}
+		
+		h1 {
+			text-align: right;
+			font-weight: bold;
+			color: #fff;
+			font-size: 28px;
+			line-height: 28px;
+			padding: 14px 19px;
+		}
 	
 		.nav {
 			list-style: none;
@@ -38,6 +51,19 @@
 					font-size: 18px;
 					line-height: 18px;
 				}
+			}
+		}
+		
+		.back_to_apps {
+			float: left;
+			padding: 21px 19px;
+			font-size: 15px;
+			line-height: 15px;
+			
+			&.active {
+				color: #eee;
+				color: rgba(255, 255, 255, 0.6);
+				background: none;
 			}
 		}
 	
