@@ -1,9 +1,7 @@
 # Remetric
 
-## Next Steps
+## Todo
 
-- Apps JSON (name, short description, long description, has_trial, price)
-- App store (apps can be two-phase, install or try and upgrade)
 - Activate Remetric with Serial Number
 - Log In / Log Out
 - Invite Users
@@ -20,10 +18,16 @@
 - Automessage to signed up users (using followup app)
 - API to programatically set Visitor
 
+## Listen Scripts
+
+- When `organization.stripeCardToken` updated, create or update Stripe and `organization.stripeCustomerToken` if necessary.
+- When `purchase` created, try to pay immediately. If paid, mark feature as available.
+- Cron job to create monthly purchases.
+
 ## To add an event:
 
 ```
-<img src='https://remetric.com/api/PUBLIC-API-TOKEN/events/BASE64-ENCODED-JSON-DATA'>
+<img src='https://remetric.com/api/PUBLIC-API-TOKEN/events/{{BASE64-ENCODED-JSON-DATA}}'>
 ```
 
 ## Using the JS 
@@ -47,65 +51,3 @@
   });
 </script>
 ```
-
-## Initial Data Structure
-
-- Events
-	- OrganizationID
-		- EventID
-			- PersonID
-			- Data
-			- Protected Data Fields
-			- CreatedAt
-- People
-	- OrganizationID
-		- PersonID
-			- LastSeenAt
-			- CreatedAt
-			- UpdatedAt
-			- IsUnknown
-			- Data
-- Segments
-	- OrganizationID
-		- SegmentID
-			- Name
-			- Queries
-				- QueryID
-					- Field
-					- Matcher
-					- Value
-- CTAs
-	- OrganizationID
-		- CTAID
-			- Name
-			- Type
-			- Data
-- Users
-	- UserID
-		- Name
-		- Username
-		- Email
-		- Password
-- Media
-	- OrganizationID
-		- Name
-		- Size
-		- Type
-		- URL
-- Purchases
-	- PurchaseID
-		- Total
-		- Items
-			- Description
-			- Amount
-- Organizations
-	- OrganizationID (public API key)
-		- Name
-		- Activated
-		- Users
-		- Total Disk
-		- Stripe Token
-		- Addons
-			- AppID
-			
-* ONLY Logged In can write to People Data *

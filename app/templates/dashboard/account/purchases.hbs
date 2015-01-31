@@ -7,14 +7,22 @@
 		</tr>
 	</thead>
 	<tbody>
-
-		{{#each purchase in model}}
+		
+		{{#if model.length}}
+			{{#each purchase in model}}
+				<tr>
+					<td>{{#if purchase.createdAt}}{{moment purchase.createdAt 'll'}}{{/if}}</td>
+					<td>{{purchase.story}}</td>
+					<td class="align_right">{{format-money purchase.total}}</td>
+				</tr>
+			{{/each}}
+		{{else}}
 			<tr>
-				<td>{{#if purchase.createdAt}}{{moment purchase.createdAt 'll'}}{{/if}}</td>
-				<td>{{purchase.story}}</td>
-				<td class="align_right">{{format-money purchase.total}}</td>
+				<td colspan="3">
+					You have no purchases recorded.
+				</td>
 			</tr>
-		{{/each}}
+		{{/if}}
 
 	</tbody>
 </table>
