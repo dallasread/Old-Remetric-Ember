@@ -1,14 +1,50 @@
-<input type="name">
-<input type="company_name">
-<input type="serial_number">
+<form>
 
-<input type="password">
-<input type="password">
+	<div class="field">
+		<label for="serial_number">Serial Number</label>
+		<input type="text" id="serial_number" readonly="readonly" {{bind-attr value=session.organization_id}}>
+	</div>
+	
+	<div class="field">
+		<label for="organization_name">Organization Name</label>
+		{{input type="text" id="organization_name" value=session.organization.name}}
+	</div>
 
-<input type="email">
+	<div class="field">
+		<label for="name">Your Name</label>
+		<input type="text" id="name">
+	</div>
 
-<div class="app_actions">
-	<button class="button clickable">
-		Save Profile
-	</button>
-</div>
+	<div class="field">
+		<label for="email">Email Address</label>
+		<input type="text" id="email">
+	</div>
+
+	<div class="field">
+		<label for="password">New Password</label>
+		<input type="text" id="password">
+	</div>
+
+	<div class="field">
+		<label for="password">Confirm Your New Password</label>
+		<input type="text" id="password">
+	</div>
+
+
+	<div class="app_actions">
+		{{#if session.organization.isDirty}}
+			<a href="#" {{action 'resetProfile'}} class="cancel">Discard Changes</a>
+		{{/if}}
+	
+		{{#unless session.organization.isDirty}}
+			{{#if session.user.isDirty}}
+				<a href="#" {{action 'resetProfile'}} class="cancel">Discard Changes</a>
+			{{/if}}
+		{{/unless}}
+	
+		<button type="submit" class="button clickable" {{action 'saveProfile'}}>
+			Save Profile
+		</button>
+	</div>
+	
+</form>

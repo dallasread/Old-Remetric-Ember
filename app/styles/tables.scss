@@ -3,6 +3,12 @@
 		width: 100%;
 		font-size: 14px;
 		
+		&.with_cell_padding {
+			td {
+				padding: 17px;
+			}
+		}
+		
 		th {
 			background: $lightest_gray;
 			font-weight: bold;

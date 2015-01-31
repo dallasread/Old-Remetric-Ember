@@ -19,5 +19,18 @@ body {
 				display: block;
 			}
 		}
+		
+		.field {
+			margin: 0 0 20px 0;
+
+			label {
+				text-transform: uppercase;
+				color: #777;
+				font-size: 13px;
+				line-height: 20px;
+				display: block;
+				margin-bottom: 3px;
+			}
+		}
 	}
 }

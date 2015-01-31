@@ -3,23 +3,32 @@
 		width: 100%;
 		background: $lightest_gray;
 		border-bottom: 1px solid $lighter_gray;
+		position: fixed;
+		left: 0;
+		right: 0;
+		top: 0;
 		
 		&.app_topbar {
 			border-bottom: 0 none;
-			position: fixed;
-			left: 0;
-			right: 0;
-			top: 0;
+			
+			a.active {
+				background: none;
+				border-color: transparent;
+			}
 		}
 	
 		a {
 			color: #999;
 			text-decoration: none;
 			display: inline-block;
+			border-left: 1px solid transparent;
+			border-right: 1px solid transparent;
 		
 			&.active {
-				background: #e2e2e2;
+				background: #fff;
 				color: $maroon;
+				border-left: 1px solid $lighter_gray;
+				border-right: 1px solid $lighter_gray;
 			}
 		}
 	
@@ -28,6 +37,7 @@
 		
 			&.active {
 				background: none;
+				border-color: transparent;
 			}
 		}
 		

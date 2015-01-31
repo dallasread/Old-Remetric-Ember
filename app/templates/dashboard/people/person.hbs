@@ -1,9 +1,16 @@
-<h1>{{info.firstName}} {{info.lastName}}</h1>
-
-<ol class="newsfeed">
-	{{#each event in events}}
-		<li class="event">
-			<p>{{story-teller event_id=event.id event_info=event.info event_story=event.story person_info=event.person.info person_id=event.person.id}}</p>
-		</li>
-	{{/each}}
-</ol>
+<div class="newsfeed">
+	<h2>{{name}}</h2>
+	<ol>
+		{{#if events.length}}
+			{{#each event in events}}
+				<li class="event">
+					<p>{{story-teller event_id=event.id event_info=event.info event_story=event.story person_info=event.person.info person_id=event.person.id}}</p>
+				</li>
+			{{/each}}
+		{{else}}
+			<li>
+				<p>No events have been recorded for {{name}} yet!</p>
+			</li>
+		{{/if}}
+	</ol>
+</div>

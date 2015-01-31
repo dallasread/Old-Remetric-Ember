@@ -26,14 +26,16 @@ export default {
 	after: 'store',
   initialize: function(container, app) {
 		window._RMDB = new Firebase('https://remetric.firebaseio.com/');
-		var organization_id = Ember.$('[data-remetric]').data('remetric');
+		window._RMOID = Ember.$('[data-remetric]').data('remetric').replace(/[^a-z0-9]+/gi, '-').replace(/^-*|-*$/g, '');
 		var store = container.lookup('store:main');
 		
 		// setElastic();
 		
-		store.find('organization', organization_id).then(function(organization) {
+		store.find('organization', window._RMOID).then(function(organization) {
 			var session = Ember.Object.create({
-				organization: organization
+				organization: organization,
+				organization_id: window._RMOID,
+				isStripeLoaded: false
 			});
 			
 			app.register('session:main', session, { instantiate: false, singleton: true });

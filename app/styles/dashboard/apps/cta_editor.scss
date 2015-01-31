@@ -1,13 +1,10 @@
 .remetric {
 	.dashboard {
-		&.in_app {
-			.app_content {
-				margin-top: $topbar_height;
-			}
-		}
+		margin-top: $topbar_height;
 		
 		.app_content {
 			padding: 20px;
+			margin-bottom: $bottom_height;
 
 			&.with_sidebar {
 				margin-left: $sidebar_width;
@@ -37,6 +34,17 @@
 						display: block;
 					}
 				}
+				
+				a {
+					padding: 14px 20px;
+					border-bottom: 1px solid $lighter_gray;
+					color: #777;
+					display: block;
+					
+					&.active {
+						background: #fff;
+					}
+				}
 			}
 			
 			.app_actions {
@@ -48,6 +56,13 @@
 				text-align: right;
 				border-top: 1px solid $lighter_gray;
 				background: #fff;
+				
+				.cancel {
+					font-size: 12px;
+					color: #999;
+					display: inline-block;
+					margin-right: 20px;
+				}
 			}
 		}
 	}

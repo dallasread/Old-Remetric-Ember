@@ -8,8 +8,7 @@ module.exports = function(environment) {
     locationType: 'hash',
     EmberENV: {
       FEATURES: {
-        // Here you can enable experimental features on an ember canary build
-        // e.g. 'with-controller': true
+				'ember-htmlbars': true
       }
     },
 
@@ -20,11 +19,7 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
-    // ENV.APP.LOG_RESOLVER = true;
-    // ENV.APP.LOG_ACTIVE_GENERATION = true;
-    // ENV.APP.LOG_TRANSITIONS = true;
-    // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
-    // ENV.APP.LOG_VIEW_LOOKUPS = true;
+		ENV.stripePublishableKey = 'pk_test_KHbiAmJXtsnNVu4uKJ7SMpGi';
   }
 
   if (environment === 'test') {
@@ -40,7 +35,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-
+		ENV.stripePublishableKey = 'pk_live_4gmuwGKc2vyB07nkEG4Zms7O';
   }
 
   return ENV;

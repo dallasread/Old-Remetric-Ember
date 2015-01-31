@@ -1,5 +1,6 @@
 $topbar_height: 57px;
 $sidebar_width: 300px;
+$bottom_height: 59px;
 
 $lightest_gray: #f2f2f2;
 $lighter_gray: #dddddd;
@@ -19,6 +20,9 @@ $dark_gray: #868687;
 
 @import 'dashboard/general';
 @import 'dashboard/topbar';
+
+@import 'dashboard/account/billing';
+@import 'dashboard/account/purchases';
 
 @import 'dashboard/people/general';
 

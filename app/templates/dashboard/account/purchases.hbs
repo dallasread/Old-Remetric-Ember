@@ -1,1 +1,20 @@
-PURCHASES.
+<table class="table with_cell_padding purchases">
+	<thead>
+		<tr>
+			<th>Date</th>
+			<th>Description</th>
+			<th class="align_right">Total</th>
+		</tr>
+	</thead>
+	<tbody>
+
+		{{#each purchase in model}}
+			<tr>
+				<td>{{#if purchase.createdAt}}{{moment purchase.createdAt 'll'}}{{/if}}</td>
+				<td>{{purchase.story}}</td>
+				<td class="align_right">{{format-money purchase.total}}</td>
+			</tr>
+		{{/each}}
+
+	</tbody>
+</table>

@@ -1,0 +1,21 @@
+.remetric {
+	.dashboard {
+		.billing_loaded {
+			display: none;
+		}
+		
+		.stripe_loaded {
+			.billing_loaded {
+				display: block;
+			}
+			
+			.billing_loading {
+				display: none;
+			}
+		}
+		
+		.current_card_paragraph {
+			margin-bottom: 20px;
+		}
+	}
+}

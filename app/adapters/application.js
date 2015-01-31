@@ -13,19 +13,14 @@ export default DS.FirebaseAdapter.extend({
 		}
 	},
   pathForType: function(model) {
-		// if (!window.LCSCB) {
-		// 	window.LCSCB = this.container.lookup('session:main').get('chatbox.id');
-		// }
-		
 		if (model === 'app') {
-			var camelized = Ember.String.camelize(model);
-      return Ember.String.pluralize(camelized);
+      return 'apps';
 		} else if (model === 'organization') {
-			return 'FROM-TRACK-JS/settings';
+			return window._RMOID + '/settings';
 		} else if (model === 'cta') {
-			return 'FROM-TRACK-JS/ctas';
+			return window._RMOID + '/ctas';
 		} else {
-			return 'FROM-TRACK-JS/' + Ember.String.pluralize(model);
+			return window._RMOID + '/' + Ember.String.pluralize(model);
 		}
   }
 });

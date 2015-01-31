@@ -43,4 +43,21 @@
 			color: #fff;
 		}
 	}
+	
+	strong {
+		font-weight: bold;
+	}
+	
+	.align_right {
+		text-align: right;
+		
+		a {
+			text-align: right;
+		}
+	}
+	
+	*[readonly] {
+		background: $lightest_gray;
+		color: #777;
+	}
 }
