@@ -1,5 +1,7 @@
+/* globals Handlebars */	
+
 import DS from 'ember-data';
-import formatMoney from "accounting/format-money"
+import formatMoney from "accounting/format-money";
 
 export default DS.Model.extend({
 	description: DS.attr('string'),
@@ -30,7 +32,7 @@ export default DS.Model.extend({
 			}
 			
 			story += '</ul>';
-			return new Handlebars.SafeString( story )
+			return new Handlebars.SafeString( story );
 		} else if (this.get('isQuantity')) {
 			return this.get('quantity') + ' ' + this.get('description') + ' @ ' + formatMoney(this.get('per_quantity'));
 		} else if (this.get('isApp')) {
