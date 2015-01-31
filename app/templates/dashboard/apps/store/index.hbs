@@ -3,19 +3,21 @@
 		{{#if app.isActive}}
 			{{#unless app.isSystem}}
 				<li class="app">
-					{{#link-to 'dashboard.apps.store.app' app}}
-						<img {{bind-attr src=app.icon}} class="icon">
-				
-						<span class="meta">
-							<span class="name">{{app.name}}</span>
-							
-							{{install-button app=app organization=session.organization}}
-					
-							<span class="excerpt">{{app.excerpt}}</span>
-						</span>
-				
-						<span class="clear"></span>
+					{{#link-to 'dashboard.apps.store.app' app class="icon"}}
+						<img {{bind-attr src=app.icon}}>
 					{{/link-to}}
+			
+					<div class="meta">
+						{{#link-to 'dashboard.apps.store.app' app class="name"}}
+							{{app.name}}
+						{{/link-to}}
+						
+						{{install-button app=app organization=session.organization}}
+				
+						<p class="excerpt">{{app.excerpt}}</p>
+					</div>
+			
+					<div class="clear"></div>
 				</li>
 			{{/unless}}
 		{{/if}}

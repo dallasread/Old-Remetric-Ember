@@ -1,6 +1,6 @@
 {{render 'dashboard/topbar'}}
 	
-<div class="dashboard">
+<div {{bind-attr class=":dashboard session.currentApp:in_app"}}>
 	<div class="loading"></div>
 	{{outlet}}
 </div>

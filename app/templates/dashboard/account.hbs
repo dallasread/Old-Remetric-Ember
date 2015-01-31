@@ -1,5 +1,9 @@
-{{#link-to "dashboard.account.profile"}}Profile{{/link-to}}
-{{#link-to "dashboard.account.purchases"}}Purchases{{/link-to}}
-{{#link-to "dashboard.account.billing"}}Billing{{/link-to}}
+<div class="app_content with_sidebar">
+	<ul class="app_sidebar">
+		<li>{{#link-to "dashboard.account.profile"}}My Profile{{/link-to}}</li>
+		<li>{{#link-to "dashboard.account.billing"}}Billing Info{{/link-to}}</li>
+		<li>{{#link-to "dashboard.account.purchases"}}Purchases{{/link-to}}</li>
+	</ul>
 
-{{outlet}}
+	{{outlet}}
+</div>

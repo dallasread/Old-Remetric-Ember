@@ -1,7 +1,12 @@
 .remetric {
 	.dashboard {
+		&.in_app {
+			.app_content {
+				margin-top: $topbar_height;
+			}
+		}
+		
 		.app_content {
-			margin-top: $topbar_height;
 			padding: 20px;
 
 			&.with_sidebar {

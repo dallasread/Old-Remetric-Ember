@@ -1,7 +1,13 @@
-<button class="button small white" {{action 'install' app bubbles=false}}>
+<button class="button small white" {{action 'install' app}}>
 	{{#if isInstalled}}
 		Uninstall
 	{{else}}
 		{{app.installText}}
 	{{/if}}
 </button>
+
+{{#if isInstalled}}
+	{{#link-to 'dashboard.apps.app' app class="button small white"}}
+		Open App
+	{{/link-to}}
+{{/if}}
