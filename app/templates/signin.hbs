@@ -1,0 +1,25 @@
+{{#modal-tools maxWidth='320px' logoTitle=true}}
+
+	<form {{action "signin" on="submit"}}>
+		<div class="field">
+			<label for="install_field_email">What is your <strong>email address</strong>?</label>
+			{{input type="email" id="install_field_email" value=email placeholder="Email Address" required=true}}
+		</div>
+
+		<div class="field">
+			<label for="install_field_password">What is your <strong>password</strong>?</label>
+			{{input type="password" id="install_field_password" value=password placeholder="Password" required=true}}
+		</div>
+
+		<div class="modal_actions">
+			<button type="submit" class="clickable button">
+				Sign In To Remetric &nbsp; &rarr;
+			</button>
+		</div>
+	</form>
+	
+	{{#link-to 'signin' class='bottom_link'}}
+		Forgot your password?
+	{{/link-to}}
+
+{{/modal-tools}}

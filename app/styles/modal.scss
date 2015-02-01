@@ -46,6 +46,20 @@
 					}
 				}
 				
+				&.has_logo_title {
+					.modal_close {
+						right: 10px;
+						top: 10px;
+						background: #e3e3e3;
+						color: #fff;
+						
+						&:hover {
+							background: $lighter_gray;
+							color: #fff;
+						}
+					}
+				}
+				
 				.modal_title {
 					background: #666;
 					color: #eee;
@@ -58,11 +72,13 @@
 				}
 				
 				.logo_title {
-					padding: 30px 20px 40px;
+					padding: 60px 20px 50px;
 					text-align: center;
+					border-bottom: 1px solid $lighter_gray;
+					margin: -20px -20px 20px;
 					
 					img {
-						max-width: 75%;
+						max-width: 65%;
 					}
 				}
 				
@@ -71,6 +87,18 @@
 					border-top: 1px solid $lighter_gray;
 					padding: 20px;
 					margin: 20px -20px -20px;
+				}
+				
+				.bottom_link {
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					text-align: center;
+					font-size: 12px;
+					line-height: 12px;
+					color: #aaa;
+					margin-bottom: -25px;
 				}
 			}
 		}

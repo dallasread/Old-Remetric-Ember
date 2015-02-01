@@ -1,6 +1,6 @@
 <div class="modal">
 	<div class="modal_overlay">
-		<div class="modal_yield" style="max-width: {{maxWidth}};">
+		<div {{bind-attr class=":modal_yield logoTitle:has_logo_title"}} style="max-width: {{maxWidth}};">
 			{{#if close}}
 				<a href="#" class="modal_close" {{action 'closeModal'}}>&times;</a>
 			{{/if}}
