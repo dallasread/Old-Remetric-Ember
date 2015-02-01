@@ -15,6 +15,16 @@ export default Ember.Route.extend({
 		},
 		back: function() {
 			window.history.back();
-		}
+		},
+		openModal: function(modalName, model) {
+      if (model) {
+				this.controllerFor(modalName).set('model', model);
+			}
+			
+      return this.render(modalName, {
+        into: 'application',
+        outlet: 'modal'
+      });
+    }
 	}
 });

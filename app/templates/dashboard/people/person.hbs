@@ -1,16 +1,18 @@
-<div class="newsfeed">
-	<h2>{{name}}</h2>
-	<ol>
-		{{#if events.length}}
-			{{#each event in events}}
-				<li class="event">
-					<p>{{story-teller event_id=event.id event_info=event.info event_story=event.story person_info=event.person.info person_id=event.person.id}}</p>
+{{#modal-tools title=model.name}}
+	<pre>{{infoData}}</pre>
+	<div class="newsfeed">
+		<ol>
+			{{#if model.events.length}}
+				{{#each event in model.events}}
+					<li class="event">
+						<p>{{story-teller event_id=event.id event_info=event.info event_story=event.story person_info=event.person.info person_id=event.person.id}}</p>
+					</li>
+				{{/each}}
+			{{else}}
+				<li>
+					<p>No events have been recorded for {{model.name}} yet!</p>
 				</li>
-			{{/each}}
-		{{else}}
-			<li>
-				<p>No events have been recorded for {{name}} yet!</p>
-			</li>
-		{{/if}}
-	</ol>
-</div>
+			{{/if}}
+		</ol>
+	</div>
+{{/modal-tools}}

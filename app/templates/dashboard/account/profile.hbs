@@ -20,12 +20,6 @@
 		{{input type="text" id="email" value=session.user.email}}
 	</div>
 
-	<div class="field">
-		<button class="white button small" {{action 'toggleChangingPassword'}}>
-			{{#if isChangingPassword}}Don't {{/if}}Change Password
-		</button>
-	</div>
-	
 	{{#if isChangingPassword}}
 		<div class="field">
 			<label for="password">New Password</label>
@@ -37,6 +31,12 @@
 			{{input type="password" id="confirm_password" value=confirm_password}}
 		</div>
 	{{/if}}
+	
+	<div class="field">
+		<button class="white button small" {{action 'toggleChangingPassword'}}>
+			{{#if isChangingPassword}}Don't {{/if}}Change Password
+		</button>
+	</div>
 
 	<div class="app_actions">
 		{{#if session.organization.isDirty}}

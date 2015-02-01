@@ -1,0 +1,23 @@
+<div class="modal">
+	<div class="modal_overlay">
+		<div class="modal_yield" style="max-width: {{maxWidth}};">
+			{{#if close}}
+				<a href="#" class="modal_close" {{action 'closeModal'}}>&times;</a>
+			{{/if}}
+			
+			{{#if logoTitle}}
+				<div class="logo_title">
+					<img src="/assets/imgs/logo@4x.png">
+				</div>
+			{{else}}
+				{{#if title}}
+					<h1 class="modal_title">
+						{{title}}
+					</h1>
+				{{/if}}
+			{{/if}}
+			
+			{{yield}}
+		</div>
+	</div>
+</div>
