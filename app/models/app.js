@@ -15,7 +15,7 @@ export default DS.Model.extend({
 		return this.get('hasTrial') ? 'Try Free' : 'Free';
 	}.property('hasTrial'),
 	help: function() {
-		return ;
+		return 'dashboard/apps/help/' + this.get('id');
 	}.property('id'),
 	icon: function() {
 		return '/assets/imgs/apps/icons/' + this.get('id') + '.jpg';
