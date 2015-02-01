@@ -11,14 +11,11 @@ export default DS.Model.extend({
 	isSystem: DS.attr('boolean'),
 	ordinal: DS.attr('number'),
 	colour: DS.attr('string'),
-	style: function() {
-		return 'background-color: ' + this.get('colour') + '; border-color: ' + this.get('colour') + '; ';
-	}.property('colour'),
 	installText: function() {
 		return this.get('hasTrial') ? 'Try Free' : 'Free';
 	}.property('hasTrial'),
 	help: function() {
-		return 'dashboard/apps/help/' + this.get('id');
+		return ;
 	}.property('id'),
 	icon: function() {
 		return '/assets/imgs/apps/icons/' + this.get('id') + '.jpg';

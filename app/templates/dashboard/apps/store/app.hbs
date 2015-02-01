@@ -1,13 +1,13 @@
 <div class="app_help">
-	<img {{bind-attr src=icon}} class="help_icon">
+	<img src={{model.icon}} class="help_icon">
 	
 	<div class="help_details">
-		<h1 class="help_name">{{name}}</h1>
+		<h1 class="help_name">{{model.name}}</h1>
 
-		<p class="help_description">{{description}}</p>
+		<p class="help_description">{{model.description}}</p>
 
-		{{install-button app=. organization=session.organization}}
+		{{install-button app=model organization=session.organization}}
 		
-		{{partial help}}
+		{{partial model.help}}
 	</div>
 </div>
