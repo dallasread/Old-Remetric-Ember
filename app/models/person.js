@@ -7,6 +7,10 @@ export default DS.Model.extend({
 	events: DS.hasMany('event', { async: true }),
 	isUnknown: DS.attr('boolean', { defaultValue: true }),
 	name: function() {
-		return this.get('info.firstName') + ' ' + this.get('info.lastName');
-	}.property('info.firstName', 'info.lastName')
+		if (this.get('info.firstName.length')) {
+			return this.get('info.firstName') + ' ' + this.get('info.lastName');
+		} else {
+			return this.get('info.name');
+		}
+	}.property('info.name', 'info.firstName', 'info.lastName')
 });

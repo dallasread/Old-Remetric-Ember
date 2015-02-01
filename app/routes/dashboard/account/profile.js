@@ -7,6 +7,7 @@ export default Ember.Route.extend({
 			this.get('session.user').rollback();
 		},
 		saveProfile: function() {
+			window.aw = this.get('session.organization');
 			this.get('session.organization').save();
 			this.get('session.user').save();
 		},

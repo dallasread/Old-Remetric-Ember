@@ -16,7 +16,7 @@
 				$return = array_merge($return, array_flatten($value, $new_key));
 			}
 			
-			if (!is_numeric($key)) {
+			if (!is_numeric($key) && $key != 'id') {
 				$pretty_name = explode("@", $new_key);
 				$pretty_name = array_map(function($word) { return ucfirst($word); }, $pretty_name);
 				$type = 'string';

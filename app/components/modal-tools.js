@@ -2,7 +2,7 @@ import Ember from 'ember';
 import jQuery from 'jquery';
 
 export default Ember.Component.extend({
-	close: true,
+	closable: true,
 	maxWidth: "500px",
 	logoTitle: false,
 	title: null,
@@ -13,10 +13,12 @@ export default Ember.Component.extend({
 		Ember.$('html, body').css('overflow', 'auto');
 	},
 	click: function(e) {
-		var click = jQuery(e.target);
+		if (this.get('closable')) {
+			var click = jQuery(e.target);
 		
-		if (!click.hasClass("modal_yield") && !click.closest(".modal_yield").length) {
-			window.history.back();
+			if (!click.hasClass("modal_yield") && !click.closest(".modal_yield").length) {
+				window.history.back();
+			}
 		}
 	},
 	actions: {

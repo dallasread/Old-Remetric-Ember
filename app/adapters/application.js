@@ -4,9 +4,9 @@ import DS from 'ember-data';
 export default DS.FirebaseAdapter.extend({
   firebase: window._RMDB,
 	_getRef: function(model, id) {
-		if (model.toString().indexOf('orga') !== -1) {
+		if ((model + "").indexOf('organization') !== -1 || id === 'settings') {
 			var ref = this._ref;
-      ref = ref.child(this.pathForType(model.typeKey));
+      ref = ref.child(this.pathForType('organization'));
 			return ref;
 		} else {
 			return this._super(model, id);

@@ -1,19 +1,19 @@
 <?php
 
-	// header('Content-Type: image/gif');
-	// echo base64_decode('R0lGODlhAQABAJAAAP8AAAAAACH5BAUQAAAALAAAAAABAAEAAAICBAEAOw==');
+	header('Content-Type: image/gif');
+	echo base64_decode('R0lGODlhAQABAJAAAP8AAAAAACH5BAUQAAAALAAAAAABAAEAAAICBAEAOw==');
 
 	$api_key = $_REQUEST["api_key"];
 	$event = json_decode( base64_decode($_REQUEST["event"]) );
 
-	if (strlen(trim($api_key)) > 0 && $event && property_exists($event, "id") && property_exists($event, "story")) {
+	if (strlen(trim($api_key)) > 0 && $event && property_exists($event, "person") && property_exists($event->person, "id") && property_exists($event, "story")) {
 		require_once 'helpers.php';
 		require_once 'vendor/firebase/firebaseLib.php';
 
 		$firebase = new Firebase('https://remetric.firebaseio.com', 'FAzzQMmLyeDHT78LZOG7BSkmK80lXXaHMK0MMSV0');
 		date_default_timezone_set("UTC");
 		
-		$person_id = preg_replace("/[^A-Za-z0-9 ]/", '', $event->id);
+		$person_id = preg_replace("/[^A-Za-z0-9 ]/", '', $event->person->id);
 		$person = $event->person;
 		unset($event->id);
 		

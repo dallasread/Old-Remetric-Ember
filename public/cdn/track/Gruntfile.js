@@ -1,6 +1,7 @@
 module.exports = function(grunt) {
 
   grunt.initConfig({
+		pkg: grunt.file.readJSON("package.json"),
 		coffee: {
 			compileJoined: {
 				options: {
@@ -14,7 +15,8 @@ module.exports = function(grunt) {
     uglify: {
       js: {
 				files: {
-					"track.js": ["track-dev.js"]
+					"../track.js": ["track-dev.js"],
+					"../../vendor/track.js": ["track-dev.js"]
 				}
       }
     },

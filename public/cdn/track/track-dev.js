@@ -32,15 +32,15 @@
     return _RMI.detectPushes();
   };
 
-  _RMI.track = function(data) {
+  _RMI.track = function(event) {
     var base64, img;
     img = document.createElement("img");
     img.style.display = "none";
-    data.page = {
+    event.page = {
       title: document.title,
       url: document.URL
     };
-    base64 = encodeURIComponent(btoa(JSON.stringify(data)));
+    base64 = encodeURIComponent(btoa(JSON.stringify(event)));
     img.src = "" + _RMI.domain + "/api/" + _RMI.api_key + "/events/" + base64;
     return document.body.appendChild(img);
   };

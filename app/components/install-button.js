@@ -1,3 +1,5 @@
+/* globals _RMI */
+
 import Ember from 'ember';
 
 export default Ember.Component.extend({
@@ -12,13 +14,24 @@ export default Ember.Component.extend({
 	}.property('installed.length'),
 	actions: {
 		install: function(app) {
+			var event = {
+				person: { id: 'simplelogin49' },
+				product: { name: 'Remetric' },
+				app: { name: app.get('name') },
+				organization: { id: this.get('session.organization_id') }
+			};
+			
 			if (this.get('isInstalled')) {
+				event.story = '{{person.name}} uninstalled {{app.name}} ({{organization.id}}).';
 				this.get('organization.apps').removeObject(app);
 				this.get('organization').save();
 			} else {
+				event.story = '{{person.name}} installed {{app.name}} ({{organization.id}}).';
 				this.get('organization.apps').addObject(app);
 				this.get('organization').save();
 			}
+
+			_RMI.track(event);
 		}
 	}
 });
