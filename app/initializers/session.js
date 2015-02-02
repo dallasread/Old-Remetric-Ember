@@ -16,6 +16,7 @@ export default {
 		var router = container.lookup('router:main');
 		var session = Ember.Object.create({
 			organization_id: window._RMOID,
+			afterSignIn: false,
 			isStripeLoaded: false
 		});
 		
@@ -26,23 +27,29 @@ export default {
 		app.inject('view', 'session', 'session:main');
 		app.inject('model', 'session', 'session:main');
 		
+		var advanceReadiness = function() {
+			if (session.get('afterSignIn')) {
+				router.transitionTo( 'dashboard' );
+				session.set('afterSignIn', false);
+			}
+			
+			app.advanceReadiness();
+		};
 
 		var findOrCreateVisitor = function() {
 			session.set('user', null);
-			app.advanceReadiness();
+			advanceReadiness();
 		};
 		
-		store.find('organization', window._RMOID).then(function(organization) {
-			session.set('organization', organization);
-			
+		var setOnAuth = function() {
 			window._RMDB.onAuth(function(auth) {
 				if (auth) {
 					store.find('user', auth.uid).then(function(user) {
 						session.set('user', user);
-						// router.transitionToRoute('dashboard');
-						app.advanceReadiness();
-					}, function() {
-				    // alert("You are not permitted to log in.");
+						advanceReadiness();
+					}, function(e) {
+				    alert("You are not permitted to log in.");
+						session.set('afterSignIn', false);
 						window._RMDB.unauth();
 						findOrCreateVisitor();
 					});
@@ -50,8 +57,13 @@ export default {
 					findOrCreateVisitor();
 				}
 			});
+		};
+		
+		store.find('organization', window._RMOID).then(function(organization) {
+			session.set('organization', organization);
+			setOnAuth();
 		}, function() {
-			findOrCreateVisitor();
+			setOnAuth();
 		});
 		
 		app.deferReadiness();

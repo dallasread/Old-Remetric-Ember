@@ -8,6 +8,7 @@ export default Ember.Controller.extend({
 		signIn: function() {
 			var e = this;
 			e.set('loading', true);
+			e.set('session.afterSignIn', true);
 
 			window._RMDB.authWithPassword({
 			  email: e.get('email'),
@@ -17,12 +18,9 @@ export default Ember.Controller.extend({
 					e.set('loading', false);
 			    alert("Incorrect email or password.");
 			  } else {
-					setTimeout(function() {
-						e.set('email', null);
-						e.set('password', null);
-						e.set('loading', false);
-						e.transitionToRoute('dashboard');
-					}, 500);
+					e.set('email', null);
+					e.set('password', null);
+					e.set('loading', false);
 			  }
 			});
 		}

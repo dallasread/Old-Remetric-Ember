@@ -8,12 +8,14 @@ export default Ember.Controller.extend({
 	actions: {
 		register: function() {
 			var e = this;
+			e.set('loading', true);
 			
 			window._RMDB.createUser({
 			  email: e.get('email'),
 			  password: e.get('password')
 			}, function(error, auth) {
 			  if (error) {
+					e.set('loading', false);
 			    switch (error.code) {
 			      case "EMAIL_TAKEN":
 			        // TRY TO LOG USER IN
@@ -26,8 +28,8 @@ export default Ember.Controller.extend({
 			        alert(error);
 			    }
 			  } else {
-					e.set('loading', true);
 					e.store.unloadAll('organization');
+					e.set('session.afterSignIn', true);
 				
 					var organization = e.store.createRecord('organization', {
 						id: e.get('session.organization_id')
@@ -49,29 +51,33 @@ export default Ember.Controller.extend({
 						
 								user.save().then(function() {
 									organization.save().then(function() {
-										var event = {
-											person: {
-												id: user.get('id'),
-												name: user.get('name'),
-												email: user.get('email')
-											},
-											story: '{{person.name}} activated {{product.name}}.',
-											product: { name: 'Remetric' }
-										};
+										var trackEvent = function() {
+											var event = {
+												person: {
+													id: user.get('id'),
+													name: user.get('name'),
+													email: user.get('email')
+												},
+												story: '{{person.name}} activated {{product.name}}.',
+												product: { name: 'Remetric' }
+											};
 							
-										_RMI.api_key = e.get('session.organization_id');
-										_RMI.track(event);
+											_RMI.api_key = e.get('session.organization_id');
+											_RMI.track(event);
 										
-										event.organization = {
-											id: organization.get('id'),
-											name: organization.get('name'),
-											domain: organization.get('domain')
-										};
-										event.person.organization_id = e.get('session.organization_id');
-										event.story = '{{person.name}} activated {{product.name}} ({{organization.id}}).';
+											event.organization = {
+												id: organization.get('id'),
+												name: organization.get('name'),
+												domain: organization.get('domain')
+											};
+											event.person.organization_id = e.get('session.organization_id');
+											event.story = '{{person.name}} activated {{product.name}} ({{organization.id}}).';
 
-										_RMI.api_key = config.remetric.api_key;
-										_RMI.track(event);
+											_RMI.api_key = config.remetric.api_key;
+											_RMI.track(event);
+										};
+
+										e.set('session.organization', organization);
 								
 										window._RMDB.authWithPassword({
 										  email: e.get('email'),
@@ -81,13 +87,10 @@ export default Ember.Controller.extend({
 												alert(error);
 												e.set('loading', false);
 											} else {
-												setTimeout(function() {
-													e.set('email', null);
-													e.set('password', null);
-													e.set('loading', false);
-													e.set('session.organization', organization);
-													e.transitionToRoute('dashboard');
-												}, 500);
+												trackEvent();
+												e.set('email', null);
+												e.set('password', null);
+												e.set('loading', false);
 											}
 										});
 									});
