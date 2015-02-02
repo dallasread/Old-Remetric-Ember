@@ -27,16 +27,21 @@
 		$story = $event->story;
 		unset($event->story);
 		
-		if (property_exists($event, "page")) {
-			$event->lastPage = array(
-				"url" => $event->page->url,
-				"title" => $event->page->title
-			);
-		} else if (isset($_SERVER["HTTP_REFERER"])) {
+		if (!property_exists($event, "page") && isset($_SERVER["HTTP_REFERER"])) {
 			$url = urldecode(urlencode($_SERVER["HTTP_REFERER"]));
 			$event->page = (object) array(
 				"url" => $url
 			);
+		}
+		
+		if (property_exists($event, "page")) {
+			$person->lastPage = array(
+				"url" => $event->page->url
+			);
+			
+			if (property_exists($event->page, "title")) {
+				$person->lastPage->title = $event->page->title;
+			}
 		}
 		
 		$event = (object) array(

@@ -7,9 +7,9 @@
 		<h1>{{session.currentApp.name}}</h1>
 	{{else}}
 		{{#link-to "dashboard.account" class="profile"}}
-			{{gravatar-image email="dallas@excitecreative.ca" class="avatar"}}
+			{{gravatar-image email=session.user.email class="avatar"}}
 			<p class="wrapper">
-				<span class="name">Dallas Read</span>
+				<span class="name">{{session.user.name}}</span>
 				<span class="company">{{session.organization.name}}</span>
 			</p>
 		{{/link-to}}

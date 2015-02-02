@@ -19,24 +19,33 @@
 		<label for="email">Email Address</label>
 		{{input type="text" id="email" value=session.user.email}}
 	</div>
+	
+	{{#if isChangingEmail}}
+		<div class="field">
+			<label for="password">Current Password</label>
+			{{input type="password" id="password" value=oldPassword}}
+		</div>
+	{{/if}}
 
 	{{#if isChangingPassword}}
 		<div class="field">
-			<label for="password">New Password</label>
-			{{input type="password" id="password" value=password}}
+			<label for="password">Current Password</label>
+			{{input type="password" id="password" value=oldPassword}}
 		</div>
 
 		<div class="field">
-			<label for="confirm_password">Confirm Your New Password</label>
-			{{input type="password" id="confirm_password" value=confirm_password}}
+			<label for="new_password">New Password</label>
+			{{input type="password" id="new_password" value=newPassword}}
 		</div>
 	{{/if}}
 	
-	<div class="field">
-		<a href="#" class="white button small" {{action 'toggleChangingPassword'}}>
-			{{#if isChangingPassword}}Don't {{/if}}Change Password
-		</a>
-	</div>
+	{{#unless isChangingEmail}}
+		<div class="field">
+			<a href="#" class="white button small" {{action 'toggleChangingPassword'}}>
+				{{#if isChangingPassword}}Don't {{/if}}Change Password
+			</a>
+		</div>
+	{{/unless}}
 
 	<div class="app_actions">
 		{{#if session.organization.isDirty}}

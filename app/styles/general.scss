@@ -81,4 +81,13 @@
 			margin-bottom: 3px;
 		}
 	}
+	
+	.open_remetric {
+		background: $maroon;
+		position: fixed;
+		left: 0;
+		bottom: 100px;
+		width: 5px;
+		height: 50px;
+	}
 }

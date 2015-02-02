@@ -19,6 +19,7 @@ export default Ember.Route.extend({
 		signOut: function() {
 			if (confirm("Are you sure you want to sign out?")) {
 				window._RMDB.unauth();
+				this.transitionTo('application');
 			}
 		},
 		openModal: function(modalName, model) {

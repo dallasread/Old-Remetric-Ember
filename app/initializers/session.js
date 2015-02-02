@@ -13,6 +13,7 @@ export default {
 		_RMI.domain = config.remetric.domain;
 		
 		var store = container.lookup('store:main');
+		var router = container.lookup('router:main');
 		var session = Ember.Object.create({
 			organization_id: window._RMOID,
 			isStripeLoaded: false
@@ -25,11 +26,32 @@ export default {
 		app.inject('view', 'session', 'session:main');
 		app.inject('model', 'session', 'session:main');
 		
+
+		var findOrCreateVisitor = function() {
+			session.set('user', null);
+			app.advanceReadiness();
+		};
+		
 		store.find('organization', window._RMOID).then(function(organization) {
 			session.set('organization', organization);
-			app.advanceReadiness();
+			
+			window._RMDB.onAuth(function(auth) {
+				if (auth) {
+					store.find('user', auth.uid).then(function(user) {
+						session.set('user', user);
+						// router.transitionToRoute('dashboard');
+						app.advanceReadiness();
+					}, function() {
+				    // alert("You are not permitted to log in.");
+						window._RMDB.unauth();
+						findOrCreateVisitor();
+					});
+				} else {
+					findOrCreateVisitor();
+				}
+			});
 		}, function() {
-			app.advanceReadiness();
+			findOrCreateVisitor();
 		});
 		
 		app.deferReadiness();
