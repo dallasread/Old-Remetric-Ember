@@ -8,7 +8,7 @@ export default Ember.Route.extend({
 	},
 	actions: {
 		willTransition: function(transition) {
-			this.routeFor('application').send('openModal', 'activate', false);
+			this.routeFor('application').send('openModal', 'forgot', false);
 			transition.abort();
 		}
 	}

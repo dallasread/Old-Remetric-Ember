@@ -49,6 +49,7 @@ Router.map(function() {
 
 	this.route("activate");
 	this.route("signin");
+	this.route("forgot");
 });
 
 export default Router;
