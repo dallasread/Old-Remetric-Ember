@@ -13,6 +13,7 @@ export default {
 		_RMI.domain = config.remetric.domain;
 		
 		var store = container.lookup('store:main');
+		var router = container.lookup('router:main');
 		var session = Ember.Object.create({
 			organization_id: window._RMOID,
 			isStripeLoaded: false
