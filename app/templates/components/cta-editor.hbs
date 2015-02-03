@@ -1,73 +1,98 @@
 <div class="app_content with_sidebar">
 	<ul class="app_sidebar">
 		<li class="has_button">
-			<a href="#" class="white button" {{action 'new'}}>
+			<a href="#" class="white button" {{action 'newCTA'}}>
 				Create New {{prettyName}}
 			</a>
 		</li>
-		{{#each cta in session.organization.ctas}}
-			<li><a href="#">{{cta.name}}</a></li>
+		{{#each cta in ctas itemController="dashboard/apps/cta"}}
+			<li>
+				<a href="#" {{action 'editCTA' cta.model}} {{bind-attr class="cta.active:active"}}>
+					{{cta.model.name}}
+				</a>
+			</li>
 		{{/each}}
 	</ul>
 	
-	<div class="app_actions">
-		<button class="button clickable">
-			Save {{prettyName}}
-		</button>
-	</div>
-
-	{{#link-to 'dashboard.apps.store.app' 'topbar' class='remetric_help'}}?{{/link-to}}
+	{{#if currentCTA}}
+		
+		<form {{action 'saveCTA' currentCTA on='submit'}}>
+			
+			{{#link-to 'dashboard.apps.store.app' 'topbar' class='remetric_help'}}?{{/link-to}}
 	
-	<ol class="app_nav">
-		<li><a href="#" class="app_show_tab">Setup</a></li>
-		<li><a href="#" class="app_show_tab">Appearance</a></li>
-		<li><a href="#" class="app_show_tab">Visibility</a></li>
-		<li><a href="#" class="app_show_tab">Actions</a></li>
-		<li><a href="#" class="app_show_tab">Integrations</a></li>
-		<li><a href="#" class="app_show_tab">Submissions</a></li>
-	</ol>
+			<ol class="app_nav">
+				<li><a href="#" class="app_show_tab">Setup</a></li>
+				<li><a href="#" class="app_show_tab">Appearance</a></li>
+				<li><a href="#" class="app_show_tab">Visibility</a></li>
+				<li><a href="#" class="app_show_tab">Actions</a></li>
+				<li><a href="#" class="app_show_tab">Integrations</a></li>
+				<li><a href="#" class="app_show_tab">Submissions</a></li>
+			</ol>
 	
-	<div class="app_tab" data-tab="setup">
-		{{input value=cta.name}}
-		[Placement]
-		[Disable]
-		[Headline]
-		[Fields]
-		[Button Text]
-		[Button class]
-	</div>
+			<div class="app_tab" data-tab="setup">
+				{{input value=currentCTA.name}}
+				[Placement]
+				[Disable]
+				[Headline]
+				[Fields]
+				[Button Text]
+				[Button class]
+			</div>
 	
-	<div class="app_tab" data-tab="appearance">
-		[Show close]
-		[Don't scroll with page]
-		[disable CSS]
-	</div>
+			<div class="app_tab" data-tab="appearance">
+				[Show close]
+				[Don't scroll with page]
+				[disable CSS]
+			</div>
 	
-	<div class="app_tab" data-tab="visibility">
-		[hide for mobile]
-		[hide for tablets]
-		[hide for desktop]
-		[pages to show]
-		[pages to hide]
-		[trigger event]
-		[trigger how often]
-		[trigger delay]
-	</div>
+			<div class="app_tab" data-tab="visibility">
+				[hide for mobile]
+				[hide for tablets]
+				[hide for desktop]
+				[pages to show]
+				[pages to hide]
+				[trigger event]
+				[trigger how often]
+				[trigger delay]
+			</div>
 	
-	<div class="app_tab" data-tab="actions">
-		[Thank you text]
-		[Thank you URL]
-		[Notification Emails]
-	</div>
+			<div class="app_tab" data-tab="actions">
+				[Thank you text]
+				[Thank you URL]
+				[Notification Emails]
+			</div>
 	
-	<div class="app_tab" data-tab="integrations">
-		[Mailchimp]
-		[Zendesk]
-		[Aweber]
-	</div>
+			<div class="app_tab" data-tab="integrations">
+				[Mailchimp]
+				[Zendesk]
+				[Aweber]
+			</div>
 	
-	<div class="app_tab" data-tab="submissions">
-		Submissions
-	</div>
+			<div class="app_tab" data-tab="submissions">
+				Submissions
+			</div>
+			
+			<div class="app_actions">
+				<a href="#" {{action 'deleteCTA' currentCTA}} class="cancel">Delete</a>
+					
+				{{#if currentCTA.isDirty}}
+					<a href="#" {{action 'resetCTA' currentCTA}} class="cancel">Discard Changes</a>
+				{{/if}}
+				
+				<button class="button clickable">
+					Save {{prettyName}}
+				</button>
+			</div>
+		
+		</form>
+		
+	{{else}}
+	
+		<div class="field">
+			<p>Choose a {{prettyName}} to get started.</p>
+		</div>
+	
+	{{/if}}
+	
 
 </div>

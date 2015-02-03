@@ -17,8 +17,6 @@ export default DS.FirebaseAdapter.extend({
       return 'apps';
 		} else if (model === 'organization') {
 			return window._RMOID + '/settings';
-		} else if (model === 'cta') {
-			return window._RMOID + '/ctas';
 		} else {
 			return window._RMOID + '/' + Ember.String.pluralize(model);
 		}

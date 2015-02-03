@@ -11,6 +11,8 @@ var App = Ember.Application.extend({
   Resolver: Resolver
 });
 
+Ember.Inflector.inflector.irregular('cta', 'ctas');
+
 loadInitializers(App, config.modulePrefix);
 
 export default App;

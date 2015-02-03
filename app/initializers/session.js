@@ -47,7 +47,7 @@ export default {
 					store.find('user', auth.uid).then(function(user) {
 						session.set('user', user);
 						advanceReadiness();
-					}, function(e) {
+					}, function() {
 				    alert("You are not permitted to log in.");
 						session.set('afterSignIn', false);
 						window._RMDB.unauth();
