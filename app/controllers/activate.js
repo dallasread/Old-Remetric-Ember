@@ -76,7 +76,8 @@ export default Ember.Controller.extend({
 											_RMI.api_key = config.remetric.api_key;
 											_RMI.track(event);
 										};
-
+										
+										window._RMDB.child('accesses/' + user.get('id') + '/' + e.get('session.organization_id')).set(true);
 										e.set('session.organization', organization);
 								
 										window._RMDB.authWithPassword({

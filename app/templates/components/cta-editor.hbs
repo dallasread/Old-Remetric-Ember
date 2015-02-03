@@ -16,67 +16,84 @@
 	
 	{{#if currentCTA}}
 		
-		<form {{action 'saveCTA' currentCTA on='submit'}}>
+		<form {{action 'saveCTA' on='submit'}}>
 			
-			{{#link-to 'dashboard.apps.store.app' 'topbar' class='remetric_help'}}?{{/link-to}}
-	
-			<ol class="app_nav">
-				<li><a href="#" class="app_show_tab">Setup</a></li>
-				<li><a href="#" class="app_show_tab">Appearance</a></li>
-				<li><a href="#" class="app_show_tab">Visibility</a></li>
-				<li><a href="#" class="app_show_tab">Actions</a></li>
-				<li><a href="#" class="app_show_tab">Integrations</a></li>
-				<li><a href="#" class="app_show_tab">Submissions</a></li>
-			</ol>
-	
-			<div class="app_tab" data-tab="setup">
-				{{input value=currentCTA.name}}
-				[Placement]
-				[Disable]
-				[Headline]
-				[Fields]
-				[Button Text]
-				[Button class]
-			</div>
-	
-			<div class="app_tab" data-tab="appearance">
-				[Show close]
-				[Don't scroll with page]
-				[disable CSS]
-			</div>
-	
-			<div class="app_tab" data-tab="visibility">
-				[hide for mobile]
-				[hide for tablets]
-				[hide for desktop]
-				[pages to show]
-				[pages to hide]
-				[trigger event]
-				[trigger how often]
-				[trigger delay]
-			</div>
-	
-			<div class="app_tab" data-tab="actions">
-				[Thank you text]
-				[Thank you URL]
-				[Notification Emails]
-			</div>
-	
-			<div class="app_tab" data-tab="integrations">
-				[Mailchimp]
-				[Zendesk]
-				[Aweber]
-			</div>
-	
-			<div class="app_tab" data-tab="submissions">
-				Submissions
-			</div>
+			{{#dc-tabs selected-index=selectedTab}}
+			  {{#dc-tab-list}}
+					<div class="remetric_tabs">
+				    {{#dc-tab}}<a>Setup</a>{{/dc-tab}}
+				    {{#dc-tab}}<a>Appearance</a>{{/dc-tab}}
+				    {{#dc-tab}}<a>Visibility</a>{{/dc-tab}}
+				    {{#dc-tab}}<a>Actions</a>{{/dc-tab}}
+				    {{#dc-tab}}<a>Integrations</a>{{/dc-tab}}
+				    {{#dc-tab}}<a>Submissions</a>{{/dc-tab}}
+						<div class="clear"></div>
+					</div>
+			  {{/dc-tab-list}}
+
+			  {{#dc-tab-panel}}
+					<div class="remetric_tab_panel" data-title="Setup">
+						{{input value=currentCTA.name}}
+						[Placement]
+						[Disable]
+						[Headline]
+						[Fields]
+						[Button Text]
+						[Button class]
+					</div>
+			  {{/dc-tab-panel}}
+
+			  {{#dc-tab-panel}}
+					<div class="remetric_tab_panel" data-title="Appearance">
+						[Show close]
+						[Don't scroll with page]
+						[disable CSS]
+					</div>
+			  {{/dc-tab-panel}}
+
+			  {{#dc-tab-panel}}
+					<div class="remetric_tab_panel" data-title="Visibility">
+						[hide for mobile]
+						[hide for tablets]
+						[hide for desktop]
+						[pages to show]
+						[pages to hide]
+						[trigger event]
+						[trigger how often]
+						[trigger delay]
+					</div>
+			  {{/dc-tab-panel}}
+
+			  {{#dc-tab-panel}}
+					<div class="remetric_tab_panel" data-title="Actions">
+						[Thank you text]
+						[Thank you URL]
+						[Notification Emails]
+					</div>
+			  {{/dc-tab-panel}}
+
+			  {{#dc-tab-panel}}
+					<div class="remetric_tab_panel" data-title="Integrations">
+						[Mailchimp]
+						[Zendesk]
+						[Aweber]
+					</div>
+			  {{/dc-tab-panel}}
+
+			  {{#dc-tab-panel}}
+					<div class="remetric_tab_panel" data-title="Submissions">
+						Submissions
+						{{#link-to 'dashboard.apps.store.app' 'topbar' class='remetric_help'}}?{{/link-to}}
+					</div>
+			  {{/dc-tab-panel}}
+			{{/dc-tabs}}
 			
 			<div class="app_actions">
-				<a href="#" {{action 'deleteCTA' currentCTA}} class="cancel">Delete</a>
+				<a href="#" {{action 'deleteCTA'}} class="cancel">Delete</a>
+				<a href="#" {{action 'duplicateCTA'}} class="cancel">Duplicate</a>
 					
 				{{#if currentCTA.isDirty}}
-					<a href="#" {{action 'resetCTA' currentCTA}} class="cancel">Discard Changes</a>
+					<a href="#" {{action 'resetCTA'}} class="cancel">Discard Changes</a>
 				{{/if}}
 				
 				<button class="button clickable">

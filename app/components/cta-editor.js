@@ -3,6 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 	allCTAs: [],
 	store: null,
+	selectedTab: 0,
 	currentCTA: Ember.computed.alias('session.cta'),
 	type: function() {
 		return this.get('prettyName').toLowerCase().replace(/\s|\bwidget\b|\bform\b|\bbox\b/g, '');
@@ -12,29 +13,42 @@ export default Ember.Component.extend({
 	}).property('allCTAs', 'type'),
 	actions: {
 		editCTA: function(cta) {
+			this.set('selectedTab', 0);
 			this.set('currentCTA', cta);
 		},
 		newCTA: function() {
-			var cta = this.get('store').createRecord('cta', {
+			var e = this;
+			
+			this.get('store').createRecord('cta', {
 				name: this.get('prettyName') + ' #' + (this.get('ctas.length') + 1),
 				type: this.get('type'),
 				active: false
-			}).save();
-			this.set('currentCTA', cta);
+			}).save().then(function(cta) {
+				e.set('currentCTA', cta);
+			});
 		},
-		saveCTA: function(cta) {
-			cta.save();
+		saveCTA: function() {
+			this.get('currentCTA').save();
 		},
-		deleteCTA: function(cta) {
+		deleteCTA: function() {
 			if (confirm("Are you sure you want to delete this " + this.get('prettyName') + "?")) {
 				var e = this;
-				cta.destroyRecord().then(function() {
+				this.get('currentCTA').destroyRecord().then(function() {
 					e.set('currentCTA', null);
 				});
 			}
 		},
-		resetCTA: function(cta) {
-			cta.rollback();
+		duplicateCTA: function() {
+			var e = this;
+			var dup = this.get('store').createRecord('cta', this.get('currentCTA').toJSON());
+			
+			dup.set('name', dup.get('name') + ' (Duplicate)');
+			dup.save().then(function(cta) {
+				e.set('currentCTA', cta);
+			});
+		},
+		resetCTA: function() {
+			this.get('currentCTA').rollback();
 		},
 	}
 });
