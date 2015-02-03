@@ -4,7 +4,7 @@ export default Ember.Route.extend({
 	model: function() {
 		this.store.findAll('event');
 		this.store.findAll('person');
-		this.store.findAll('cta');
+		this.set('session.ctas', this.store.findAll('cta'));
 	},
 	actions: {
 		loading: function() {

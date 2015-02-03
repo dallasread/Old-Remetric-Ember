@@ -64,28 +64,30 @@
 							{{input type="text" value=''}}
 						</div>
 						
-						<table class="table with_cell_padding">
-							<thead>
-								<tr>
-									<th>Required</th>
-									<th>Info Field</th>
-									<th>Label</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								{{#each field in currentCTA.fields}}
+						<div class="field">
+							<table class="table with_cell_padding">
+								<thead>
 									<tr>
-										<td>{{input type="checkbox" checked=field.isRequired}}</td>
-										<td>{{input type="text" value=field.permalink}}</td>
-										<td>{{input type="text" value=field.label}}</td>
-										<td><a href="#" {{action 'deleteField' field}}>&times;</a></td>
+										<th class="align_center">Required</th>
+										<th>Label</th>
+										<th>Info Field</th>
+										<th class="align_center"></th>
 									</tr>
-								{{/each}}
-							</tbody>
-						</table>
+								</thead>
+								<tbody>
+									{{#each field in currentCTA.fields}}
+										<tr>
+											<td class="align_center">{{input type="checkbox" checked=field.isRequired}}</td>
+											<td>{{input type="text" value=field.label}}</td>
+											<td>{{input type="text" value=field.permalink}}</td>
+											<td class="align_center"><a href="#" {{action 'deleteField' field}}>&times;</a></td>
+										</tr>
+									{{/each}}
+								</tbody>
+							</table>
 						
-						<a href="#" class="small white button" {{action 'addField'}}>Add Field</a>
+							<a href="#" class="small white button" {{action 'addField'}}>Add Field</a>
+						</div>
 
 						<div class="field">
 							<label for="Button Text">Button Text</label>

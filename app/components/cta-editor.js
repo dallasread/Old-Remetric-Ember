@@ -1,16 +1,15 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-	allCTAs: [],
 	store: null,
 	selectedTab: 0,
 	currentCTA: Ember.computed.alias('session.cta'),
 	type: function() {
 		return this.get('prettyName').toLowerCase().replace(/\s|\bwidget\b|\bform\b|\bbox\b/g, '');
 	}.property('prettyName'),
-	ctas: Ember.computed.filter('allCTAs', function(cta) {
+	ctas: Ember.computed.filter('session.ctas', function(cta) {
 		return cta.get('type') === this.get('type');
-	}).property('allCTAs', 'type'),
+	}).property('session.ctas', 'type'),
 	didInsertElement: function() {
 		this.set('currentCTA', null);
 	},
@@ -22,11 +21,30 @@ export default Ember.Component.extend({
 		newCTA: function() {
 			var e = this;
 			
-			this.get('store').createRecord('cta', {
+			var cta = this.get('store').createRecord('cta', {
 				name: this.get('prettyName') + ' #' + (this.get('ctas.length') + 1),
 				type: this.get('type'),
 				isActive: false
-			}).save().then(function(cta) {
+			});
+			
+			var name = this.get('store').createRecord('field', {
+				label: 'What is your name?',
+				permalink: 'name',
+				isRequired: true,
+				ordinal: 0
+			});
+			
+			var email = this.get('store').createRecord('field', {
+				label: 'What is your email?',
+				permalink: 'email',
+				isRequired: true,
+				ordinal: 1
+			});
+			
+			cta.get('fields').addObject(name);
+			cta.get('fields').addObject(email);
+			
+			cta.save().then(function() {
 				e.set('currentCTA', cta);
 			});
 		},
