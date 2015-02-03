@@ -10,6 +10,7 @@ var app = new EmberApp({
 });
 
 app.import('vendor/track.js');
+app.import('vendor/external_loader.js');
 
 // Use `app.import` to add additional libraries to the generated
 // output files.

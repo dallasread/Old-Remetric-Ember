@@ -1,3 +1,5 @@
+/* globals externalLoader */
+
 import Ember from 'ember';
 import config from './../../../config/environment';
 
@@ -9,25 +11,9 @@ export default Ember.Route.extend({
 	},
 	actions: {
 		loadStripe: function(transition) {
-			var url = 'https://js.stripe.com/v2/';
-			var script = document.createElement("script");
-	    script.type = "text/javascript";
-
-	    if (script.readyState) {
-				script.onreadystatechange = function() {
-					if (script.readyState === "loaded" || script.readyState === "complete") {
-						script.onreadystatechange = null;
-						transition.send('stripeLoaded');
-					}
-        };
-	    } else {
-				script.onload = function() {
-					transition.send('stripeLoaded');
-				};
-	    }
-
-	    script.src = url;
-	    document.getElementsByTagName("head")[0].appendChild(script);
+			externalLoader('https://js.stripe.com/v2/', function() {
+				transition.send('stripeLoaded');
+			});
 		},
 		stripeLoaded: function() {
 			window.Stripe.setPublishableKey( config.stripePublishableKey );

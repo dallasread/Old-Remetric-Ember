@@ -1,4 +1,4 @@
-/* globals Firebase, _RMI */
+/* globals Firebase, _RMI, externalLoader */
 
 import Ember from 'ember';
 import config from './../config/environment';
@@ -9,8 +9,18 @@ export default {
   initialize: function(container, app) {
 		window._RMDB = new Firebase('https://remetric.firebaseio.com/');
 		window._RMOID = Ember.$('[data-remetric]').data('remetric').replace(/[^a-z0-9]+/gi, '-').replace(/^-*|-*$/g, '');
+		
 		_RMI.api_key = config.remetric.api_key;
 		_RMI.domain = config.remetric.domain;
+		
+		var loader = ['styles', 'user'];
+		var loadComplete = function(loaded) {
+			var index = loader.indexOf(loaded);
+			loader.splice(index, 1);
+			if (!loader.length) {
+				app.advanceReadiness();
+			}
+		};
 		
 		var store = container.lookup('store:main');
 		var router = container.lookup('router:main');
@@ -18,6 +28,10 @@ export default {
 			organization_id: window._RMOID,
 			afterSignIn: false,
 			isStripeLoaded: false
+		});
+		
+		externalLoader('/assets/lcs.css', function() {
+			loadComplete( 'styles' );
 		});
 		
 		app.register('session:main', session, { instantiate: false, singleton: true });
@@ -33,7 +47,7 @@ export default {
 				session.set('afterSignIn', false);
 			}
 			
-			app.advanceReadiness();
+			loadComplete( 'user' );
 		};
 
 		var findOrCreateVisitor = function() {
