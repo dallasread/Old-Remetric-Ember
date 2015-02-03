@@ -26,7 +26,7 @@ export default Ember.Controller.extend({
 				e.set('isChangingEmail', false);
 				e.get('session.organization').save();
 				e.get('session.user').save();
-			}
+			};
 			
 			if (e.get('isChangingEmail')) {
 				if (e.get('oldEmail.length') && e.get('session.user.email.length') && e.get('oldPassword.length')) {

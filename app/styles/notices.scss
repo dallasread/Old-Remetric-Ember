@@ -1,0 +1,35 @@
+.remetric {
+	.remetric_notice {	
+		&.error {
+			background: #F0D4D2;
+			color: maroon;
+			border-color: maroon;
+			padding: 10px;
+			margin-bottom: 20px;
+		}
+	
+		&.warning {
+			background: #F0CAB6;
+			color: #743820;
+			border-color: #743820;
+			padding: 10px;
+			margin-bottom: 20px;
+		}
+		
+		&.notice {
+			background: #BCECF0;
+			color: #1A5074;
+			border-color: #1A5074;
+			padding: 10px;
+			margin-bottom: 20px;
+		}
+		
+		a {
+			color: inherit;
+			font-weight: bold;
+			border-bottom-width: 1px;
+			border-style: solid;
+			border-color: inherit;
+		}
+	}
+}

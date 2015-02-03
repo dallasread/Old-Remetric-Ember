@@ -22,12 +22,16 @@ export default Ember.Component.extend({
 			this.get('store').createRecord('cta', {
 				name: this.get('prettyName') + ' #' + (this.get('ctas.length') + 1),
 				type: this.get('type'),
-				active: false
+				isActive: false
 			}).save().then(function(cta) {
 				e.set('currentCTA', cta);
 			});
 		},
 		saveCTA: function() {
+			this.get('currentCTA').save();
+		},
+		activateCTA: function() {
+			this.toggleProperty('currentCTA.isActive');
 			this.get('currentCTA').save();
 		},
 		deleteCTA: function() {

@@ -17,6 +17,18 @@
 	{{#if currentCTA}}
 		
 		<form {{action 'saveCTA' on='submit'}}>
+		
+			{{#if currentCTA.isActive}}
+				<p class="notice remetric_notice">
+					This {{prettyName}} is <strong>active</strong> and will be shown to visitors.
+					<a href="#" {{action 'activateCTA'}} class="cancel">Click here to de-activate it.</a>
+				</p>
+			{{else}}
+				<p class="warning remetric_notice">
+					This {{prettyName}} is <strong>not active</strong> and won't be shown to visitors until it's activated.
+					<a href="#" {{action 'activateCTA'}} class="cancel">Click here to activate it.</a>
+				</p>
+			{{/if}}
 			
 			{{#dc-tabs selected-index=selectedTab}}
 			  {{#dc-tab-list}}
@@ -91,7 +103,7 @@
 			<div class="app_actions">
 				<a href="#" {{action 'deleteCTA'}} class="cancel">Delete</a>
 				<a href="#" {{action 'duplicateCTA'}} class="cancel">Duplicate</a>
-					
+				
 				{{#if currentCTA.isDirty}}
 					<a href="#" {{action 'resetCTA'}} class="cancel">Discard Changes</a>
 				{{/if}}
