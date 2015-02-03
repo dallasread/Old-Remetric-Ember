@@ -71,6 +71,12 @@
 	
 	.field {
 		margin: 0 0 20px 0;
+			
+		&.is_for_checkbox {
+			label {
+				display: inline-block;
+			}
+		}
 
 		label {
 			text-transform: uppercase;

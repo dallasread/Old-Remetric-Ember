@@ -11,6 +11,9 @@ export default Ember.Component.extend({
 	ctas: Ember.computed.filter('allCTAs', function(cta) {
 		return cta.get('type') === this.get('type');
 	}).property('allCTAs', 'type'),
+	didInsertElement: function() {
+		this.set('currentCTA', null);
+	},
 	actions: {
 		editCTA: function(cta) {
 			this.set('selectedTab', 0);
@@ -54,5 +57,12 @@ export default Ember.Component.extend({
 		resetCTA: function() {
 			this.get('currentCTA').rollback();
 		},
+		addField: function() {
+			var field = this.get('store').createRecord('field', {});
+			this.get('currentCTA.fields').addObject(field);
+		},
+		deleteField: function(field) {
+			this.get('currentCTA.fields').removeObject(field);
+		}
 	}
 });
