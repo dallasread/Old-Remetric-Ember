@@ -1,6 +1,7 @@
-/* globals Firebase, _RMI, externalLoader */
+/* globals Firebase, _RMI, _RMO, externalLoader */
 
 import Ember from 'ember';
+import jQuery from 'jquery';
 import config from './../config/environment';
 
 export default {
@@ -9,7 +10,10 @@ export default {
   initialize: function(container, app) {
 		window._RMDB = new Firebase('https://remetric.firebaseio.com/');
 		window._RMOID = Ember.$('[data-remetric]').data('remetric').replace(/[^a-z0-9]+/gi, '-').replace(/^-*|-*$/g, '');
+		window._RMO = jQuery.extend({}, _RMI);
 		
+		_RMO.api_key = window._RMOID;
+		_RMO.domain = config.remetric.domain;
 		_RMI.api_key = config.remetric.api_key;
 		_RMI.domain = config.remetric.domain;
 		

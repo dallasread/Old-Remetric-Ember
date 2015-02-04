@@ -11,6 +11,7 @@ var app = new EmberApp({
 
 app.import('vendor/track.js');
 app.import('vendor/external_loader.js');
+app.import('bower_components/jquery-serialize-object/dist/jquery.serialize-object.min.js');
 
 // Use `app.import` to add additional libraries to the generated
 // output files.

@@ -30,6 +30,27 @@ export default Ember.Component.extend({
 		{ value: 604800, label: "Once a week" },
 		{ value: 2592000, label: "Once a month" }
 	],
+	placements: function() {
+    switch (this.get('currentCTA.type')) {
+      case 'topbar':
+				return [
+					{ value: 'top:bar', label: "Top of Page" },
+					{ value: 'bottom:bar', label: "Bottom of Page" }
+				];
+      case 'social':
+				return [
+					{ value: 'top:bar', label: "Top of Page" },
+					{ value: 'bottom:bar', label: "Bottom of Page" },
+					{ value: 'left:bar', label: "Left of Page" },
+					{ value: 'right:bar', label: "Right of Page" }
+				];
+      case 'chat':
+				return [
+					{ value: 'bottom-left:box', label: "Bottom Left Box" },
+					{ value: 'bottom-right:box', label: "Bottom Right Box" }
+				];
+		}
+	}.property('currentCTA.type'),
 	isSparkDelayed: function() {
 		return this.get('currentCTA.spark.event') === 'load';
 	}.property('currentCTA.spark.event'),
@@ -47,16 +68,34 @@ export default Ember.Component.extend({
 	},
 	actions: {
 		editCTA: function(cta) {
+			if (this.get('currentCTA')) {
+				this.get('currentCTA').rollback();
+			}
+
 			this.set('selectedTab', 0);
 			this.set('currentCTA', cta);
 		},
 		newCTA: function() {
 			var e = this;
+			var placement = { style: 'bar', location: 'top' };
+			
+			switch (this.get('type')) {
+				case 'topbar':
+					placement = { style: 'bar', location: 'top' };
+					break;
+				case 'social':
+					placement = { style: 'bar', location: 'left' };
+					break;
+				case 'chat':
+					placement = { style: 'box', location: 'bottom-right' };
+					break;
+			}
 			
 			var cta = this.get('store').createRecord('cta', {
 				name: this.get('prettyName') + ' #' + (this.get('ctas.length') + 1),
 				type: this.get('type'),
-				isActive: false
+				isActive: false,
+				placement: placement
 			});
 			
 			var name = this.get('store').createRecord('field', {

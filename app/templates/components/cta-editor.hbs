@@ -56,12 +56,24 @@
 							{{input type="text" value=currentCTA.name}}
 						</div>
 						<div class="field">
-							<label for="Placement">Placement</label>
-							{{input type="text" value=''}}
+							<label for="placement">Where should this {{prettyName}} be located?</label>
+							{{view 'select' id='placement' content=placements optionValuePath='content.value' optionLabelPath='content.label' valueBinding='currentCTA.placementString'}}
 						</div>
 						<div class="field">
-							<label for="Headline">Headline</label>
-							{{input type="text" value=''}}
+							<label for="headline">Headline</label>
+							{{input type="text" id="headline" value=currentCTA.headline}}
+						</div>
+						<div class="field">
+							<label for="subheadline">Subheadline</label>
+							{{input type="text" id="subheadline" value=currentCTA.subHeadline}}
+						</div>
+						<div class="field">
+							<label for="button_text">Button Text</label>
+							{{input type="text" id="button_text" value=currentCTA.button.text}}
+						</div>
+						<div class="field">
+							<label for="button_class">Button Class</label>
+							{{input type="text" id="button_class" value=currentCTA.button.class}}
 						</div>
 						
 						<div class="field">
@@ -69,6 +81,7 @@
 								<thead>
 									<tr>
 										<th class="align_center">Required</th>
+										<th class="align_center">Save To Profile</th>
 										<th>Label</th>
 										<th>Info Field</th>
 										<th class="align_center"></th>
@@ -78,6 +91,7 @@
 									{{#each field in currentCTA.fields}}
 										<tr>
 											<td class="align_center">{{input type="checkbox" checked=field.isRequired}}</td>
+											<td class="align_center">{{input type="checkbox" checked=field.isForProfile}}</td>
 											<td>{{input type="text" value=field.label}}</td>
 											<td>{{input type="text" value=field.permalink}}</td>
 											<td class="align_center"><a href="#" {{action 'deleteField' field}}>&times;</a></td>
@@ -174,11 +188,11 @@
 					<div class="remetric_tab_panel" data-title="Actions">
 						<div class="field">
 							<label for="thank_you_text">Thank-You Text</label>
-							{{textarea id="thank_you_text" value=currentCTA.thankYouText}}
+							{{textarea id="thank_you_text" value=currentCTA.thankYou.text}}
 						</div>
 						<div class="field">
 							<label for="thank_you_url">Thank-You URL</label>
-							{{input type="text" for="thank_you_url" value=currentCTA.thankYouURL}}
+							{{input type="text" for="thank_you_url" value=currentCTA.thankYou.url}}
 						</div>
 						<div class="field">
 							<label for="Notification Emails">Notification Emails</label>

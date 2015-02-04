@@ -1,0 +1,37 @@
+<div class="remetric_cta remetric_cta_{{cta.id}}">
+	<div class="cta_container">
+		
+		<a href="#" class="cta_widget_close">&times;</a>
+		<a href="#" class="cta_widget_open">&plus;</a>
+	
+		{{#if cta.headline}}
+			<h3>{{ cta.headline }}</h3>
+		{{/if}}
+	
+		<div class="cta_content">
+			{{#if cta.subHeadline }}
+				<h4>{{ cta.subHeadline }}</h4>
+			{{/if}}
+			
+			<form {{action 'submitCTA' cta on='submit'}}>
+				
+				{{#if hasSubmitted}}
+					<p>{{cta.thankYou.text}}</p>
+				{{else}}
+					{{#each field in cta.fields}}
+						<div class="cta_field">
+							<label for="cta_{{cta.id}}_{{field.permalink}}">{{field.label}}</label>
+							<input type="text" id="cta_{{cta.id}}_{{field.permalink}}" name="{{field.publicAttr}}" placeholder="{{field.label}}" {{bind-attr required=cta.isRequired}}>
+						</div>
+					{{/each}}
+
+					<div class="cta_action_field">
+						<button type="submit" class="button btn {{cta.button.class}}">{{ cta.button.text }}</button>
+					</div>
+				{{/if}}
+			</form>
+
+		</div>
+		
+	</div>
+</div>

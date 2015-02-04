@@ -3,7 +3,7 @@ import {
   test
 } from 'ember-qunit';
 
-moduleForComponent('public-cta', 'PublicCtaComponent', {
+moduleForComponent('cta-public', 'CtaPublicComponent', {
   // specify the other units that are required for this test
   // needs: ['component:foo', 'helper:bar']
 });

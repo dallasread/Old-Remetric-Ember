@@ -1,4 +1,4 @@
-/* globals _RMI */
+/* globals _RMI, _RMO */
 
 import Ember from 'ember';
 import config from './../config/environment';
@@ -62,8 +62,7 @@ export default Ember.Controller.extend({
 												product: { name: 'Remetric' }
 											};
 							
-											_RMI.api_key = e.get('session.organization_id');
-											_RMI.track(event);
+											_RMO.track(event);
 										
 											event.organization = {
 												id: organization.get('id'),
@@ -73,7 +72,6 @@ export default Ember.Controller.extend({
 											event.person.organization_id = e.get('session.organization_id');
 											event.story = '{{person.name}} activated {{product.name}} ({{organization.id}}).';
 
-											_RMI.api_key = config.remetric.api_key;
 											_RMI.track(event);
 										};
 										

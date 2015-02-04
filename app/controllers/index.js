@@ -8,19 +8,27 @@ export default Ember.Controller.extend({
 	},
 	ctas: [],
 	actions: {
+		showCTA: function(cta) {
+			var e = this;
+			
+			setTimeout(function() {
+				e.get('ctas').pushObject(cta);
+			}, cta.get('spark.delay'));
+		},
 		checkCTAs: function() {
 			// Loop over CTAs, ordered by quickest trigger
 			// For each trigger event
-			//   IF NOT SOLE
-			//     Show CTA, record event
-			//   IF SOLE
-			//     Show first CTA and ignore the rest
+			//   IF INCLUDED && NOT EXCLUDED
+			//     IF NOT SOLE
+			//       Show CTA, record event
+			//     IF SOLE
+			//       Show first CTA and ignore the rest
 			
 			var e = this;
 			
 			this.get('session.ctas').then(function(ctas) {
 				ctas.map(function(cta) {
-					e.get('ctas').pushObject(cta);
+					e.send('showCTA', cta);
 				});
 			})
 		}
