@@ -15,7 +15,9 @@ export default DS.Model.extend({
 	showClose: DS.attr('boolean', { defaultValue: true }),
 	thankYouText: DS.attr('string'),
 	thankYouURL: DS.attr('string'),
+	ordinal: DS.attr('number'),
 	social: DS.attr({ defaultValue: {} }),
+	spark: DS.attr({ defaultValue: {} }),
 	fields: DS.hasMany('field', { embedded: true }),
 	hasSocial: function() {
 		return this.get('type') === 'social';

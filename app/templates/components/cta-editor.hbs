@@ -140,16 +140,32 @@
 							{{input type="text" id="pages_to_hide" value=currentCTA.pagesToHide}}
 						</div>
 						<div class="field">
-							<label for="trigger event">trigger event</label>
-							{{input type="text" value=''}}
+							<label for="spark_event">When should this {{prettyName}} appear?</label>
+							{{view 'select' id='spark_event' content=sparkEvents optionValuePath='content.value' optionLabelPath='content.label' valueBinding='currentCTA.spark.event'}}
 						</div>
+						
+						{{#if isSparkDelayed}}
+							<div class="field">
+								<label for="spark_delay">How long after {{currentCTA.spark.event}} should this {{prettyName}} be displayed?</label>
+								{{view 'select' id='spark_delay' content=sparkDelays optionValuePath='content.value' optionLabelPath='content.label' valueBinding='currentCTA.spark.delay'}}
+							</div>
+						{{/if}}
+						
+						{{#if isSparkScrollable}}
+							<div class="field">
+								<label for="spark_scroll">How much of the page should be scrolled before showing (eg. 500px or 50%)?</label>
+								{{input type="text" id="spark_scroll" value=currentCTA.spark.scroll}}
+							</div>
+						{{/if}}
+						
 						<div class="field">
-							<label for="trigger how often">trigger how often</label>
-							{{input type="text" value=''}}
+							<label for="trigger how often">How often do visitors see this {{prettyName}}?</label>
+							{{view 'select' content=sparkRecurrances optionValuePath='content.value' optionLabelPath='content.label' valueBinding='currentCTA.spark.recurrance'}}
 						</div>
-						<div class="field">
-							<label for="trigger delay">trigger delay</label>
-							{{input type="text" value=''}}
+
+						<div class="field is_for_checkbox">
+							{{input type="checkbox" id="spark_sole" checked=currentCTA.spark.sole}}
+							<label for="spark_sole">Hide when other {{prettyName}}s are present?</label>
 						</div>
 					</div>
 			  {{/ivy-tab-panel}}

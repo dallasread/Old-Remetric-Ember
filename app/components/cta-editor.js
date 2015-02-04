@@ -4,6 +4,38 @@ export default Ember.Component.extend({
 	store: null,
 	selectedTab: 0,
 	currentCTA: Ember.computed.alias('session.cta'),
+	sparkDelays: [
+		{ value: 0, label: "Immediately" },
+		{ value: 1000, label: "1 Second" },
+		{ value: 2000, label: "2 Seconds" },
+		{ value: 3000, label: "3 Seconds" },
+		{ value: 5000, label: "5 Seconds" },
+		{ value: 10000, label: "10 Seconds" },
+		{ value: 20000, label: "20 Seconds" },
+		{ value: 30000, label: "30 Seconds" },
+		{ value: 45000, label: "45 Seconds" },
+		{ value: 60000, label: "1 Minute" }
+	],
+	sparkEvents: [
+		{ value: 'load', label: "On page load" },
+		{ value: 'leave', label: "Predicted page leave" },
+		{ value: 'scroll', label: "On scroll" },
+		{ value: 'none', label: "None (show manually or with widgets)" }
+	],
+	sparkRecurrances: [
+		{ value: -1, label: "Every time" },
+		{ value: 0, label: "Until they interact" },
+		{ value: 9999999999, label: "Once" },
+		{ value: 86400, label: "Once a day" },
+		{ value: 604800, label: "Once a week" },
+		{ value: 2592000, label: "Once a month" }
+	],
+	isSparkDelayed: function() {
+		return this.get('currentCTA.spark.event') === 'load';
+	}.property('currentCTA.spark.event'),
+	isSparkScrollable: function() {
+		return this.get('currentCTA.spark.event') === 'scroll';
+	}.property('currentCTA.spark.event'),
 	type: function() {
 		return this.get('prettyName').toLowerCase().replace(/\s|\bwidget\b|\bform\b|\bbox\b/g, '');
 	}.property('prettyName'),
