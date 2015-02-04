@@ -5,6 +5,7 @@ export default Ember.Route.extend({
 		this.store.findAll('event');
 		this.store.findAll('person');
 		this.set('session.ctas', this.store.findAll('cta'));
+		
 	},
 	actions: {
 		loading: function() {

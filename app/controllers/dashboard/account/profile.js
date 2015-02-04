@@ -10,6 +10,9 @@ export default Ember.Controller.extend({
 	checkChangingEmail: function() {
 		this.set('isChangingEmail', this.get('session.user.email') !== this.get('oldEmail'));
 	}.observes('session.user.email', 'oldEmail'),
+	isDirty: function() {
+		return this.get('session.user.isDirty') || this.get('session.organization.isDirty');
+	}.property('session.user.isDirty', 'session.organization.isDirty'),
 	actions: {
 		resetProfile: function() {
 			this.get('session.organization').rollback();

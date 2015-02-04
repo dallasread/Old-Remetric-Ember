@@ -81,36 +81,52 @@
 			}
 		}
 	
-		.profile {
+		.right_nav {
 			float: right;
-			padding: 13px 14px 11px;
-		
-			.avatar {
+			
+			li {
 				float: left;
-				background: $lighter_gray;
-				width: 32px;
-				height: 32px;
-				border-radius: 4px;
-			}
-		
-			.wrapper {
-				float: left;
+				margin-right: 0;
 				margin-left: 10px;
-				margin-bottom: 0;
-
-				.name {
-					font-weight: bold;
-					font-size: 14px;
-					line-height: 14px;
-					display: block;
+				
+				.close_remetric.active {
+					background: transparent;
+					border-left: 1px solid $lighter_gray;
+					border-right: 0 none;
 				}
+				
+				.profile {
+					padding: 13px 14px 11px;
+					margin-bottom: -3px;
 		
-				.company {
-					color: #999;
-					font-size: 12px;
-					line-height: 12px;
-					display: block;
-					margin-top: 5px;
+					.avatar {
+						float: left;
+						background: $lighter_gray;
+						width: 32px;
+						height: 32px;
+						border-radius: 4px;
+					}
+		
+					.wrapper {
+						float: left;
+						margin-left: 10px;
+						margin-bottom: 0;
+
+						.name {
+							font-weight: bold;
+							font-size: 14px;
+							line-height: 14px;
+							display: block;
+						}
+		
+						.company {
+							color: #999;
+							font-size: 12px;
+							line-height: 12px;
+							display: block;
+							margin-top: 5px;
+						}
+					}
 				}
 			}
 		}

@@ -58,7 +58,7 @@
 			{{/if}}
 		{{/unless}}
 	
-		<button type="submit" class="button clickable" {{action 'saveProfile'}}>
+		<button type="submit" {{bind-attr class=":button isDirty:clickable"}} {{action 'saveProfile'}}>
 			Save Profile
 		</button>
 	</div>
