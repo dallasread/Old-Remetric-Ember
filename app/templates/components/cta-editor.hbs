@@ -21,7 +21,7 @@
 			{{#if currentCTA.isActive}}
 				<p class="notice remetric_notice">
 					This {{prettyName}} is <strong>active</strong> and will be shown to visitors.
-					<a href="#" {{action 'activateCTA'}} class="cancel">Click here to de-activate it.</a>
+					If you'd like to de-activated it, <a href="#" {{action 'activateCTA'}} class="cancel">click here</a>.
 				</p>
 			{{else}}
 				<p class="warning remetric_notice">
@@ -44,7 +44,7 @@
 							{{/ivy-tab}}
 						{{/if}}
 						
-						{{#ivy-tab}}<a>Submissions</a>{{/ivy-tab}}
+						<!-- {{!ivy-tab}}<a>Submissions</a>{{!ivy-tab}} -->
 						<div class="clear"></div>
 					</div>
 			  {{/ivy-tab-list}}
@@ -102,23 +102,18 @@
 						
 							<a href="#" class="small white button" {{action 'addField'}}>Add Field</a>
 						</div>
-
-						<div class="field">
-							<label for="Button Text">Button Text</label>
-							{{input type="text" value=''}}
-						</div>
-						<div class="field">
-							<label for="Button class">Button class</label>
-							{{input type="text" value=''}}
-						</div>
 					</div>
 			  {{/ivy-tab-panel}}
 
 			  {{#ivy-tab-panel}}
 					<div class="remetric_tab_panel" data-title="Appearance">
 						<div class="field is_for_checkbox">
-							{{input type="checkbox" id="show_close" checked=currentCTA.showClose}}
-							<label for="show_close">Show close</label>
+							{{input type="checkbox" id="is_closable" checked=currentCTA.isClosable}}
+							<label for="is_closable">Is closable</label>
+						</div>
+						<div class="field is_for_checkbox">
+							{{input type="checkbox" id="is_minimized" checked=currentCTA.isMinimized}}
+							<label for="is_minimized">Is minimized when loaded</label>
 						</div>
 						<div class="field is_for_checkbox">
 							{{input type="checkbox" id="scroll_with_page" checked=currentCTA.scrollWithPage}}
@@ -223,12 +218,12 @@
 				  {{/ivy-tab-panel}}
 				{{/if}}
 
-			  {{#ivy-tab-panel}}
+			  <!-- {{!ivy-tab-panel}}
 					<div class="remetric_tab_panel" data-title="Submissions">
 						Submissions
 						{{#link-to 'dashboard.apps.store.app' 'topbar' class='remetric_help'}}?{{/link-to}}
 					</div>
-			  {{/ivy-tab-panel}}
+				{{!ivy-tab-panel}} -->
 			{{/ivy-tabs}}
 			
 			<div class="app_actions">

@@ -1,25 +1,21 @@
 <ol class="store">
 	{{#each app in apps}}
-		{{#if app.isActive}}
-			{{#unless app.isSystem}}
-				<li class="app">
-					{{#link-to 'dashboard.apps.store.app' app class="icon"}}
-						<img {{bind-attr src=app.icon}}>
-					{{/link-to}}
+		<li class="app">
+			{{#link-to 'dashboard.apps.store.app' app class="icon"}}
+				<img {{bind-attr src=app.icon}}>
+			{{/link-to}}
+
+			<div class="meta">
+				{{#link-to 'dashboard.apps.store.app' app class="name"}}
+					{{app.name}}
+				{{/link-to}}
 			
-					<div class="meta">
-						{{#link-to 'dashboard.apps.store.app' app class="name"}}
-							{{app.name}}
-						{{/link-to}}
-						
-						{{install-button app=app organization=session.organization}}
-				
-						<p class="excerpt">{{app.excerpt}}</p>
-					</div>
-			
-					<div class="clear"></div>
-				</li>
-			{{/unless}}
-		{{/if}}
+				{{install-button app=app organization=session.organization}}
+	
+				<p class="excerpt">{{app.excerpt}}</p>
+			</div>
+
+			<div class="clear"></div>
+		</li>
 	{{/each}}
 </ol>

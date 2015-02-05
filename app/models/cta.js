@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import DS from 'ember-data';
 
 export default DS.Model.extend({
@@ -5,9 +6,8 @@ export default DS.Model.extend({
 	type: DS.attr('string'),
 	createdAt: DS.attr('timestamp'),
 	isActive: DS.attr('boolean'),
-	headline: DS.attr('string'),
-	subHeadline: DS.attr('string'),
-	button: DS.attr({ defaultValue: {} }),
+	headline: DS.attr('string', { defaultValue: 'Sign Up For Our Newsletter' }),
+	subHeadline: DS.attr('string', { defaultValue: "Receive helpful, relevant tips from the experts." }),
 	hideForMobile: DS.attr('boolean', { defaultValue: false }),
 	hideForTablet: DS.attr('boolean', { defaultValue: false }),
 	hideForDesktop: DS.attr('boolean', { defaultValue: false }),
@@ -15,11 +15,13 @@ export default DS.Model.extend({
 	pagesToHide: DS.attr('string'),
 	disableCSS: DS.attr('boolean'),
 	scrollWithPage: DS.attr('boolean', { defaultValue: true }),
-	showClose: DS.attr('boolean', { defaultValue: true }),
-	thankYou: DS.attr({ defaultValue: {} }),
+	isClosable: DS.attr('boolean', { defaultValue: true }),
+	isMinimized: DS.attr('boolean', { defaultValue: false }),
 	ordinal: DS.attr('number'),
 	social: DS.attr({ defaultValue: {} }),
 	placement: DS.attr({ defaultValue: {} }),
+	thankYou: DS.attr({ defaultValue: { text: 'Thanks for submitting your response.' } }),
+	button: DS.attr({ defaultValue: { text: 'Sign Up Now' } }),
 	spark: DS.attr({ defaultValue: { delay: 0, event: 'load' } }),
 	fields: DS.hasMany('field', { embedded: true }),
 	hasSocial: function() {
@@ -34,5 +36,16 @@ export default DS.Model.extend({
 			this.set('placement.style', placement[1]);
 			return placementString;
     }
-	}.property('placement.style', 'placement.location')
+	}.property('placement.style', 'placement.location'),
+	publicClass: function() {
+		var publicClass = 'remetric_cta';
+		publicClass += ' remetric_cta_' + this.get('id');
+		publicClass += ' remetric_cta_' + this.get('placement.location');
+		publicClass += ' remetric_cta_' + this.get('placement.style');
+		if (!this.get('disableCSS')) { publicClass += ' remetric_cta_css'; }
+		return publicClass;
+	}.property('id', 'placement.location', 'placement.style', 'disableCSS'),
+	domId: function() {
+		return Ember.$('.' + this.get('id'));
+	}.property('id')
 });

@@ -11,9 +11,11 @@ export default Ember.Controller.extend({
 		showCTA: function(cta) {
 			var e = this;
 			
-			setTimeout(function() {
-				e.get('ctas').pushObject(cta);
-			}, cta.get('spark.delay'));
+			if (cta.get('isActive')) {
+				setTimeout(function() {
+					e.get('ctas').pushObject(cta);
+				}, cta.get('spark.delay'));
+			}
 		},
 		checkCTAs: function() {
 			// Loop over CTAs, ordered by quickest trigger
