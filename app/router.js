@@ -32,6 +32,7 @@ Router.map(function() {
 			this.route("social");
 			this.route("chat");
 			this.route("box");
+			this.route("giveaways");
 			
 			this.route("app", { path: "/:app_id" });
 		});

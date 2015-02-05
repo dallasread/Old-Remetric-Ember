@@ -101,14 +101,14 @@
 						display: block;
 						margin-bottom: 4px;
 					}
-					
-					input, select, button {
-						width: 100%;
-						
-						&[type="checkbox"] {
-							width: auto;
-						}
-					}
+				}
+			}
+		
+			input, select, button {
+				width: 100%;
+			
+				&[type="checkbox"] {
+					width: auto;
 				}
 			}
 		}
@@ -121,7 +121,7 @@
 			padding: 15px;
 			background: #eee;
 			
-			.cta_field, .cta_action_field, .cta_content, .cta_header, h3 {
+			.cta_field, .cta_action_field, .cta_content, .cta_header, h3, form {
 				display: inline-block;
 				
 				label {
@@ -156,6 +156,10 @@
 				background: rgba(0, 0, 0, 0.3);
 				color: rgba(255, 255, 255, 0.8);
 			}
+		}
+		
+		.giveaway_button {
+			margin-top: 20px;
 		}
 	}
 }

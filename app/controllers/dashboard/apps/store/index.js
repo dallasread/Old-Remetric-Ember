@@ -5,11 +5,6 @@ export default Ember.Controller.extend({
 	sortAppsBy: ['ordinal'],
 	sortedApps: Ember.computed.sort('model', 'sortAppsBy'),
 	apps: Ember.computed.filter('sortedApps', function(app) {
-		// && this.get('session.organization.apps').indexOf(app) === -1
-		if (config.environment === 'development') {
-			return true;
-		} else {
-			return app.get('isActive') && !app.get('isSystem');
-		}
+		return app.get('isActive') && !app.get('isSystem');
 	}).property('sortedApps')
 });

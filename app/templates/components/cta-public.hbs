@@ -1,75 +1,83 @@
-{{#unless isClosed}}
-	<div class="{{cta.publicClass}}">
-		<div class="cta_container">
+{{#if cta.isActive}}
+	{{#unless isClosed}}
+		<div class="{{cta.publicClass}}">
+			<div class="cta_container">
 			
-			{{#if cta.hasSocial}}
+				{{#if cta.hasSocial}}
 				
-				<ul>
-					{{#each social in cta.socialArray}}
-						<li><a href="{{social.url}}">{{social.network}}</a></li>
-					{{/each}}
-				</ul>
+					<ul>
+						{{#each social in cta.socialArray}}
+							<li><a href="{{social.url}}">{{social.network}}</a></li>
+						{{/each}}
+					</ul>
 				
-			{{else}}
-				
-				{{#if cta.image.use}}
-					<a href="#" class="cta_header" {{action 'maxOrMinimizeCTA'}}>
-						<img src="{{cta.image.url}}">
-					</a>
 				{{else}}
-					<div class="cta_header" {{action 'maxOrMinimizeCTA'}}>
-						{{#if isSubmitted}}
-							<a href="#" class="cta_widget_close">&times;</a>
-						{{else}}
-							{{#if isMinimized}}
-								<a href="#" class="cta_widget_open">&plus;</a>
+				
+					{{#if cta.image.use}}
+						<a href="#" class="cta_header" {{action 'maxOrMinimizeCTA'}}>
+							<img src="{{cta.image.url}}">
+						</a>
+					{{else}}
+						<div class="cta_header" {{action 'maxOrMinimizeCTA'}}>
+							{{#if isSubmitted}}
+								<a href="#" class="cta_widget_close">&times;</a>
 							{{else}}
-								{{#if cta.isClosable}}
-									<a href="#" class="cta_widget_close">&times;</a>
+								{{#if isMinimized}}
+									<a href="#" class="cta_widget_open">&plus;</a>
 								{{else}}
-									{{#if cta.isMinimizable}}
-										<a href="#" class="cta_widget_minimize">&minus;</a>
+									{{#if cta.isClosable}}
+										<a href="#" class="cta_widget_close">&times;</a>
+									{{else}}
+										{{#if cta.isMinimizable}}
+											<a href="#" class="cta_widget_minimize">&minus;</a>
+										{{/if}}
 									{{/if}}
 								{{/if}}
 							{{/if}}
-						{{/if}}
 	
-						{{#if cta.headline}}
-							<h3>{{ cta.headline }}</h3>
-						{{/if}}
-					</div>
-				{{/if}}
-	
-				{{#unless isMinimized}}
-					<div class="cta_content">
-						{{#if isSubmitted}}
-							<p class="is_submitted">{{cta.thankYou.text}}</p>
-						{{else}}
-							
-							{{#if cta.subHeadline }}
-								<h4>{{ cta.subHeadline }}</h4>
+							{{#if cta.headline}}
+								<h3>{{ cta.headline }}</h3>
 							{{/if}}
+						</div>
+					{{/if}}
+	
+					{{#unless isMinimized}}
+						<div class="cta_content">
+							{{#if isSubmitted}}
+								<p class="is_submitted">{{{cta.thankYou.text}}}</p>
+							
+								{{#if cta.giveAway.use}}
+									<form action="{{cta.giveAway.url}}" method="get" target="_blank">
+										<button type="submit" class="giveaway_button button btn {{cta.button.class}}">{{cta.giveAway.text}}</button>
+									</form>
+								{{/if}}
+							{{else}}
+							
+								{{#if cta.subHeadline }}
+									<h4>{{ cta.subHeadline }}</h4>
+								{{/if}}
 			
-							<form {{action 'submitCTA' cta on='submit'}}>
-								{{#each field in cta.fields}}
-									<div class="cta_field">
-										<label for="cta_{{cta.id}}_{{field.permalink}}">{{field.label}}</label>
-										<input type="{{field.type}}" id="cta_{{cta.id}}_{{field.permalink}}" name="{{field.publicAttr}}" placeholder="{{field.label}}" {{bind-attr required=field.isRequired}}>
+								<form {{action 'submitCTA' cta on='submit'}}>
+									{{#each field in cta.fields}}
+										<div class="cta_field">
+											<label for="cta_{{cta.id}}_{{field.permalink}}">{{field.label}}</label>
+											<input type="{{field.type}}" id="cta_{{cta.id}}_{{field.permalink}}" name="{{field.publicAttr}}" placeholder="{{field.label}}" {{bind-attr required=field.isRequired}}>
+										</div>
+									{{/each}}
+
+									<div class="cta_action_field">
+										<button type="submit" class="button btn {{cta.button.class}}">{{ cta.button.text }}</button>
 									</div>
-								{{/each}}
-
-								<div class="cta_action_field">
-									<button type="submit" class="button btn {{cta.button.class}}">{{ cta.button.text }}</button>
-								</div>
-							</form>
+								</form>
 						
-						{{/if}}
+							{{/if}}
 
-					</div>
-				{{/unless}}
+						</div>
+					{{/unless}}
 				
-			{{/if}}
+				{{/if}}
 		
+			</div>
 		</div>
-	</div>
-{{/unless}}
+	{{/unless}}
+{{/if}}

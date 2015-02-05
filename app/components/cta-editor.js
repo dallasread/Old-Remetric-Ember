@@ -77,6 +77,9 @@ export default Ember.Component.extend({
 	ctas: Ember.computed.filter('session.ctas', function(cta) {
 		return cta.get('type') === this.get('type');
 	}).property('session.ctas', 'type'),
+	hasGiveAwayApp: function() {
+		return this.get('session.organization.apps').findBy('id', 'giveaways');
+	}.property('session.organization.apps'),
 	didInsertElement: function() {
 		this.set('currentCTA', null);
 	},
@@ -142,6 +145,7 @@ export default Ember.Component.extend({
 		},
 		saveCTA: function() {
 			this.get('currentCTA').save();
+			console.log(this.get('currentCTA'))
 		},
 		activateCTA: function() {
 			this.toggleProperty('currentCTA.isActive');

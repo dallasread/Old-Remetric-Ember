@@ -55,7 +55,7 @@
 			  {{#ivy-tab-panel}}
 					<div class="remetric_tab_panel" data-title="Setup">
 						<div class="field">
-							<label for="Placement">Name</label>
+							<label for="Placement">Name (for your eyes only)</label>
 							{{input type="text" value=currentCTA.name}}
 						</div>
 						
@@ -244,17 +244,40 @@
 								<label for="thank_you_text">Thank-You Text</label>
 								{{textarea id="thank_you_text" value=currentCTA.thankYou.text}}
 							</div>
-						
-							<div class="field is_for_checkbox">
-								{{input type="checkbox" id="thank_you_is_redirect" checked=currentCTA.thankYou.isRedirect}}
-								<label for="thank_you_is_redirect">Redirect to custom URL upon submission</label>
-							</div>
-						
-							{{#if currentCTA.thankYou.isRedirect}}
-								<div class="field">
-									<label for="thank_you_url">Thank-You URL</label>
-									{{input type="text" for="thank_you_url" value=currentCTA.thankYou.url}}
+							
+							{{#if hasGiveAwayApp}}
+								<div class="field is_for_checkbox">
+									{{input type="checkbox" id="giveaway_use" checked=currentCTA.giveAway.use}}
+									<label for="giveaway_use">Has a Digital GiveAway</label>
 								</div>
+							{{/if}}
+							
+							{{#if currentCTA.giveAway.use}}
+								
+								<div class="field">
+									<label for="giveaway_url">What is the URL of the digital good you're giving away?</label>
+									{{input type="text" for="giveaway_url" value=currentCTA.giveAway.url}}
+								</div>
+							
+								<div class="field">
+									<label for="giveaway_text">What should the Giveaway button say?</label>
+									{{input type="text" for="giveaway_text" value=currentCTA.giveAway.text}}
+								</div>
+								
+							{{else}}
+								
+								<div class="field is_for_checkbox">
+									{{input type="checkbox" id="thank_you_is_redirect" checked=currentCTA.thankYou.isRedirect}}
+									<label for="thank_you_is_redirect">Redirect to custom URL upon submission</label>
+								</div>
+						
+								{{#if currentCTA.thankYou.isRedirect}}
+									<div class="field">
+										<label for="thank_you_url">Thank-You URL</label>
+										{{input type="text" for="thank_you_url" value=currentCTA.thankYou.url}}
+									</div>
+								{{/if}}
+								
 							{{/if}}
 						
 							<!-- <div class="field">

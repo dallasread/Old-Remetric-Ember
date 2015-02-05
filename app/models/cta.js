@@ -22,6 +22,7 @@ export default DS.Model.extend({
 	social: DS.attr({ defaultValue: {} }),
 	placement: DS.attr({ defaultValue: {} }),
 	image: DS.attr({ defaultValue: { use: false } }),
+	giveAway: DS.attr({ defaultValue: { use: false, text: 'Download Now!' } }),
 	thankYou: DS.attr({ defaultValue: { text: 'Thanks for submitting your response.', isRedirect: false } }),
 	button: DS.attr({ defaultValue: { text: 'Sign Up Now' } }),
 	spark: DS.attr({ defaultValue: { delay: 0, event: 'load' } }),
@@ -57,6 +58,7 @@ export default DS.Model.extend({
 	publicClass: function() {
 		var publicClass = 'remetric_cta';
 		publicClass += ' remetric_cta_' + this.get('id');
+		publicClass += ' remetric_cta_' + this.get('type');
 		publicClass += ' remetric_cta_' + this.get('placement.location');
 		publicClass += ' remetric_cta_' + this.get('placement.style');
 		if (!this.get('disableCSS')) { publicClass += ' remetric_cta_css'; }

@@ -2,17 +2,10 @@
 
 ## Todo
 
-- Activate Remetric with Serial Number
-- Log In / Log Out
 - Invite Users
 - Permissions
-- Contacts Index
-- Events
-- Bottom box contact form
 - Inline contact form
 - Popup contact form
-- Call Me Back contact form
-- Digital Giveaways
 - Segments (just saving/naming a filter) / ElasticSearch
 - Chat / XMPP - 2 convos per day trial
 - Automessage to signed up users (using followup app)
@@ -20,6 +13,7 @@
 
 ## Listen Scripts
 
+- When new form submission, send emails!
 - When `organization.stripeCardToken` updated, create or update Stripe and `organization.stripeCustomerToken` if necessary.
 - When `purchase` created, try to pay immediately. If paid, mark feature as available.
 - Cron job to create monthly purchases.

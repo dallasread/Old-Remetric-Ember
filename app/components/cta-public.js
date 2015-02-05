@@ -51,14 +51,12 @@ export default Ember.Component.extend({
 			this.set('isClosed', false);
 		},
 		maxOrMinimizeCTA: function() {
-			if (this.get('isSubmitted')) {
+			if (this.get('isSubmitted') || (!this.get('isMinimized') && this.get('cta.isClosable'))) {
 				this.set('isClosed', true);
 				this.set('isMinimized', true);
-			} else if (this.get('cta.isMinimizable')) {
+			} else {
 				this.set('isClosed', false);
 				this.toggleProperty('isMinimized');
-			} else {
-				this.toggleProperty('isClosed');				
 			}
 		},
 		openCTA: function() {
