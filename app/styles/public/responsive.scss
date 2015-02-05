@@ -1,0 +1,17 @@
+@media only screen and (max-device-width: 480px) {
+	.remetric .remetric_cta.remetric_hide-for-mobile {
+		display: none !important;
+	}
+}
+
+@media only screen and (min-device-width: 481px) and (max-device-width: 980px) {
+	.remetric .remetric_cta.remetric_hide-for-tablet {
+		display: none !important;
+	}
+}
+
+@media only screen and (min-device-width: 981px) {
+	.remetric .remetric_cta.remetric_hide-for-desktop {
+		display: none !important;
+	}
+}

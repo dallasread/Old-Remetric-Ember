@@ -90,12 +90,12 @@
 	}
 	
 	.open_remetric {
-		background: $maroon;
+		background: $lightest_gray;
+		height: 20px;
+		width: 7px;
 		position: fixed;
-		left: 0;
 		bottom: 100px;
-		width: 10px;
-		height: 50px;
+		left: 0;
 	}
 	
 	.align_center {

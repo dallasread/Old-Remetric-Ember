@@ -34,14 +34,17 @@
 			  {{#ivy-tab-list}}
 					<div class="remetric_tabs">
 				    {{#ivy-tab}}<a>Setup</a>{{/ivy-tab}}
-				    {{#ivy-tab}}<a>Appearance</a>{{/ivy-tab}}
+							
+						{{#unless currentCTA.hasSocial}}
+					    {{#ivy-tab}}<a>Appearance</a>{{/ivy-tab}}
+						{{/unless}}
+						
 				    {{#ivy-tab}}<a>Visibility</a>{{/ivy-tab}}
-				    {{#ivy-tab}}<a>Actions</a>{{/ivy-tab}}
 							
 						{{#if currentCTA.hasSocial}}
-							{{#ivy-tab}}
-								<a>Social</a>
-							{{/ivy-tab}}
+							{{#ivy-tab}}<a>Social</a>{{/ivy-tab}}
+						{{else}}
+					    {{#ivy-tab}}<a>Actions</a>{{/ivy-tab}}
 						{{/if}}
 						
 						<!-- {{!ivy-tab}}<a>Submissions</a>{{!ivy-tab}} -->
@@ -55,76 +58,110 @@
 							<label for="Placement">Name</label>
 							{{input type="text" value=currentCTA.name}}
 						</div>
+						
 						<div class="field">
 							<label for="placement">Where should this {{prettyName}} be located?</label>
 							{{view 'select' id='placement' content=placements optionValuePath='content.value' optionLabelPath='content.label' valueBinding='currentCTA.placementString'}}
 						</div>
-						<div class="field">
-							<label for="headline">Headline</label>
-							{{input type="text" id="headline" value=currentCTA.headline}}
-						</div>
-						<div class="field">
-							<label for="subheadline">Subheadline</label>
-							{{input type="text" id="subheadline" value=currentCTA.subHeadline}}
-						</div>
-						<div class="field">
-							<label for="button_text">Button Text</label>
-							{{input type="text" id="button_text" value=currentCTA.button.text}}
-						</div>
-						<div class="field">
-							<label for="button_class">Button Class</label>
-							{{input type="text" id="button_class" value=currentCTA.button.class}}
-						</div>
 						
-						<div class="field">
-							<table class="table with_cell_padding">
-								<thead>
-									<tr>
-										<th class="align_center">Required</th>
-										<th class="align_center">Save To Profile</th>
-										<th>Label</th>
-										<th>Info Field</th>
-										<th class="align_center"></th>
-									</tr>
-								</thead>
-								<tbody>
-									{{#each field in currentCTA.fields}}
+						{{#unless currentCTA.hasSocial}}
+							
+							{{#if requiresTextHeadline}}
+								<div class="field">
+									<label for="headline">Headline</label>
+									{{input type="text" id="headline" value=currentCTA.headline}}
+								</div>
+							{{else}}
+								<div class="field is_for_checkbox">
+									{{input type="checkbox" id="image_use" checked=currentCTA.image.use}}
+									<label for="image_use">Use image for headline</label>
+								</div>
+						
+								{{#if currentCTA.image.use}}
+									<div class="field">
+										<label for="image_url">URL of Headline Image</label>
+										{{input type="text" id="image_url" value=currentCTA.image.url}}
+									</div>
+								{{else}}
+									<div class="field">
+										<label for="headline">Headline</label>
+										{{input type="text" id="headline" value=currentCTA.headline}}
+									</div>
+								{{/if}}
+							{{/if}}
+						
+							<div class="field">
+								<label for="subheadline">Subheadline</label>
+								{{input type="text" id="subheadline" value=currentCTA.subHeadline}}
+							</div>
+							<div class="field">
+								<label for="button_text">Button Text</label>
+								{{input type="text" id="button_text" value=currentCTA.button.text}}
+							</div>
+							<div class="field">
+								<label for="button_class">Button Class</label>
+								{{input type="text" id="button_class" value=currentCTA.button.class}}
+							</div>
+						
+							<div class="field">
+								<table class="table with_cell_padding">
+									<thead>
 										<tr>
-											<td class="align_center">{{input type="checkbox" checked=field.isRequired}}</td>
-											<td class="align_center">{{input type="checkbox" checked=field.isForProfile}}</td>
-											<td>{{input type="text" value=field.label}}</td>
-											<td>{{input type="text" value=field.permalink}}</td>
-											<td class="align_center"><a href="#" {{action 'deleteField' field}}>&times;</a></td>
+											<th class="align_center">Required</th>
+											<th class="align_center">Save To Profile</th>
+											<th>Label</th>
+											<th>Info Field</th>
+											<th class="align_center"></th>
 										</tr>
-									{{/each}}
-								</tbody>
-							</table>
+									</thead>
+									<tbody>
+										{{#each field in currentCTA.fields}}
+											<tr>
+												<td class="align_center">{{input type="checkbox" checked=field.isRequired}}</td>
+												<td class="align_center">{{input type="checkbox" checked=field.isForProfile}}</td>
+												<td>{{view 'select' content=fieldTypes optionValuePath='content.value' optionLabelPath='content.label' valueBinding='field.type'}}</td>
+												<td>{{input type="text" value=field.label}}</td>
+												<td>{{input type="text" value=field.permalink}}</td>
+												<td class="align_center"><a href="#" {{action 'deleteField' field}}>&times;</a></td>
+											</tr>
+										{{/each}}
+									</tbody>
+								</table>
 						
-							<a href="#" class="small white button" {{action 'addField'}}>Add Field</a>
-						</div>
+								<a href="#" class="small white button" {{action 'addField'}}>Add Field</a>
+							</div>
+							
+						{{/unless}}
+						
 					</div>
 			  {{/ivy-tab-panel}}
 
-			  {{#ivy-tab-panel}}
-					<div class="remetric_tab_panel" data-title="Appearance">
-						<div class="field is_for_checkbox">
-							{{input type="checkbox" id="is_closable" checked=currentCTA.isClosable}}
-							<label for="is_closable">Is closable</label>
+				{{#unless currentCTA.hasSocial}}
+				  {{#ivy-tab-panel}}
+						<div class="remetric_tab_panel" data-title="Appearance">
+							<div class="field is_for_checkbox">
+								{{input type="checkbox" id="is_closable" checked=currentCTA.isClosable}}
+								<label for="is_closable">Is closable</label>
+							</div>
+							<div class="field is_for_checkbox">
+								{{input type="checkbox" id="is_minimizable" checked=currentCTA.isMinimizable}}
+								<label for="is_minimizable">Is minimizable</label>
+							</div>
+							<div class="field is_for_checkbox">
+								{{input type="checkbox" id="is_minimized" checked=currentCTA.isMinimized}}
+								<label for="is_minimized">Is minimized when loaded</label>
+							</div>
+							<div class="field is_for_checkbox">
+								{{input type="checkbox" id="is_sticky" checked=currentCTA.isSticky}}
+								<label for="is_sticky">Scroll with page</label>
+							</div>
+							<div class="field is_for_checkbox">
+								{{input type="checkbox" id="disable_css" checked=currentCTA.disableCSS}}
+								<label for="disable_css">Disable CSS</label>
+							</div>
 						</div>
-						<div class="field is_for_checkbox">
-							{{input type="checkbox" id="is_minimized" checked=currentCTA.isMinimized}}
-							<label for="is_minimized">Is minimized when loaded</label>
-						</div>
-						<div class="field is_for_checkbox">
-							{{input type="checkbox" id="scroll_with_page" checked=currentCTA.scrollWithPage}}
-							<label for="scroll_with_page">Don't scroll with page</label>
-						</div>
-						<div class="field is_for_checkbox">
-							{{input type="checkbox" id="disable_css" checked=currentCTA.disableCSS}}
-							<label for="disable_css">Disable CSS</label>
-						</div>
-					</div>
-			  {{/ivy-tab-panel}}
+				  {{/ivy-tab-panel}}
+				{{/unless}}
 
 			  {{#ivy-tab-panel}}
 					<div class="remetric_tab_panel" data-title="Visibility">
@@ -140,14 +177,14 @@
 							{{input type="checkbox" id="hide_for_desktop" checked=currentCTA.hideForDesktop}}
 							<label for="hide_for_desktop">Hide for Desktops and Laptops</label>
 						</div>
-						<div class="field">
+						<!-- <div class="field">
 							<label for="pages_to_show">Which pages should <strong>show</strong> this {{prettyName}}?</label>
-							{{input type="text" id="pages_to_show" value=currentCTA.pagesToShow}}
+							{{!input type="text" id="pages_to_show" value=currentCTA.pagesToShow}}
 						</div>
 						<div class="field">
 							<label for="pages_to_hide">Which pages should <strong>hide</strong> this {{prettyName}}?</label>
-							{{input type="text" id="pages_to_hide" value=currentCTA.pagesToHide}}
-						</div>
+							{{!input type="text" id="pages_to_hide" value=currentCTA.pagesToHide}}
+						</div> -->
 						<div class="field">
 							<label for="spark_event">When should this {{prettyName}} appear?</label>
 							{{view 'select' id='spark_event' content=sparkEvents optionValuePath='content.value' optionLabelPath='content.label' valueBinding='currentCTA.spark.event'}}
@@ -172,48 +209,57 @@
 							{{view 'select' content=sparkRecurrances optionValuePath='content.value' optionLabelPath='content.label' valueBinding='currentCTA.spark.recurrance'}}
 						</div>
 
-						<div class="field is_for_checkbox">
-							{{input type="checkbox" id="spark_sole" checked=currentCTA.spark.sole}}
-							<label for="spark_sole">Hide when other {{prettyName}}s are present?</label>
-						</div>
+						<!-- <div class="field is_for_checkbox">
+							{{!input type="checkbox" id="spark_sole" checked=currentCTA.spark.sole}}
+							<label for="spark_sole">Hide when other {{!prettyName}}s are present?</label>
+						</div> -->
 					</div>
 			  {{/ivy-tab-panel}}
 
-			  {{#ivy-tab-panel}}
-					<div class="remetric_tab_panel" data-title="Actions">
-						<div class="field">
-							<label for="thank_you_text">Thank-You Text</label>
-							{{textarea id="thank_you_text" value=currentCTA.thankYou.text}}
-						</div>
-						<div class="field">
-							<label for="thank_you_url">Thank-You URL</label>
-							{{input type="text" for="thank_you_url" value=currentCTA.thankYou.url}}
-						</div>
-						<div class="field">
-							<label for="Notification Emails">Notification Emails</label>
-						</div>
-					</div>
-			  {{/ivy-tab-panel}}
-				
-				{{#if currentCTA.hasSocial}}
+			  {{#if currentCTA.hasSocial}}
 				  {{#ivy-tab-panel}}
 						<div class="remetric_tab_panel" data-title="Social">
 							<div class="field">
-								<label for="facebook">Facebook</label>
+								<label for="facebook">Facebook Username</label>
 								{{input type="text" id="facebook" value=currentCTA.social.facebook}}
 							</div>
 							<div class="field">
-								<label for="twitter">Twitter</label>
+								<label for="twitter">Twitter Username</label>
 								{{input type="text" id="twitter" value=currentCTA.social.twitter}}
 							</div>
 							<div class="field">
-								<label for="linkedin">LinkedIn</label>
+								<label for="linkedin">LinkedIn Username</label>
 								{{input type="text" id="linkedin" value=currentCTA.social.linkedin}}
 							</div>
 							<div class="field">
-								<label for="pinterest">Pinterest</label>
+								<label for="pinterest">Pinterest Username</label>
 								{{input type="text" id="pinterest" value=currentCTA.social.pinterest}}
 							</div>
+						</div>
+				  {{/ivy-tab-panel}}
+				{{else}}
+				  {{#ivy-tab-panel}}
+						<div class="remetric_tab_panel" data-title="Actions">
+							<div class="field">
+								<label for="thank_you_text">Thank-You Text</label>
+								{{textarea id="thank_you_text" value=currentCTA.thankYou.text}}
+							</div>
+						
+							<div class="field is_for_checkbox">
+								{{input type="checkbox" id="thank_you_is_redirect" checked=currentCTA.thankYou.isRedirect}}
+								<label for="thank_you_is_redirect">Redirect to custom URL upon submission</label>
+							</div>
+						
+							{{#if currentCTA.thankYou.isRedirect}}
+								<div class="field">
+									<label for="thank_you_url">Thank-You URL</label>
+									{{input type="text" for="thank_you_url" value=currentCTA.thankYou.url}}
+								</div>
+							{{/if}}
+						
+							<!-- <div class="field">
+								<label for="Notification Emails">Notification Emails</label>
+							</div> -->
 						</div>
 				  {{/ivy-tab-panel}}
 				{{/if}}

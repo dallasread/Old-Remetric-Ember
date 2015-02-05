@@ -14,19 +14,36 @@ export default DS.Model.extend({
 	pagesToShow: DS.attr('string', { defaultValue: '*' }),
 	pagesToHide: DS.attr('string'),
 	disableCSS: DS.attr('boolean'),
-	scrollWithPage: DS.attr('boolean', { defaultValue: true }),
-	isClosable: DS.attr('boolean', { defaultValue: true }),
+	isSticky: DS.attr('boolean', { defaultValue: true }),
+	isClosable: DS.attr('boolean', { defaultValue: false }),
+	isMinimizable: DS.attr('boolean', { defaultValue: false }),
 	isMinimized: DS.attr('boolean', { defaultValue: false }),
 	ordinal: DS.attr('number'),
 	social: DS.attr({ defaultValue: {} }),
 	placement: DS.attr({ defaultValue: {} }),
-	thankYou: DS.attr({ defaultValue: { text: 'Thanks for submitting your response.' } }),
+	image: DS.attr({ defaultValue: { use: false } }),
+	thankYou: DS.attr({ defaultValue: { text: 'Thanks for submitting your response.', isRedirect: false } }),
 	button: DS.attr({ defaultValue: { text: 'Sign Up Now' } }),
 	spark: DS.attr({ defaultValue: { delay: 0, event: 'load' } }),
 	fields: DS.hasMany('field', { embedded: true }),
 	hasSocial: function() {
 		return this.get('type') === 'social';
 	}.property('type'),
+	socialArray: function() {
+		var socialArray = [];
+		var social = this.get('social');
+		
+		for (var key in social) {
+			var info = {
+				network: key,
+				url: social[key]
+			};
+		
+			socialArray.push(info);
+		}
+		
+		return socialArray;
+	}.property('social'),
 	placementString: function(key, placementString) {
 		if (arguments.length === 1) {
       return this.get('placement.location') + ':' + this.get('placement.style');
@@ -43,8 +60,13 @@ export default DS.Model.extend({
 		publicClass += ' remetric_cta_' + this.get('placement.location');
 		publicClass += ' remetric_cta_' + this.get('placement.style');
 		if (!this.get('disableCSS')) { publicClass += ' remetric_cta_css'; }
+		if (this.get('isSticky')) { publicClass += ' remetric_cta_sticky'; }
+		if (this.get('image.use')) { publicClass += ' remetric_use_image'; }
+		if (this.get('hideForMobile')) { publicClass += ' remetric_hide-for-mobile'; }
+		if (this.get('hideForTablet')) { publicClass += ' remetric_hide-for-tablet'; }
+		if (this.get('hideForDesktop')) { publicClass += ' remetric_hide-for-desktop'; }
 		return publicClass;
-	}.property('id', 'placement.location', 'placement.style', 'disableCSS'),
+	}.property('id', 'placement.location', 'placement.style', 'disableCSS', 'image.use', 'hideForMobile', 'hideForDesktop', 'hideForTablet'),
 	domId: function() {
 		return Ember.$('.' + this.get('id'));
 	}.property('id')

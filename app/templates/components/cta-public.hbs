@@ -1,49 +1,74 @@
 {{#unless isClosed}}
 	<div class="{{cta.publicClass}}">
 		<div class="cta_container">
-		
-			<div class="cta_header">
-				{{#if isMinimized}}
-					<a href="#" class="cta_widget_open" {{action 'openCTA'}}>&plus;</a>
-				{{else}}
-					{{#if cta.isClosable}}
-						<a href="#" class="cta_widget_close" {{action 'closeCTA'}}>&times;</a>
-					{{else}}
-						<a href="#" class="cta_widget_minimize" {{action 'minimizeCTA'}}>&minus;</a>						
-					{{/if}}
-				{{/if}}
-	
-				{{#if cta.headline}}
-					<h3>{{ cta.headline }}</h3>
-				{{/if}}
-			</div>
-	
-			{{#unless isMinimized}}
-				<div class="cta_content">
-					{{#if cta.subHeadline }}
-						<h4>{{ cta.subHeadline }}</h4>
-					{{/if}}
 			
-					<form {{action 'submitCTA' cta on='submit'}}>
+			{{#if cta.hasSocial}}
 				
-						{{#if hasSubmitted}}
-							<p>{{cta.thankYou.text}}</p>
+				<ul>
+					{{#each social in cta.socialArray}}
+						<li><a href="{{social.url}}">{{social.network}}</a></li>
+					{{/each}}
+				</ul>
+				
+			{{else}}
+				
+				{{#if cta.image.use}}
+					<a href="#" class="cta_header" {{action 'maxOrMinimizeCTA'}}>
+						<img src="{{cta.image.url}}">
+					</a>
+				{{else}}
+					<div class="cta_header" {{action 'maxOrMinimizeCTA'}}>
+						{{#if isSubmitted}}
+							<a href="#" class="cta_widget_close">&times;</a>
 						{{else}}
-							{{#each field in cta.fields}}
-								<div class="cta_field">
-									<label for="cta_{{cta.id}}_{{field.permalink}}">{{field.label}}</label>
-									<input type="text" id="cta_{{cta.id}}_{{field.permalink}}" name="{{field.publicAttr}}" placeholder="{{field.label}}" {{bind-attr required=cta.isRequired}}>
-								</div>
-							{{/each}}
-
-							<div class="cta_action_field">
-								<button type="submit" class="button btn {{cta.button.class}}">{{ cta.button.text }}</button>
-							</div>
+							{{#if isMinimized}}
+								<a href="#" class="cta_widget_open">&plus;</a>
+							{{else}}
+								{{#if cta.isClosable}}
+									<a href="#" class="cta_widget_close">&times;</a>
+								{{else}}
+									{{#if cta.isMinimizable}}
+										<a href="#" class="cta_widget_minimize">&minus;</a>
+									{{/if}}
+								{{/if}}
+							{{/if}}
 						{{/if}}
-					</form>
+	
+						{{#if cta.headline}}
+							<h3>{{ cta.headline }}</h3>
+						{{/if}}
+					</div>
+				{{/if}}
+	
+				{{#unless isMinimized}}
+					<div class="cta_content">
+						{{#if isSubmitted}}
+							<p class="is_submitted">{{cta.thankYou.text}}</p>
+						{{else}}
+							
+							{{#if cta.subHeadline }}
+								<h4>{{ cta.subHeadline }}</h4>
+							{{/if}}
+			
+							<form {{action 'submitCTA' cta on='submit'}}>
+								{{#each field in cta.fields}}
+									<div class="cta_field">
+										<label for="cta_{{cta.id}}_{{field.permalink}}">{{field.label}}</label>
+										<input type="{{field.type}}" id="cta_{{cta.id}}_{{field.permalink}}" name="{{field.publicAttr}}" placeholder="{{field.label}}" {{bind-attr required=field.isRequired}}>
+									</div>
+								{{/each}}
 
-				</div>
-			{{/unless}}
+								<div class="cta_action_field">
+									<button type="submit" class="button btn {{cta.button.class}}">{{ cta.button.text }}</button>
+								</div>
+							</form>
+						
+						{{/if}}
+
+					</div>
+				{{/unless}}
+				
+			{{/if}}
 		
 		</div>
 	</div>

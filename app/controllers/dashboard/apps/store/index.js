@@ -6,7 +6,6 @@ export default Ember.Controller.extend({
 	sortedApps: Ember.computed.sort('model', 'sortAppsBy'),
 	apps: Ember.computed.filter('sortedApps', function(app) {
 		// && this.get('session.organization.apps').indexOf(app) === -1
-		console.log(config.environment)
 		if (config.environment === 'development') {
 			return true;
 		} else {

@@ -2,6 +2,7 @@ import DS from 'ember-data';
 
 export default DS.Model.extend({
   permalink: DS.attr('string'),
+	type: DS.attr('string', { defaultValue: 'text' }),
 	label: DS.attr('string'),
 	isRequired: DS.attr('boolean', { defaultValue: true }),
 	ordinal: DS.attr('number', { defaultValue: 999 }),

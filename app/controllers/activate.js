@@ -1,7 +1,6 @@
 /* globals _RMI, _RMO */
 
 import Ember from 'ember';
-import config from './../config/environment';
 
 export default Ember.Controller.extend({
 	loading: false,

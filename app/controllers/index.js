@@ -32,7 +32,7 @@ export default Ember.Controller.extend({
 				ctas.map(function(cta) {
 					e.send('showCTA', cta);
 				});
-			})
+			});
 		}
 	}
 });

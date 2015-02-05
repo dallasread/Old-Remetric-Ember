@@ -18,9 +18,9 @@ export default Ember.Component.extend({
 	],
 	sparkEvents: [
 		{ value: 'load', label: "On page load" },
-		{ value: 'leave', label: "Predicted page leave" },
-		{ value: 'scroll', label: "On scroll" },
-		{ value: 'none', label: "None (show manually or with widgets)" }
+		// { value: 'leave', label: "Predicted page leave" },
+		// { value: 'scroll', label: "On scroll" },
+		{ value: 'none', label: "None (show manually)" }
 	],
 	sparkRecurrances: [
 		{ value: -1, label: "Every time" },
@@ -29,6 +29,11 @@ export default Ember.Component.extend({
 		{ value: 86400, label: "Once a day" },
 		{ value: 604800, label: "Once a week" },
 		{ value: 2592000, label: "Once a month" }
+	],
+	fieldTypes: [
+		{ value: 'text', label: "Text" },
+		{ value: 'email', label: "Email Address" },
+		{ value: 'tel', label: "Telephone" }
 	],
 	placements: function() {
     switch (this.get('currentCTA.type')) {
@@ -39,10 +44,13 @@ export default Ember.Component.extend({
 				];
       case 'social':
 				return [
-					{ value: 'top:bar', label: "Top of Page" },
-					{ value: 'bottom:bar', label: "Bottom of Page" },
-					{ value: 'left:bar', label: "Left of Page" },
-					{ value: 'right:bar', label: "Right of Page" }
+					{ value: 'mid-left:box', label: "Left of Page" },
+					{ value: 'mid-right:box', label: "Right of Page" }
+				];
+      case 'lead':
+				return [
+					{ value: 'bottom-left:box', label: "Bottom Left of Page" },
+					{ value: 'bottom-right:box', label: "Bottom Right of Page" }
 				];
       case 'chat':
 				return [
@@ -54,6 +62,12 @@ export default Ember.Component.extend({
 	isSparkDelayed: function() {
 		return this.get('currentCTA.spark.event') === 'load';
 	}.property('currentCTA.spark.event'),
+	requiresTextHeadline: function() {
+		if (this.get('currentCTA') && this.get('currentCTA.placement.style') !== 'box') {
+			this.set('currentCTA.image.use', false);
+		}
+		return this.get('currentCTA.placement.style') !== 'box';
+	}.property('currentCTA.placement.style'),
 	isSparkScrollable: function() {
 		return this.get('currentCTA.spark.event') === 'scroll';
 	}.property('currentCTA.spark.event'),
@@ -83,8 +97,11 @@ export default Ember.Component.extend({
 				case 'topbar':
 					placement = { style: 'bar', location: 'top' };
 					break;
+				case 'lead':
+					placement = { style: 'box', location: 'bottom-right' };
+					break;
 				case 'social':
-					placement = { style: 'bar', location: 'left' };
+					placement = { style: 'box', location: 'mid-left' };
 					break;
 				case 'chat':
 					placement = { style: 'box', location: 'bottom-right' };
@@ -98,22 +115,26 @@ export default Ember.Component.extend({
 				placement: placement
 			});
 			
-			var name = this.get('store').createRecord('field', {
-				label: 'What is your name?',
-				permalink: 'name',
-				isRequired: true,
-				ordinal: 0
-			});
+			if (this.get('type') !== 'social') {
+				var name = this.get('store').createRecord('field', {
+					label: 'What is your name?',
+					permalink: 'name',
+					type: 'text',
+					isRequired: true,
+					ordinal: 0
+				});
 			
-			var email = this.get('store').createRecord('field', {
-				label: 'What is your email?',
-				permalink: 'email',
-				isRequired: true,
-				ordinal: 1
-			});
-			
-			cta.get('fields').addObject(name);
-			cta.get('fields').addObject(email);
+				var email = this.get('store').createRecord('field', {
+					label: 'What is your email?',
+					permalink: 'email',
+					type: 'email',
+					isRequired: true,
+					ordinal: 1
+				});
+				
+				cta.get('fields').addObject(name);
+				cta.get('fields').addObject(email);
+			}
 			
 			cta.save().then(function() {
 				e.set('currentCTA', cta);

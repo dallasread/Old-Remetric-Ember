@@ -1,0 +1,161 @@
+.remetric {
+	.remetric_cta {
+		position: relative;
+		
+		&.remetric_cta_top {
+			top: 0;
+		}
+		
+		&.remetric_cta_top-left {
+			top: 0;
+			left: 0;
+		}
+		
+		&.remetric_cta_top-right {
+			top: 0;
+			right: 0;
+		}
+		
+		&.remetric_cta_bottom {
+			bottom: 0;
+		}
+		
+		&.remetric_cta_bottom-left {
+			bottom: 0;
+			left: 0;
+			
+			&.remetric_use_image {
+				.cta_header {
+					text-align: left;
+				}
+			}
+		}
+		
+		&.remetric_cta_bottom-right {
+			bottom: 0;
+			right: 0;
+			
+			&.remetric_use_image {
+				.cta_header {
+					text-align: right;
+				}
+			}
+		}
+		
+		&.remetric_cta_mid-right {
+			right: 0;
+			top: 20%;
+		}
+		
+		&.remetric_cta_mid-left {
+			left: 0;
+			top: 20%;
+		}
+		
+		.cta_header {
+			cursor: pointer;
+		}
+		
+		&.remetric_cta_box {
+			position: absolute;
+			width: 320px;
+			
+			.cta_header {
+				padding: 15px;
+				background: #333;
+				color: #fff;
+				position: relative;
+			}
+			
+			&.remetric_use_image {
+				.cta_header {
+					padding: 0px;
+					background: none;
+					position: static;
+					display: block;
+					
+					img {
+						margin-bottom: -3px;
+					}
+				}
+			}
+			
+			.cta_content {
+				padding: 15px;
+				background: #eee;
+				
+				p, h4 {
+					margin-bottom: 15px;
+					
+					&.is_submitted {
+						margin-bottom: 0;
+					}
+				}
+				
+				.cta_field, .cta_action_field {
+					&.cta_field {
+						margin-bottom: 15px;
+					}
+					
+					label {
+						display: block;
+						margin-bottom: 4px;
+					}
+					
+					input, select, button {
+						width: 100%;
+						
+						&[type="checkbox"] {
+							width: auto;
+						}
+					}
+				}
+			}
+		}
+		
+		&.remetric_cta_bar {
+			position: absolute;
+			left: 0;
+			right: 0;
+			text-align: center;
+			padding: 15px;
+			background: #eee;
+			
+			.cta_field, .cta_action_field, .cta_content, .cta_header, h3 {
+				display: inline-block;
+				
+				label {
+					display: none;
+				}
+			}
+			
+			p {
+				margin-bottom: 0;
+			}
+			
+			.cta_header {
+				padding-right: 20px;
+			}
+		}
+		
+		&.remetric_cta_sticky {
+			position: fixed;
+		}
+		
+		.cta_widget_close, .cta_widget_open, .cta_widget_minimize {
+			position: absolute;
+			right: 9px;
+			top: 50%;
+			margin-top: -13px;
+			padding: 3px 10px 7px;
+			border-radius: 20px;
+			background: rgba(0, 0, 0, 0.1);
+			color: rgba(255, 255, 255, 0.6);
+			
+			&:hover {
+				background: rgba(0, 0, 0, 0.3);
+				color: rgba(255, 255, 255, 0.8);
+			}
+		}
+	}
+}

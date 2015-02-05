@@ -3,7 +3,7 @@
 import Ember from 'ember';
 
 export default Ember.Component.extend({
-	hasSubmitted: false,
+	isSubmitted: false,
 	isClosed: false,
 	isMinimized: false,
 	didInsertElement: function() {
@@ -14,16 +14,33 @@ export default Ember.Component.extend({
 	actions: {
 		submitCTA: function(cta) {
 			var e = this;
+			var form = cta.get('domId').find('form');
+			var success = true;
 			
-			this.get('store').find('person', 'Person3ID').then(function(person) {
-				var event = cta.get('domId').find('form').serializeObject();
-				event.story = "{{person.name}} submitted {{cta.name}}";
-				event.person = event.person || {};
-				event.person.id = person.get('id');
-				event.cta = { name: cta.get('name'), id: cta.get('id') };
-				_RMO.track(event);
-				e.set('hasSubmitted', true);
+			form.find('[required]').each(function() {
+				if (!Ember.$(this).val().length) {
+					success = false;
+				}
 			});
+			
+			if (success) {
+				this.get('store').find('person', 'Person3ID').then(function(person) {
+					var event = form.serializeObject();
+					event.story = "{{person.name}} submitted {{cta.name}}";
+					event.person = event.person || {};
+					event.person.id = person.get('id');
+					event.cta = { name: cta.get('name'), id: cta.get('id') };
+					_RMO.track(event);
+				
+					if (cta.get('thankYou.isRedirect') && cta.get('thankYou.url.length')) {
+						window.location.href = cta.get('thankYou.url');
+					}
+				
+					e.set('isSubmitted', true);
+				});
+			} else {
+				alert('Please fill in all the required fields.');
+			}
 		},
 		closeCTA: function() {
 			this.set('isMinimized', false);
@@ -32,6 +49,17 @@ export default Ember.Component.extend({
 		minimizeCTA: function() {
 			this.set('isMinimized', true);
 			this.set('isClosed', false);
+		},
+		maxOrMinimizeCTA: function() {
+			if (this.get('isSubmitted')) {
+				this.set('isClosed', true);
+				this.set('isMinimized', true);
+			} else if (this.get('cta.isMinimizable')) {
+				this.set('isClosed', false);
+				this.toggleProperty('isMinimized');
+			} else {
+				this.toggleProperty('isClosed');				
+			}
 		},
 		openCTA: function() {
 			this.set('isMinimized', false);
