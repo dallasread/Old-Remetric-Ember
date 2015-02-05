@@ -13,7 +13,7 @@ function applyURLToObject(obj, url) {
 
 export default Ember.Component.extend({
 	realStory: function() {
-		var story = Handlebars.compile( this.get('event_story').toString() );
+		var story = Handlebars.compile( this.get('event_story') + '' );
 		var data = Ember.$.extend(true, {}, this.get('event_info'));
 		
 		applyURLToObject(data, "/#/dashboard/activity/events/" + this.get('event_id'));
