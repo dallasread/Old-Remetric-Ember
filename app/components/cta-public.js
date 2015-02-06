@@ -6,6 +6,8 @@ export default Ember.Component.extend({
 	isSubmitted: false,
 	isClosed: false,
 	isMinimized: false,
+	sortSocialBy: ['ordinal'],
+	sortedSocialNetworks: Ember.computed.sort('cta.social', 'sortSocialBy'),
 	didInsertElement: function() {
 		if (this.get('cta')) {
 			this.set('isMinimized', this.get('cta.isMinimized'));

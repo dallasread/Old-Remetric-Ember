@@ -80,6 +80,11 @@ export default Ember.Component.extend({
 	hasGiveAwayApp: function() {
 		return this.get('session.organization.apps').findBy('id', 'giveaways');
 	}.property('session.organization.apps'),
+	sortSocialBy: ['ordinal'],
+	sortedSocialNetworks: Ember.computed.sort('socialNetworks', 'sortSocialBy'),
+	socialNetworks: function() {
+		return this.get('store').findAll('social');
+	}.property('store'),
 	didInsertElement: function() {
 		this.set('currentCTA', null);
 	},
@@ -118,7 +123,12 @@ export default Ember.Component.extend({
 				placement: placement
 			});
 			
-			if (this.get('type') !== 'social') {
+			if (this.get('type') === 'social') {
+				cta.set('social', {
+					facebook: true,
+					twitter: true
+				});
+			} else {
 				var name = this.get('store').createRecord('field', {
 					label: 'What is your name?',
 					permalink: 'name',
@@ -145,7 +155,6 @@ export default Ember.Component.extend({
 		},
 		saveCTA: function() {
 			this.get('currentCTA').save();
-			console.log(this.get('currentCTA'))
 		},
 		activateCTA: function() {
 			this.toggleProperty('currentCTA.isActive');

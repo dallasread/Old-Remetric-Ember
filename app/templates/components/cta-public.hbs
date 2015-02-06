@@ -5,9 +5,13 @@
 			
 				{{#if cta.hasSocial}}
 				
-					<ul>
-						{{#each social in cta.socialArray}}
-							<li><a href="{{social.url}}">{{social.network}}</a></li>
+					<ul class="cta_social">
+						{{#each network in sortedSocialNetworks}}
+							<li>
+								<a href="{{network.shareURL}}" target="_blank" style="background-color: {{network.colour}}; ">
+									<img src="{{network.icon}}">
+								</a>
+							</li>
 						{{/each}}
 					</ul>
 				

@@ -220,22 +220,12 @@
 			  {{#if currentCTA.hasSocial}}
 				  {{#ivy-tab-panel}}
 						<div class="remetric_tab_panel" data-title="Social">
-							<div class="field">
-								<label for="facebook">Facebook Username</label>
-								{{input type="text" id="facebook" value=currentCTA.social.facebook}}
-							</div>
-							<div class="field">
-								<label for="twitter">Twitter Username</label>
-								{{input type="text" id="twitter" value=currentCTA.social.twitter}}
-							</div>
-							<div class="field">
-								<label for="linkedin">LinkedIn Username</label>
-								{{input type="text" id="linkedin" value=currentCTA.social.linkedin}}
-							</div>
-							<div class="field">
-								<label for="pinterest">Pinterest Username</label>
-								{{input type="text" id="pinterest" value=currentCTA.social.pinterest}}
-							</div>
+							{{#each social in sortedSocialNetworks}}
+								<div class="field is_for_checkbox">
+									{{view 'social-checkbox' id=social.id cta=currentCTA social=social}}
+									<label for="{{social.id}}">{{social.name}}</label>
+								</div>
+							{{/each}}
 						</div>
 				  {{/ivy-tab-panel}}
 				{{else}}

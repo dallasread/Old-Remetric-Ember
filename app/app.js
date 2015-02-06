@@ -12,6 +12,7 @@ var App = Ember.Application.extend({
 });
 
 Ember.Inflector.inflector.irregular('cta', 'ctas');
+Ember.Inflector.inflector.irregular('social', 'social');
 
 loadInitializers(App, config.modulePrefix);
 

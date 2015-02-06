@@ -19,7 +19,6 @@ export default DS.Model.extend({
 	isMinimizable: DS.attr('boolean', { defaultValue: false }),
 	isMinimized: DS.attr('boolean', { defaultValue: false }),
 	ordinal: DS.attr('number'),
-	social: DS.attr({ defaultValue: {} }),
 	placement: DS.attr({ defaultValue: {} }),
 	image: DS.attr({ defaultValue: { use: false } }),
 	giveAway: DS.attr({ defaultValue: { use: false, text: 'Download Now!' } }),
@@ -27,24 +26,10 @@ export default DS.Model.extend({
 	button: DS.attr({ defaultValue: { text: 'Sign Up Now' } }),
 	spark: DS.attr({ defaultValue: { delay: 0, event: 'load' } }),
 	fields: DS.hasMany('field', { embedded: true }),
+	social: DS.hasMany('social', { async: true }),
 	hasSocial: function() {
 		return this.get('type') === 'social';
 	}.property('type'),
-	socialArray: function() {
-		var socialArray = [];
-		var social = this.get('social');
-		
-		for (var key in social) {
-			var info = {
-				network: key,
-				url: social[key]
-			};
-		
-			socialArray.push(info);
-		}
-		
-		return socialArray;
-	}.property('social'),
 	placementString: function(key, placementString) {
 		if (arguments.length === 1) {
       return this.get('placement.location') + ':' + this.get('placement.style');
