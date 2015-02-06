@@ -16,7 +16,7 @@ module.exports = function(grunt) {
       js: {
 				files: {
 					"../track.js": ["track-dev.js"],
-					"../../vendor/track.js": ["track-dev.js"]
+					"../../../vendor/track.js": ["track-dev.js"]
 				}
       }
     },

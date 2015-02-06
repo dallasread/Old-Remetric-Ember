@@ -26,6 +26,7 @@ export default DS.Model.extend({
 	button: DS.attr({ defaultValue: { text: 'Sign Up Now' } }),
 	spark: DS.attr({ defaultValue: { delay: 0, event: 'load' } }),
 	fields: DS.hasMany('field', { embedded: true }),
+	notifications: DS.hasMany('notification', { embedded: true }),
 	social: DS.hasMany('social', { async: true }),
 	hasSocial: function() {
 		return this.get('type') === 'social';

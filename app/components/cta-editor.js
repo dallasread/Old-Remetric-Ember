@@ -186,6 +186,17 @@ export default Ember.Component.extend({
 		},
 		deleteField: function(field) {
 			this.get('currentCTA.fields').removeObject(field);
-		}
+		},
+		addNotification: function() {
+			var notification = this.get('store').createRecord('notification', {
+				to: this.get('session.user.name') + " <" + this.get('session.user.email') + ">",
+				subject: this.get('session.organization.name') + ' Response',
+				message: "{{person.name}} ({{person.email}}) has submitted a form:\n\n{{data}}\n\nThanks,\n\n" + this.get('session.organization.name')
+			});
+			this.get('currentCTA.notifications').addObject(notification);
+		},
+		deleteNotification: function(notification) {
+			this.get('currentCTA.notifications').removeObject(notification);
+		},
 	}
 });

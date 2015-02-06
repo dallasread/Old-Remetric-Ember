@@ -44,7 +44,8 @@
 						{{#if currentCTA.hasSocial}}
 							{{#ivy-tab}}<a>Social</a>{{/ivy-tab}}
 						{{else}}
-					    {{#ivy-tab}}<a>Actions</a>{{/ivy-tab}}
+					    {{#ivy-tab}}<a>Response</a>{{/ivy-tab}}
+					    {{#ivy-tab}}<a>Notifications</a>{{/ivy-tab}}
 						{{/if}}
 						
 						<!-- {{!ivy-tab}}<a>Submissions</a>{{!ivy-tab}} -->
@@ -230,7 +231,7 @@
 				  {{/ivy-tab-panel}}
 				{{else}}
 				  {{#ivy-tab-panel}}
-						<div class="remetric_tab_panel" data-title="Actions">
+						<div class="remetric_tab_panel" data-title="Response">
 							<div class="field">
 								<label for="thank_you_text">Thank-You Text</label>
 								{{textarea id="thank_you_text" value=currentCTA.thankYou.text}}
@@ -270,12 +271,47 @@
 								{{/if}}
 								
 							{{/if}}
-						
-							<!-- <div class="field">
-								<label for="Notification Emails">Notification Emails</label>
-							</div> -->
+							
 						</div>
 				  {{/ivy-tab-panel}}
+					
+					{{#ivy-tab-panel}}
+						<div class="remetric_tab_panel" data-title="Notifications">
+							<p>
+								Set up email alerts (to you, the submitter, or anyone else) for when this {{prettyName}} is submitted.
+							</p>
+							
+							{{#each notification in currentCTA.notifications}}
+								<div class="field notification">
+									<table class="table with_minimal_cell_padding">
+										<tbody>
+											<tr>
+												<td><label for="notification_to">To</label></td>
+												<td>{{input type="text" name="notification_to" value=notification.to}}</td>
+											</tr>
+											<tr>
+												<td><label for="notification_reply_to">Reply To</label></td>
+												<td>{{input type="text" name="notification_reply_to" value=notification.replyTo}}</td>
+											</tr>
+											<tr>
+												<td><label for="notification_to">Subject</label></td>
+												<td>{{input type="text" name="notification_subject" value=notification.subject}}</td>
+											</tr>
+											<tr>
+												<td><label for="notification_message">Message</label></td>
+												<td>{{textarea name="notification_message" class="notification_message" value=notification.message}}</td>
+											</tr>
+											<tr>
+												<th colspan="2"><a href="#" class="small white button" {{action 'deleteNotification' notification}}>Delete Notification</a></th>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							{{/each}}
+						
+							<a href="#" class="white button inline_block" {{action 'addNotification'}}>Add Notification</a>
+						</div>
+					{{/ivy-tab-panel}}
 				{{/if}}
 
 			  <!-- {{!ivy-tab-panel}}
@@ -290,9 +326,9 @@
 				<a href="#" {{action 'deleteCTA'}} class="cancel">Delete</a>
 				<a href="#" {{action 'duplicateCTA'}} class="cancel">Duplicate</a>
 				
-				{{#if currentCTA.isDirty}}
+				{{!if currentCTA.isDirty}}
 					<a href="#" {{action 'resetCTA'}} class="cancel">Discard Changes</a>
-				{{/if}}
+				{{!if}}
 				
 				<button {{bind-attr class=":button currentCTA.isDirty:clickable"}}>
 					Save Changes

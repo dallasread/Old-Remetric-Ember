@@ -34,4 +34,17 @@ _RMI.track = (event) ->
 	img.src = "#{_RMI.domain}/api/#{_RMI.api_key}/events/#{base64}"
 	document.body.appendChild img
 
+_RMI.notify = (event, notification) ->
+	img = document.createElement("img")
+	img.style.display = "none"
+	event.page =
+		title: document.title
+		url: document.URL
+	data =
+		event: event
+		notification: notification
+	base64 = encodeURIComponent btoa(JSON.stringify(data))
+	img.src = "#{_RMI.domain}/api/#{_RMI.api_key}/notify/#{base64}"
+	document.body.appendChild img
+
 _RMI.parseEvents()

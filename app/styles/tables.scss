@@ -10,6 +10,16 @@
 			}
 		}
 		
+		&.with_minimal_cell_padding {
+			border-top: 1px solid $lighter_gray;
+			
+			td, th {
+				padding: 7px;
+				text-align: right;
+				vertical-align: middle;
+			}
+		}
+		
 		th {
 			background: $lightest_gray;
 			font-weight: bold;
@@ -47,6 +57,10 @@
 					padding: 17px;
 					display: block;
 					color: #333;
+					
+					&.inline_block {
+						display: inline-block;
+					}
 				}
 			}
 			
