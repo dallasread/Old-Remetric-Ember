@@ -168,17 +168,17 @@
 								</div>
 							
 								{{#unless currentCTA.disableCSS}}
-									<div class="field">
-										<label for="css_background">Background</label>
-										{{input type="text" id="css_background" value=currentCTA.css.general.background}}
-									</div>
-									
 									{{#unless currentCTA.isTopbar}}
 										<div class="field">
-											<label for="css_header_background">Header Background</label>
-											{{input type="text" id="css_header_background" value=currentCTA.css.header.background}}
+											<label for="css_background">Background</label>
+											{{input type="text" id="css_background" value=currentCTA.css.general.background}}
 										</div>
 									{{/unless}}
+									
+									<div class="field">
+										<label for="css_header_background">Header Background</label>
+										{{input type="text" id="css_header_background" value=currentCTA.css.header.background}}
+									</div>
 									
 									<div class="field">
 										<label for="css_header_text">Header Text Colour</label>

@@ -11,13 +11,17 @@ export default Ember.Component.extend({
 	sortedSocialNetworks: Ember.computed.sort('cta.social', 'sortSocialBy'),
 	ctaCSS: function() {
 		if (this.get('cta.type') === 'topbar') {
-			return 'background: ' + this.get('cta.css.general.background') + '; color: ' + this.get('cta.css.general.text') + '; ';
+			return 'background: ' + this.get('cta.css.header.background') + '; color: ' + this.get('cta.css.header.text') + '; ';
 		} else {
 			return '';
 		}
 	}.property('cta.css.general', 'cta.type'),
 	ctaCSSGeneralBackground: function() {
-		return 'background: ' + this.get('cta.css.general.background') + '; color: ' + this.get('cta.css.general.text') + '; ';
+		if (this.get('cta.type') === 'topbar') {
+			return '';
+		} else {
+			return 'background: ' + this.get('cta.css.general.background') + '; color: ' + this.get('cta.css.general.text') + '; ';
+		}
 	}.property('cta.css.general'),
 	ctaCSSGeneralText: function() {
 		return 'color: ' + this.get('cta.css.general.text') + '; ';

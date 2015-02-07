@@ -16,7 +16,7 @@ export default DS.Model.extend({
 	disableCSS: DS.attr('boolean'),
 	isSticky: DS.attr('boolean', { defaultValue: true }),
 	isClosable: DS.attr('boolean', { defaultValue: false }),
-	isMinimizable: DS.attr('boolean', { defaultValue: false }),
+	isMinimizable: DS.attr('boolean', { defaultValue: true }),
 	isMinimized: DS.attr('boolean', { defaultValue: false }),
 	ordinal: DS.attr('number'),
 	placement: DS.attr({ defaultValue: {} }),

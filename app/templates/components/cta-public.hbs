@@ -48,18 +48,26 @@
 					{{#unless isMinimized}}
 						<div class="cta_content" style="{{ctaCSSGeneralBackground}}">
 							{{#if isSubmitted}}
-								<p class="is_submitted" style="{{ctaCSSGeneralText}}">{{{cta.thankYou.text}}}</p>
+								{{#if cta.isTopbar}}
+									{{#unless cta.giveAway.use}}
+										<p class="is_submitted" style="{{ctaCSSGeneralText}}">{{{cta.thankYou.text}}}</p>
+									{{/unless}}
+								{{else}}
+									<p class="is_submitted" style="{{ctaCSSGeneralText}}">{{{cta.thankYou.text}}}</p>
+								{{/if}}
 							
 								{{#if cta.giveAway.use}}
 									<form action="{{cta.giveAway.url}}" method="get" target="_blank">
-										<button type="submit" class="giveaway_button button btn {{cta.button.class}}">{{cta.giveAway.text}}</button>
+										<button type="submit" class="button btn {{cta.button.class}}">{{cta.giveAway.text}}</button>
 									</form>
 								{{/if}}
 							{{else}}
 							
-								{{#if cta.subHeadline }}
-									<h4 style="{{ctaCSSGeneralText}}">{{ cta.subHeadline }}</h4>
-								{{/if}}
+								{{#unless cta.isTopbar}}
+									{{#if cta.subHeadline }}
+										<h4 style="{{ctaCSSGeneralText}}">{{ cta.subHeadline }}</h4>
+									{{/if}}
+								{{/unless}}
 			
 								<form {{action 'submitCTA' cta on='submit'}}>
 									{{#each field in cta.fields}}
