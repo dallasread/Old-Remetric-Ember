@@ -23,12 +23,11 @@ export default Ember.Component.extend({
 		{ value: 'none', label: "None (show manually)" }
 	],
 	sparkRecurrances: [
-		{ value: -1, label: "Every time" },
-		{ value: 0, label: "Until they interact" },
-		{ value: 9999999999, label: "Once" },
-		{ value: 86400, label: "Once a day" },
-		{ value: 604800, label: "Once a week" },
-		{ value: 2592000, label: "Once a month" }
+		{ value: -1, label: "Always" },
+		{ value: 9999, label: "Until they interact" },
+		{ value: 1, label: "Once a day, until they interact" },
+		{ value: 7, label: "Once a week, until they interact" },
+		{ value: 30, label: "Once a month, until they interact" }
 	],
 	fieldTypes: [
 		{ value: 'text', label: "Text" },
@@ -62,12 +61,6 @@ export default Ember.Component.extend({
 	isSparkDelayed: function() {
 		return this.get('currentCTA.spark.event') === 'load';
 	}.property('currentCTA.spark.event'),
-	requiresTextHeadline: function() {
-		if (this.get('currentCTA') && this.get('currentCTA.placement.style') !== 'box') {
-			this.set('currentCTA.image.use', false);
-		}
-		return this.get('currentCTA.placement.style') !== 'box';
-	}.property('currentCTA.placement.style'),
 	isSparkScrollable: function() {
 		return this.get('currentCTA.spark.event') === 'scroll';
 	}.property('currentCTA.spark.event'),

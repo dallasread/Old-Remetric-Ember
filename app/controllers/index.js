@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import jQuery from 'jquery';
 
 export default Ember.Controller.extend({
 	init: function() {
@@ -8,29 +9,18 @@ export default Ember.Controller.extend({
 	},
 	ctas: [],
 	actions: {
-		showCTA: function(cta) {
-			var e = this;
-			
-			if (cta.get('isActive')) {
-				setTimeout(function() {
-					e.get('ctas').pushObject(cta);
-				}, cta.get('spark.delay'));
-			}
-		},
 		checkCTAs: function() {
-			// Loop over CTAs, ordered by quickest trigger
-			// For each trigger event
-			//   IF INCLUDED && NOT EXCLUDED
-			//     IF NOT SOLE
-			//       Show CTA, record event
-			//     IF SOLE
-			//       Show first CTA and ignore the rest
-			
 			var e = this;
 			
 			this.get('session.ctas').then(function(ctas) {
-				ctas.map(function(cta) {
-					e.send('showCTA', cta);
+				ctas.map(function(cta) {				
+					if (cta.get('isActive')) {
+						if (typeof jQuery.cookie( cta.get('cookie') ) === 'undefined') {
+							setTimeout(function() {
+								e.get('ctas').pushObject(cta);
+							}, cta.get('spark.delay'));
+						}
+					}
 				});
 			});
 		}

@@ -113,6 +113,10 @@
 			}
 		}
 		
+		.button {
+			border: 0 none;
+		}
+		
 		&.remetric_cta_bar {
 			position: absolute;
 			left: 0;
@@ -136,6 +140,12 @@
 			.cta_header {
 				padding-right: 20px;
 			}
+		}
+		
+		h3 {
+			font-weight: bold;
+			font-size: 18px;
+			line-height: 18px;
 		}
 		
 		&.remetric_cta_sticky {
@@ -165,8 +175,8 @@
 	
 	.cta_social {
 		li {
-			width: 40px;
-			
+			width: 45px;
+
 			a {
 				padding: 7px;
 				display: block;

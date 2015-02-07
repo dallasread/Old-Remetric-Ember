@@ -35,13 +35,13 @@
 					<div class="remetric_tabs">
 				    {{#ivy-tab}}<a>Setup</a>{{/ivy-tab}}
 							
-						{{#unless currentCTA.hasSocial}}
+						{{#unless currentCTA.isSocial}}
 					    {{#ivy-tab}}<a>Appearance</a>{{/ivy-tab}}
 						{{/unless}}
 						
 				    {{#ivy-tab}}<a>Visibility</a>{{/ivy-tab}}
 							
-						{{#if currentCTA.hasSocial}}
+						{{#if currentCTA.isSocial}}
 							{{#ivy-tab}}<a>Social</a>{{/ivy-tab}}
 						{{else}}
 					    {{#ivy-tab}}<a>Response</a>{{/ivy-tab}}
@@ -65,13 +65,20 @@
 							{{view 'select' id='placement' content=placements optionValuePath='content.value' optionLabelPath='content.label' valueBinding='currentCTA.placementString'}}
 						</div>
 						
-						{{#unless currentCTA.hasSocial}}
+						{{#unless currentCTA.isSocial}}
 							
-							{{#if requiresTextHeadline}}
+							{{#unless currentCTA.isBox}}
 								<div class="field">
 									<label for="headline">Headline</label>
 									{{input type="text" id="headline" value=currentCTA.headline}}
 								</div>
+								
+								{{#unless currentCTA.isTopbar}}
+									<div class="field">
+										<label for="subheadline">Subheadline</label>
+										{{input type="text" id="subheadline" value=currentCTA.subHeadline}}
+									</div>
+								{{/unless}}
 							{{else}}
 								<div class="field is_for_checkbox">
 									{{input type="checkbox" id="image_use" checked=currentCTA.image.use}}
@@ -89,12 +96,8 @@
 										{{input type="text" id="headline" value=currentCTA.headline}}
 									</div>
 								{{/if}}
-							{{/if}}
-						
-							<div class="field">
-								<label for="subheadline">Subheadline</label>
-								{{input type="text" id="subheadline" value=currentCTA.subHeadline}}
-							</div>
+							{{/unless}}
+							
 							<div class="field">
 								<label for="button_text">Button Text</label>
 								{{input type="text" id="button_text" value=currentCTA.button.text}}
@@ -138,7 +141,7 @@
 					</div>
 			  {{/ivy-tab-panel}}
 
-				{{#unless currentCTA.hasSocial}}
+				{{#unless currentCTA.isSocial}}
 				  {{#ivy-tab-panel}}
 						<div class="remetric_tab_panel" data-title="Appearance">
 							<div class="field is_for_checkbox">
@@ -157,10 +160,49 @@
 								{{input type="checkbox" id="is_sticky" checked=currentCTA.isSticky}}
 								<label for="is_sticky">Scroll with page</label>
 							</div>
-							<div class="field is_for_checkbox">
-								{{input type="checkbox" id="disable_css" checked=currentCTA.disableCSS}}
-								<label for="disable_css">Disable CSS</label>
-							</div>
+							
+							{{#unless currentCTA.isSocial}}
+								<div class="field is_for_checkbox">
+									{{input type="checkbox" id="disable_css" checked=currentCTA.disableCSS}}
+									<label for="disable_css">Disable CSS</label>
+								</div>
+							
+								{{#unless currentCTA.disableCSS}}
+									<div class="field">
+										<label for="css_background">Background</label>
+										{{input type="text" id="css_background" value=currentCTA.css.general.background}}
+									</div>
+									
+									{{#unless currentCTA.isTopbar}}
+										<div class="field">
+											<label for="css_header_background">Header Background</label>
+											{{input type="text" id="css_header_background" value=currentCTA.css.header.background}}
+										</div>
+									{{/unless}}
+									
+									<div class="field">
+										<label for="css_header_text">Header Text Colour</label>
+										{{input type="text" id="css_header_text" value=currentCTA.css.header.text}}
+									</div>
+									
+									{{#unless currentCTA.isTopbar}}
+										<div class="field">
+											<label for="css_text">Text Colour</label>
+											{{input type="text" id="css_text" value=currentCTA.css.general.text}}
+										</div>
+									{{/unless}}
+									
+									<div class="field">
+										<label for="css_button_background">Button Background</label>
+										{{input type="text" id="css_button_background" value=currentCTA.css.button.background}}
+									</div>
+									<div class="field">
+										<label for="css_text_colour">Button Text Colour</label>
+										{{input type="text" id="css_text_colour" value=currentCTA.css.button.text}}
+									</div>
+								{{/unless}}
+							{{/unless}}
+							
 						</div>
 				  {{/ivy-tab-panel}}
 				{{/unless}}
@@ -218,7 +260,7 @@
 					</div>
 			  {{/ivy-tab-panel}}
 
-			  {{#if currentCTA.hasSocial}}
+			  {{#if currentCTA.isSocial}}
 				  {{#ivy-tab-panel}}
 						<div class="remetric_tab_panel" data-title="Social">
 							{{#each social in sortedSocialNetworks}}

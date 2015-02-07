@@ -17,7 +17,8 @@
     "firebase": "~2.1.1",
     "ember-cli-moment-shim": "~0.0.2",
     "JavaScript-MD5": "~1.1.0",
-    "jquery-serialize-object": "~2.4.5"
+    "jquery-serialize-object": "~2.4.5",
+    "jquery.cookie": "~1.4.1"
   },
   "resolutions": {
     "ember": "canary",
