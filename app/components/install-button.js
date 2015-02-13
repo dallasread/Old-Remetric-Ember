@@ -15,7 +15,7 @@ export default Ember.Component.extend({
 	actions: {
 		install: function(app) {
 			var event = {
-				person: { id: 'simplelogin49', name: "Awesome Possum" },
+				person: { id: this.get('session.person.id') },
 				product: { name: 'Remetric' },
 				app: { name: app.get('name') },
 				organization: { id: this.get('session.organization_id') }

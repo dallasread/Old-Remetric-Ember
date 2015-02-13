@@ -8,6 +8,10 @@
 			float: left;
 			text-align: center;
 			
+			&:nth-child(5n+1){
+		    clear: both;
+			}
+			
 			img {
 				border-radius: 10px;
 			}

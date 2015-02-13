@@ -1,6 +1,8 @@
 <?php
 	require_once "require.php";
 	
+	print_r($_REQUEST);
+	
 	if (property_exists($data, "event") && property_exists($data->event, "person") && property_exists($data->event->person, "id") && property_exists($data, "notification")) {
 		$person_id = $data->event->person->id;
 		$person = json_decode($firebase->get("$api_key/people/$person_id"), true);
@@ -13,7 +15,10 @@
 			$person["info"]["name"] = $person["info"]["firstName"] . " " . $person["info"]["lastName"];
 		}
 	
-		$data["event"]["person"] = $person["info"];
+		if (isset($person) && isset($person["info"])) {
+			$data["event"]["person"] = array_merge($person["info"], $data["event"]["person"]);
+		}
+
 		$data["event"]["data"] = prepDataTable($data["event"]);
 	
 		foreach ($notification as $part => $v) {
@@ -21,20 +26,23 @@
 			$notification[$part] = LightnCandy::prepare($notification[$part]);
 			$notification[$part] = $notification[$part]($data["event"]);
 		}
-	
-		$mail->setFrom('no-reply@remetric.com', 'Remetric');
-		$mail->Subject = $notification["subject"];
-		$mail->Body = $notification["message"];
-	
+		
 		if ($notification["replyTo"] != "") {
 			$replyto = explode("<", $notification["replyTo"]);
 		
 			if (count($replyto) == 1) {
-				$mail->addReplyTo( trim($notification["replyTo"]) );
+				$replyto = trim(str_replace(">", "", $replyto[1]));
+				$mail->addReplyTo( $replyto );
 			} else {
-				$mail->addReplyTo( trim(str_replace(">", "", $replyto[1])), trim($replyto[0]) );
+				$replyto = trim($notification["replyTo"]);
+				$mail->addReplyTo( $replyto, trim($replyto[0]) );
 			}
 		}
+	
+		$mail->setFrom('no-reply@remetric.com', 'Remetric');
+		$mail->Subject = $notification["subject"];
+		$mail->Body = $notification["message"];
+		$mail->Sender = str_replace("@", "=", $notification["replyTo"]);
 	
 		foreach (explode(",", $notification["to"]) as $to) {
 			$parts = explode("<", $to);

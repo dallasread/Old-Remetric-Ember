@@ -24,7 +24,11 @@ export default Ember.Component.extend({
 		}
 	}.property('cta.css.general'),
 	ctaCSSGeneralText: function() {
-		return 'color: ' + this.get('cta.css.general.text') + '; ';
+		if (this.get('cta.type') === 'topbar') {
+			return 'color: ' + this.get('cta.css.header.text') + '; ';
+		} else {
+			return 'color: ' + this.get('cta.css.general.text') + '; ';
+		}
 	}.property('cta.css.general.text'),
 	ctaCSSHeaderBackground: function() {
 		if (this.get('cta.type') === 'topbar') {
@@ -47,11 +51,11 @@ export default Ember.Component.extend({
 	actions: {
 		submitCTA: function(cta) {
 			var e = this;
-			var form = cta.get('domId').find('form');
+			var form = jQuery('.remetric_cta_' + cta.get('id') + ' form:first');
 			var success = true;
 			
 			form.find('[required]').each(function() {
-				if (!Ember.$(this).val().length) {
+				if (!jQuery(this).val().length) {
 					success = false;
 				}
 			});
@@ -60,12 +64,12 @@ export default Ember.Component.extend({
 				var event = form.serializeObject();
 				event.story = "{{person.name}} submitted {{cta.name}}";
 				event.person = event.person || {};
-				event.person.id = 'simplelogin49';
+				event.person.id = e.get('session.person.id');
 				event.cta = { name: cta.get('name'), id: cta.get('id') };
 				_RMO.track(event);
-				
+
 				cta.get('notifications').forEach(function(notification) {
-					_RMI.notify(event, notification.toJSON(), form.serializeObject());
+					_RMI.notify(event, notification.toJSON());
 				});
 				
 				if (cta.get('spark.recurrance') !== -1) {
@@ -95,7 +99,10 @@ export default Ember.Component.extend({
 				this.set('isMinimized', true);
 			} else {
 				this.set('isClosed', false);
-				this.toggleProperty('isMinimized');
+
+				if (this.get('cta.isMinimizable')) {
+					this.toggleProperty('isMinimized');
+				}
 			}
 		},
 		openCTA: function() {

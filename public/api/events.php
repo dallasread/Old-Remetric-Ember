@@ -25,7 +25,7 @@
 		}
 		
 		if (property_exists($event, "page")) {
-			$person->lastPage = array(
+			$person->lastPage = (object) array(
 				"url" => $event->page->url
 			);
 			
@@ -45,7 +45,7 @@
 		$firebase->update("$api_key/people/$person_id/info", $person);
 		$firebase->set("$api_key/people/$person_id/lastSeenAt", $event->createdAt);
 		$firebase->update("$api_key/settings/peopleInfo", array_flatten_with_type($person));
-		$firebase->push("$api_key/people/$person_id/events/" . json_decode($new_event)->name, true);
+		$firebase->push("$api_key/people/$person_id/events/" . json_decode($new_event, true)["name"], true);
 	}
 	
 ?>

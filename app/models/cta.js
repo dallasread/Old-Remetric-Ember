@@ -1,4 +1,3 @@
-import Ember from 'ember';
 import DS from 'ember-data';
 
 export default DS.Model.extend({
@@ -38,7 +37,7 @@ export default DS.Model.extend({
 	giveAway: DS.attr({ defaultValue: { use: false, text: 'Download Now!' } }),
 	thankYou: DS.attr({ defaultValue: { text: 'Thanks for submitting your response.', isRedirect: false } }),
 	button: DS.attr({ defaultValue: { text: 'Sign Up Now' } }),
-	spark: DS.attr({ defaultValue: { delay: 0, event: 'load' } }),
+	spark: DS.attr({ defaultValue: { delay: 0, event: 'load', recurrance: 9999 } }),
 	fields: DS.hasMany('field', { embedded: true }),
 	notifications: DS.hasMany('notification', { embedded: true }),
 	social: DS.hasMany('social', { async: true }),
@@ -75,9 +74,6 @@ export default DS.Model.extend({
 		if (this.get('hideForDesktop')) { publicClass += ' remetric_hide-for-desktop'; }
 		return publicClass;
 	}.property('id', 'placement.location', 'placement.style', 'disableCSS', 'image.use', 'hideForMobile', 'hideForDesktop', 'hideForTablet'),
-	domId: function() {
-		return Ember.$('.' + this.get('id'));
-	}.property('id'),
 	cookie: function() {
 		return 'remetric-cta-' + this.get('id');
 	}.property('id')

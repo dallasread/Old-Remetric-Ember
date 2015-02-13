@@ -30,8 +30,8 @@
 			$mail->Password = 'jTcznvBPRAhYBA1Xzu_42w';
 			$mail->SMTPSecure = 'tls';
 			$mail->Port = 587;
-			
-			$data = json_decode( base64_decode($_REQUEST["data"]) );
+			$data = htmlentities(json_decode( htmlentities(base64_decode($_REQUEST["data"])) ));
+			print_r(base64_decode($_REQUEST["data"]));
 		}
 	}
 	

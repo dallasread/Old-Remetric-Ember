@@ -31,7 +31,9 @@ export default {
 		var session = Ember.Object.create({
 			organization_id: window._RMOID,
 			afterSignIn: false,
-			isStripeLoaded: false
+			isStripeLoaded: false,
+			person: null,
+			user: null
 		});
 		
 		externalLoader('/assets/lcs.css', function() {
@@ -54,9 +56,29 @@ export default {
 			loadComplete( 'user' );
 		};
 
-		var findOrCreateVisitor = function() {
+		var findOrCreateperson = function(uid) {
+			if (typeof uid === 'undefined') { uid = 0; }
+			session.set('person', null);
 			session.set('user', null);
-			advanceReadiness();
+			
+			store.find('person', uid).then(function(person) {
+				session.set('person', person);
+				advanceReadiness();
+			}, function() {
+				window._RMDB.authAnonymously(function(error, auth) {
+				  if (!error) {
+						store.createRecord('person', {
+							id: auth.uid,
+							isUnknown: true,
+							createdAt: new Date(),
+							lastSeenAt: new Date()
+						}).save().then(function(person) {
+							session.set('person', person);
+							advanceReadiness();
+						});
+				  }
+				});
+			});
 		};
 		
 		var setOnAuth = function() {
@@ -64,15 +86,20 @@ export default {
 				if (auth) {
 					store.find('user', auth.uid).then(function(user) {
 						session.set('user', user);
+						session.set('person', user);
 						advanceReadiness();
 					}, function() {
-				    alert("You are not permitted to log in.");
-						session.set('afterSignIn', false);
-						window._RMDB.unauth();
-						findOrCreateVisitor();
+						if (session.get('afterSignIn')) {
+							alert("You are not permitted to log in.");
+							session.set('afterSignIn', false);
+							window._RMDB.unauth();
+							findOrCreateperson();
+						} else {
+							findOrCreateperson(auth.uid);
+						}
 					});
 				} else {
-					findOrCreateVisitor();
+					findOrCreateperson();
 				}
 			});
 		};

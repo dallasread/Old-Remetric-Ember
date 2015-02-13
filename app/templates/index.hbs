@@ -1,3 +1,5 @@
-{{#each cta in ctas}}
-	{{cta-public cta=cta store=store}}
-{{/each}}
+{{#if session.person}}
+	{{#each cta in ctas}}
+		{{cta-public cta=cta store=store}}
+	{{/each}}
+{{/if}}

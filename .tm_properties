@@ -1,1 +1,1 @@
-exclude = "{exclude,node_modules,tmp,tests,dist,bower_components}"
+exclude = "{exclude,node_modules,tmp,tests,dist,bower_components,public/api/vendor}"

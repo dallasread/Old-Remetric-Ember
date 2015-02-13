@@ -127,6 +127,7 @@ export default Ember.Component.extend({
 					permalink: 'name',
 					type: 'text',
 					isRequired: true,
+					isForProfile: true,
 					ordinal: 0
 				});
 			
@@ -135,6 +136,7 @@ export default Ember.Component.extend({
 					permalink: 'email',
 					type: 'email',
 					isRequired: true,
+					isForProfile: true,
 					ordinal: 1
 				});
 				
