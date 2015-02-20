@@ -3,10 +3,10 @@
 	$success = isset($_REQUEST["api_key"]) && isset($_REQUEST["data"]);
 	$debug = isset($_REQUEST['debug']);
 	$api_key = $_REQUEST["api_key"];
-	
+
 	if ($debug) {
-		ini_set("display_errors",1);
-		ini_set("display_startup_errors",1);
+		ini_set("display_errors", 1);
+		ini_set("display_startup_errors", 1);
 		error_reporting(-1);
 		print('<pre>');
 	}
@@ -30,8 +30,8 @@
 			$mail->Password = 'jTcznvBPRAhYBA1Xzu_42w';
 			$mail->SMTPSecure = 'tls';
 			$mail->Port = 587;
-			$data = htmlentities(json_decode( htmlentities(base64_decode($_REQUEST["data"])) ));
-			print_r(base64_decode($_REQUEST["data"]));
+			
+			$data = json_decode( base64_decode($_REQUEST["data"]) );
 		}
 	}
 	

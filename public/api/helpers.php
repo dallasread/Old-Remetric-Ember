@@ -82,4 +82,13 @@
 		return $data_table;
 	}
 	
+	function htmlentities_recursive($data){
+	    if(is_object($data) || is_array($data)){
+	       array_walk_recursive($data, 'htmlentities_recursive');
+	    }else{
+	       $data = htmlentities($data);
+	    }
+	    return $data;
+	}
+	
 ?>

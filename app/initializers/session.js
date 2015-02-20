@@ -1,21 +1,43 @@
-/* globals Firebase, _RMI, _RMO, externalLoader */
+/* globals Firebase, _RMI, _RMO, externalLoader, md5 */
 
 import Ember from 'ember';
 import jQuery from 'jquery';
 import config from './../config/environment';
+
+var setupTracking = function() {
+	window._RMOID = Ember.$('[data-remetric]').data('remetric').replace(/[^a-z0-9]+/gi, '-').replace(/^-*|-*$/g, '');
+	window._RMO = jQuery.extend({}, _RMI);
+  
+	_RMO.notify = function(event, cta_id, notification_id) {
+    var base64, data, img;
+    img = document.createElement("img");
+    img.style.display = "none";
+    event.page = {
+      title: document.title,
+      url: document.URL
+    };
+    data = {
+      event: event,
+      cta_id: cta_id,
+      notification_id: notification_id
+    };
+    base64 = encodeURIComponent(btoa(JSON.stringify(data)));
+    img.src = "" + _RMI.domain + "/api/" + _RMI.api_key + "/notify/" + base64;
+    return document.body.appendChild(img);
+  };
+	
+	_RMO.api_key = window._RMOID;
+	_RMO.domain = config.remetric.domain;
+	_RMI.api_key = config.remetric.api_key;
+	_RMI.domain = config.remetric.domain;
+};
 
 export default {
   name: 'session',
 	after: 'store',
   initialize: function(container, app) {
 		window._RMDB = new Firebase('https://remetric.firebaseio.com/');
-		window._RMOID = Ember.$('[data-remetric]').data('remetric').replace(/[^a-z0-9]+/gi, '-').replace(/^-*|-*$/g, '');
-		window._RMO = jQuery.extend({}, _RMI);
-		
-		_RMO.api_key = window._RMOID;
-		_RMO.domain = config.remetric.domain;
-		_RMI.api_key = config.remetric.api_key;
-		_RMI.domain = config.remetric.domain;
+		setupTracking();
 		
 		var loader = ['styles', 'user'];
 		var loadComplete = function(loaded) {
@@ -61,24 +83,27 @@ export default {
 			session.set('person', null);
 			session.set('user', null);
 			
-			store.find('person', uid).then(function(person) {
-				session.set('person', person);
-				advanceReadiness();
+			store.find('person', md5(uid)).then(function(person) {
+				setPerson(person);
 			}, function() {
 				window._RMDB.authAnonymously(function(error, auth) {
 				  if (!error) {
 						store.createRecord('person', {
-							id: auth.uid,
-							isUnknown: true,
+							id: md5(auth.uid),
+							isKnown: false,
 							createdAt: new Date(),
 							lastSeenAt: new Date()
 						}).save().then(function(person) {
-							session.set('person', person);
-							advanceReadiness();
+							setPerson(person);
 						});
 				  }
 				});
 			});
+		};
+		
+		var setPerson = function(person) {
+			session.set('person', person);
+			advanceReadiness();
 		};
 		
 		var setOnAuth = function() {
@@ -86,8 +111,24 @@ export default {
 				if (auth) {
 					store.find('user', auth.uid).then(function(user) {
 						session.set('user', user);
-						session.set('person', user);
-						advanceReadiness();
+						
+						store.find('person', md5(auth.uid)).then(function(person) {
+							setPerson(person);
+						}, function() {
+							store.unloadAll('person');
+							store.createRecord('person', {
+								id: md5(auth.uid),
+								info: {
+									name: user.get('name'),
+									email: user.get('email')
+								},
+								isKnown: true,
+								createdAt: new Date(),
+								lastSeenAt: new Date()
+							}).save().then(function(person) {
+								setPerson(person);
+							});
+						});
 					}, function() {
 						if (session.get('afterSignIn')) {
 							alert("You are not permitted to log in.");

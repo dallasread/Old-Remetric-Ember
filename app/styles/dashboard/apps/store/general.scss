@@ -13,6 +13,10 @@
 				border-radius: 10px;
 				display: block;
 				
+				&:nth-child(3n+1){
+			    clear: both;
+				}
+				
 				.icon {
 					width: 25%;
 					float: left;

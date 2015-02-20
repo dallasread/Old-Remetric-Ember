@@ -164,13 +164,23 @@ export default Ember.Component.extend({
 			}
 		},
 		duplicateCTA: function() {
-			var e = this;
-			var dup = this.get('store').createRecord('cta', this.get('currentCTA').toJSON());
+			if (confirm("Fields, notifications, and social won't be duplicated. Are you sure you want to duplicate?")) {
+				var e = this;
+				var attrs = this.get('currentCTA').toJSON();
+				attrs.name = attrs.name + ' (Duplicate)';
 			
-			dup.set('name', dup.get('name') + ' (Duplicate)');
-			dup.save().then(function(cta) {
-				e.set('currentCTA', cta);
-			});
+				this.get('currentCTA').eachRelationship(function(name, relationship) {
+					if (relationship.kind === 'hasMany') {
+						delete attrs[relationship.key];
+					}
+				});
+			
+				var dup = this.get('store').createRecord('cta', attrs);
+			
+				dup.save().then(function(cta) {
+					e.set('currentCTA', cta);
+				});
+			}
 		},
 		resetCTA: function() {
 			this.get('currentCTA').rollback();

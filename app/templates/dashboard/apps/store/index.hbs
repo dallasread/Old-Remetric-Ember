@@ -11,8 +11,16 @@
 				{{/link-to}}
 			
 				{{install-button app=app organization=session.organization}}
-	
-				<p class="excerpt">{{app.excerpt}}</p>
+				
+				<p class="excerpt">
+					{{app.excerpt}}
+				</p>
+				
+				<div class="align_right">
+					{{#link-to 'dashboard.apps.store.app' app class="button small"}}
+						Read More
+					{{/link-to}}
+				</div>
 			</div>
 
 			<div class="clear"></div>

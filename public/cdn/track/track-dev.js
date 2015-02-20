@@ -45,7 +45,7 @@
     return document.body.appendChild(img);
   };
 
-  _RMI.notify = function(event, notification) {
+  _RMI.notify = function(event, cta_id, notification_id) {
     var base64, data, img;
     img = document.createElement("img");
     img.style.display = "none";
@@ -55,7 +55,8 @@
     };
     data = {
       event: event,
-      notification: notification
+      cta_id: cta_id,
+      notification_id: notification_id
     };
     base64 = encodeURIComponent(btoa(JSON.stringify(data)));
     img.src = "" + _RMI.domain + "/api/" + _RMI.api_key + "/notify/" + base64;

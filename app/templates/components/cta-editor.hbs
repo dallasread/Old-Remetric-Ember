@@ -221,14 +221,6 @@
 							{{input type="checkbox" id="hide_for_desktop" checked=currentCTA.hideForDesktop}}
 							<label for="hide_for_desktop">Hide for Desktops and Laptops</label>
 						</div>
-						<!-- <div class="field">
-							<label for="pages_to_show">Which pages should <strong>show</strong> this {{prettyName}}?</label>
-							{{!input type="text" id="pages_to_show" value=currentCTA.pagesToShow}}
-						</div>
-						<div class="field">
-							<label for="pages_to_hide">Which pages should <strong>hide</strong> this {{prettyName}}?</label>
-							{{!input type="text" id="pages_to_hide" value=currentCTA.pagesToHide}}
-						</div> -->
 						<div class="field">
 							<label for="spark_event">When should this {{prettyName}} appear?</label>
 							{{view 'select' id='spark_event' content=sparkEvents optionValuePath='content.value' optionLabelPath='content.label' valueBinding='currentCTA.spark.event'}}
@@ -251,6 +243,15 @@
 						<div class="field">
 							<label for="trigger how often">How often do visitors see this {{prettyName}}?</label>
 							{{view 'select' content=sparkRecurrances optionValuePath='content.value' optionLabelPath='content.label' valueBinding='currentCTA.spark.recurrance'}}
+						</div>
+
+						<div class="field">
+							<label for="pages_to_show">Which pages should <strong>show</strong> this {{prettyName}} (* is a wildcard)?</label>
+							{{input type="text" id="pages_to_show" value=currentCTA.pagesToShow}}
+						</div>
+						<div class="field">
+							<label for="pages_to_hide">Which pages should <strong>hide</strong> this {{prettyName}} (* is a wildcard)?</label>
+							{{input type="text" id="pages_to_hide" value=currentCTA.pagesToHide}}
 						</div>
 
 						<!-- <div class="field is_for_checkbox">
@@ -320,7 +321,7 @@
 					{{#ivy-tab-panel}}
 						<div class="remetric_tab_panel" data-title="Notifications">
 							<p>
-								Set up email alerts (to you, the submitter, or anyone else) for when this {{prettyName}} is submitted.
+								Set up email alerts (to you, the submitter, or anyone else) for when this {{prettyName}} is submitted. Use <strong>\{{person.name}}</strong> to show the person's name, or any other relevant data. The <strong>\{{data}}</strong> tag displays all known data about the user.
 							</p>
 							
 							{{#each notification in currentCTA.notifications}}

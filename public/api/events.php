@@ -4,7 +4,7 @@
 	$event = $data;
 
 	if (property_exists($event, "person") && property_exists($event->person, "id") && property_exists($event, "story")) {
-		$person_id = preg_replace("/[^A-Za-z0-9 ]/", '', $event->person->id);
+		$person_id = preg_replace("/[^A-Za-z0-9 :]/", '', $event->person->id);
 		$person = $event->person;
 		
 		if (!property_exists($event, "createdAt")) {

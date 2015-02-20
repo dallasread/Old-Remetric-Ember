@@ -1,15 +1,13 @@
 <?php
 	require_once "require.php";
 	
-	print_r($_REQUEST);
-	
-	if (property_exists($data, "event") && property_exists($data->event, "person") && property_exists($data->event->person, "id") && property_exists($data, "notification")) {
+	if (property_exists($data, "event") && property_exists($data->event, "person") && property_exists($data->event->person, "id") && property_exists($data, "notification_id") && property_exists($data, "cta_id")) {
 		$person_id = $data->event->person->id;
 		$person = json_decode($firebase->get("$api_key/people/$person_id"), true);
 		unset($person->events);
 	
 		$data = json_decode(json_encode($data), true);
-		$notification = $data["notification"];
+		$notification = json_decode($firebase->get("$api_key/ctas/$data[cta_id]/notifications/$data[notification_id]"), true);
 	
 		if (!isset($person["info"]["name"])) {
 			$person["info"]["name"] = $person["info"]["firstName"] . " " . $person["info"]["lastName"];
