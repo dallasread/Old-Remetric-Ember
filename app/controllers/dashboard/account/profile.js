@@ -62,7 +62,7 @@ export default Ember.Controller.extend({
 					  }
 					});	
 				} else {
-					alert('Error changing your email. Please try again.');
+					alert('Error changing your password. Please enter your current password and a new password, then try again.');
 				}
 			} else {
 				doSave();
