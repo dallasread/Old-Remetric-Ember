@@ -1,12 +1,12 @@
 /* globals Firebase, _RMI, _RMO, externalLoader, md5 */
 
 import Ember from 'ember';
-import jQuery from 'jquery';
+import $ from 'jquery';
 import config from './../config/environment';
 
 var setupTracking = function() {
 	window._RMOID = Ember.$('[data-remetric]').data('remetric').replace(/[^a-z0-9]+/gi, '-').replace(/^-*|-*$/g, '');
-	window._RMO = jQuery.extend({}, _RMI);
+	window._RMO = $.extend({}, _RMI);
   
 	_RMO.notify = function(event, cta_id, notification_id) {
     var base64, data, img;
@@ -116,6 +116,7 @@ export default {
 							setPerson(person);
 						}, function() {
 							store.unloadAll('person');
+							
 							store.createRecord('person', {
 								id: md5(auth.uid),
 								info: {

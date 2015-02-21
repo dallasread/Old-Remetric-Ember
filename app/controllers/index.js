@@ -21,7 +21,7 @@ export default Ember.Controller.extend({
 				  include = $.trim(include);
 					
 			    if (include !== '') {
-						include = include.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&")
+						include = include.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 					  include = include.replace(/\\\*/g, '(.*?)');
 					  include = new RegExp('(' + include + '|' + include + '/)$', 'g');
 						
@@ -34,6 +34,10 @@ export default Ember.Controller.extend({
 			
 				return show;
 			};
+			
+			if (typeof $.cookie('_rm_first_seen') === 'undefined') {
+				$.cookie( '_rm_first_seen', new Date().getTime(), { expires: 999999, path: '/' } );
+			}
 			
 			this.get('session.ctas').then(function(ctas) {
 				ctas.map(function(cta) {				
