@@ -44,12 +44,12 @@ export default Ember.Controller.extend({
 									id: auth.uid,
 									email: e.get('email'),
 									name: e.get('name'),
-									creator: true,
-									active: true
+									isCreator: true,
+									isActive: true
 								});
-						
-								user.save().then(function() {
-									organization.save().then(function() {
+
+								organization.save().then(function() {
+									user.save().then(function() {
 										var trackEvent = function() {
 											var event = {
 												person: {

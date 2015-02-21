@@ -8,7 +8,6 @@ export default DS.Model.extend({
 		return window.location.host; 
 	}}),
 	apps: DS.hasMany('apps', { async: true }),
-	ctas: DS.hasMany('ctas', { async: true }),
 	users: DS.hasMany('users', { async: true }),
 	peopleInfo: DS.attr({ defaultValue: {} }),
 	stripeCustomerToken: DS.attr('string', { defaultValue: '' }),

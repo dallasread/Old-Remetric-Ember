@@ -1,4 +1,4 @@
-/* globals Firebase, _RMI, _RMO, externalLoader, md5 */
+/* globals Firebase, _RMI, _RMO, externalLoader */
 
 import Ember from 'ember';
 import $ from 'jquery';
@@ -83,19 +83,25 @@ export default {
 			session.set('person', null);
 			session.set('user', null);
 			
-			store.find('person', md5(uid)).then(function(person) {
+			store.find('person', uid).then(function(person) {
 				setPerson(person);
 			}, function() {
 				window._RMDB.authAnonymously(function(error, auth) {
 				  if (!error) {
-						store.createRecord('person', {
-							id: md5(auth.uid),
+						var person = store.createRecord('person', {
+							id: auth.uid,
 							isKnown: false,
 							createdAt: new Date(),
 							lastSeenAt: new Date()
-						}).save().then(function(person) {
-							setPerson(person);
 						});
+						
+						if (session.get('organization')) {
+							person.save().then(function(person) {
+								setPerson(person);
+							});
+						} else {
+							setPerson(person);
+						}
 				  }
 				});
 			});
@@ -112,13 +118,13 @@ export default {
 					store.find('user', auth.uid).then(function(user) {
 						session.set('user', user);
 						
-						store.find('person', md5(auth.uid)).then(function(person) {
+						store.find('person', auth.uid).then(function(person) {
 							setPerson(person);
 						}, function() {
 							store.unloadAll('person');
 							
 							store.createRecord('person', {
-								id: md5(auth.uid),
+								id: auth.uid,
 								info: {
 									name: user.get('name'),
 									email: user.get('email')
