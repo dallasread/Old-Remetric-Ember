@@ -27,9 +27,9 @@ var setupTracking = function() {
   };
 	
 	_RMO.api_key = window._RMOID;
-	_RMO.domain = config.remetric.domain;
+	_RMO.domain = config.remetric.url;
 	_RMI.api_key = config.remetric.api_key;
-	_RMI.domain = config.remetric.domain;
+	_RMI.domain = config.remetric.url;
 };
 
 export default {
@@ -55,10 +55,11 @@ export default {
 			afterSignIn: false,
 			isStripeLoaded: false,
 			person: null,
-			user: null
+			user: null,
+      config: config
 		});
-		
-		externalLoader('/assets/lcs.css', function() {
+
+		externalLoader(config.assetsBaseURL + '/assets/remetric.css', function() {
 			loadComplete( 'styles' );
 		});
 		

@@ -7,7 +7,7 @@ window.externalLoader = function(url, callback) {
 		script.src = url;
 	} else {
 		script = document.createElement( 'link' );
-		script.setAttribute( 'href', '/assets/remetric.css' );
+		script.setAttribute( 'href', url );
 		script.setAttribute( 'rel', 'stylesheet' );
 		script.setAttribute( 'type', 'text/css' );
 	}
