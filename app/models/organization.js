@@ -13,6 +13,7 @@ export default DS.Model.extend({
 	stripeCustomerToken: DS.attr('string', { defaultValue: '' }),
 	stripeCardToken: DS.attr('string', { defaultValue: '' }),
 	card: DS.attr({ defaultValue: {} }),
+  createdAt: DS.attr('timestamp', { defaultValue: new Date() }),
 	hasCard: function() {
 		return this.get('stripeCustomerToken') !== '' || this.get('stripeCardToken') !== '';
 	}.property('stripeCustomerToken', 'stripeCardToken')

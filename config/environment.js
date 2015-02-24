@@ -7,9 +7,7 @@ module.exports = function(environment) {
     baseURL: '/',
     locationType: 'hash',
     EmberENV: {
-      FEATURES: {
-				'ember-htmlbars': true
-      }
+      FEATURES: {}
     },
 		APP: {}
   };
@@ -27,7 +25,7 @@ module.exports = function(environment) {
     ENV.baseURL = '/';
     ENV.locationType = 'none';
     ENV.APP.LOG_ACTIVE_GENERATION = false;
-    ENV.APP.LOG_VIEW_LOOKUPS = false;
+    //ENV.APP.LOG_VIEW_LOOKUPS = false;
     ENV.APP.rootElement = '#ember-testing';
   }
 

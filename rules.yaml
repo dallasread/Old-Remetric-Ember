@@ -13,7 +13,7 @@ schema:
   definitions:
     cta:
       type: object
-      indexOn: [id, type, name]
+      indexOn: [type, name]
       required: [name, type, createdAt, disableCSS, isActive, headline, subHeadline, hideForMobile, hideForTablet, hideForDesktop, pagesToShow, pagesToHide, isSticky, isClosable, isMinimizable, isMinimized, ordinal, placement, css, image, giveAway, thankYou, button, spark, fields, notifications, social]
       additionalProperties: false
       properties:
@@ -53,7 +53,7 @@ schema:
         
     event:
       type: object
-      indexOn: [id, story]
+      indexOn: [story]
       required: [story, person, info]
       additionalProperties: false
       properties:
@@ -64,7 +64,7 @@ schema:
         
     field:
       type: object
-      indexOn: [id, ordinal]
+      indexOn: [ordinal]
       required: [permalink, type, label, isRequired, ordinal, isForProfile]
       additionalProperties: false
       properties:
@@ -77,7 +77,6 @@ schema:
         
     notification:
       type: object
-      indexOn: [id]
       required: [to, subject, message, replyTo]
       additionalProperties: false
       properties:
@@ -88,43 +87,43 @@ schema:
     
     organization:
       type: object
-      indexOn: [id]
       required: [name, domain]
       additionalProperties: false
       properties:
         name:                       { type: string }
         domain:                     { type: string }
-        apps:
-          type: object
-          properties:
-            $app_id:                { type: boolean }
-        users:
-          type: object
-          properties:
-            $user_id:               { type: boolean }        
+        createdAt:                  { type: string }       
         peopleInfo:                 { type: object }
         stripeCustomerToken:        { type: string }
         stripeCardToken:            { type: string }
         card:                       { type: object }
+        apps:
+          type: object
+          properties:
+            ~$app_id:                { type: boolean }
+        users:
+          type: object
+          properties:
+            ~$user_id:               { type: boolean }
         
     person:
       type: object
-      indexOn: [id, info]
-      required: [info, createdAt, lastSeenAt]
+      indexOn: [info]
+      required: [createdAt, lastSeenAt]
       additionalProperties: false
       properties:
         info:                       { type: object }
         createdAt:                  { type: string }
         lastSeenAt:                 { type: string }
+        isKnown:                    { type: boolean }
         events:
           type: object
           properties:
             ~$event_id:             { type: object }
-        isKnown:                    { type: boolean }
       
     purchase:
       type: object
-      indexOn: [id, app, total]
+      indexOn: [app, total]
       required: [description, interval, total, isPaid, app, createdAt, paidAt, quantity, per_quantity, month]
       additionalProperties: false
       properties:
@@ -142,7 +141,6 @@ schema:
       
     user:
       type: object
-      indexOn: [id]
       required: [name, email, isCreator, isActive, createdAt]
       additionalProperties: false
       properties:
@@ -190,19 +188,19 @@ access:
     
   - location: /$organization_id/people
     read: isUserForOrganization($organization_id)
-      
+    write: createOnly() || isUserForOrganization($organization_id)
+
   - location: /$organization_id/people/$person_id
     read: isCurrentPerson($person_id) || isUserForOrganization($organization_id)
-    write: isCurrentPerson($person_id) || isUserForOrganization($organization_id)
+    write: createOnly() || isCurrentPerson($person_id) || isUserForOrganization($organization_id)
   
   - location: /$organization_id/purchases
     read: isUserForOrganization($organization_id)
     write: isUserForOrganization($organization_id)
     
   - location: /$organization_id/settings
-    read: true
-    write: isUserForOrganization($organization_id)
-    # read: isLoggedInForOrganization($organization_id)
+    read: "true"
+    write: createOnly() || isUserForOrganization($organization_id)
     
   - location: /$organization_id/users
     read: isLoggedInForOrganization($organization_id)

@@ -380,3 +380,210 @@
     }
   }
 }
+functions:
+  - isLoggedIn(): auth.uid !== null
+  - isLoggedInForOrganization(organization_id): isLoggedIn() && (isUserForOrganization(organization_id) || isPersonForOrganization(organization_id))
+  - isUserForOrganization(organization_id): root[organization_id + '/users/' + auth.uid].exists()
+  - isPersonForOrganization(organization_id): root[organization_id + '/people/' + auth.uid].exists()
+  - isCurrentPerson(person_id): person_id === auth.uid
+  - createOnly(): next.exists() && !prev.exists()
+  - deleteOnly(): prev.exists() && !next.exists()
+  - createOrDelete(): createOnly() || deleteOnly()
+  - isSuperAdmin(): 1 === 0
+
+schema:
+  definitions:
+    cta:
+      type: object
+      indexOn: [type, name]
+      required: [name, type, createdAt, disableCSS, isActive, headline, subHeadline, hideForMobile, hideForTablet, hideForDesktop, pagesToShow, pagesToHide, isSticky, isClosable, isMinimizable, isMinimized, ordinal, placement, css, image, giveAway, thankYou, button, spark, fields, notifications, social]
+      additionalProperties: false
+      properties:
+        name:                       { type: string }
+        type:                       { type: string }
+        createdAt:                  { type: string }
+        disableCSS:                 { type: boolean }
+        isActive:                   { type: boolean }
+        headline:                   { type: string }
+        subHeadline:                { type: string }
+        hideForMobile:              { type: boolean }
+        hideForTablet:              { type: boolean }
+        hideForDesktop:             { type: boolean }
+        pagesToShow:                { type: string }
+        pagesToHide:                { type: string }
+        isSticky:                   { type: boolean }
+        isClosable:                 { type: boolean }
+        isMinimizable:              { type: boolean }
+        isMinimized:                { type: boolean }
+        ordinal:                    { type: number }
+        placement:                  { type: object }
+        css:                        { type: object }
+        image:                      { type: object }
+        giveAway:                   { type: object }
+        thankYou:                   { type: object }
+        button:                     { type: object }
+        spark:                      { type: object }
+        fields:
+          type: object
+          properties:
+            ~$field_id:              { $ref: "#/definitions/field" }
+        notifications:
+          type: object
+          properties:
+            ~$notification_id:       { $ref: "#/definitions/notification" }
+        social:                     { type: object }
+        
+    event:
+      type: object
+      indexOn: [story]
+      required: [story, person, info]
+      additionalProperties: false
+      properties:
+        story:                      { type: string }
+        info:                       { type: object }
+        createdAt:                  { type: string }
+        person:                     { type: string }
+        
+    field:
+      type: object
+      indexOn: [ordinal]
+      required: [permalink, type, label, isRequired, ordinal, isForProfile]
+      additionalProperties: false
+      properties:
+        permalink:                  { type: string }
+        type:                       { type: string }
+        label:                      { type: string }
+        isRequired:                 { type: boolean }
+        ordinal:                    { type: number }
+        isForProfile:               { type: boolean }
+        
+    notification:
+      type: object
+      required: [to, subject, message, replyTo]
+      additionalProperties: false
+      properties:
+        to:               { type: string }
+        subject:          { type: string }
+        message:          { type: string }
+        replyTo:          { type: string }
+    
+    organization:
+      type: object
+      required: [name, domain]
+      additionalProperties: false
+      properties:
+        name:                       { type: string }
+        domain:                     { type: string }
+        createdAt:                  { type: string }       
+        peopleInfo:                 { type: object }
+        stripeCustomerToken:        { type: string }
+        stripeCardToken:            { type: string }
+        card:                       { type: object }
+        apps:
+          type: object
+          properties:
+            ~$app_id:                { type: boolean }
+        users:
+          type: object
+          properties:
+            ~$user_id:               { type: boolean }
+        
+    person:
+      type: object
+      indexOn: [info]
+      required: [createdAt, lastSeenAt]
+      additionalProperties: false
+      properties:
+        info:                       { type: object }
+        createdAt:                  { type: string }
+        lastSeenAt:                 { type: string }
+        isKnown:                    { type: boolean }
+        events:
+          type: object
+          properties:
+            ~$event_id:             { type: object }
+      
+    purchase:
+      type: object
+      indexOn: [app, total]
+      required: [description, interval, total, isPaid, app, createdAt, paidAt, quantity, per_quantity, month]
+      additionalProperties: false
+      properties:
+        description:                { type: string }
+        interval:                   { type: string }
+        total:                      { type: number }
+        isPaid:                     { type: boolean }
+        app:                        { type: string }
+        createdAt:                  { type: string }
+        paidAt:                     { type: string }
+        quantity:                   { type: number }
+        per_quantity:               { type: number }
+        month:                      { type: string }
+        items:                      { type: object }
+      
+    user:
+      type: object
+      required: [name, email, isCreator, isActive, createdAt]
+      additionalProperties: false
+      properties:
+        name:                       { type: string }
+        email:                      { type: string }
+        isCreator:                  { type: boolean }
+        isActive:                   { type: boolean }
+        createdAt:                  { type: string }
+  
+  properties:
+    $organization_id:
+      type: object
+      required: [settings]
+      additionalProperties: false
+      properties:
+        ctas:
+          type: object
+          properties:
+            ~$cta_id:                { $ref: "#/definitions/cta" }
+        events:
+          type: object
+          properties:
+            ~$event_id:              { $ref: "#/definitions/event" }
+        people:
+          type: object
+          properties:
+            ~$person_id:             { $ref: "#/definitions/person" }
+        purchases:
+          type: object
+          properties:
+            ~$purchase_id:           { $ref: "#/definitions/purchase" }
+        settings:                    { $ref: "#/definitions/organization" }
+        users:
+          type: object
+          properties:
+            ~$user_id:               { $ref: "#/definitions/user" }
+
+access:
+  - location: /$organization_id/ctas
+    read: isLoggedInForOrganization($organization_id)
+    write: isUserForOrganization($organization_id)
+  
+  - location: /$organization_id/events
+    read: isUserForOrganization($organization_id)
+    
+  - location: /$organization_id/people
+    read: isUserForOrganization($organization_id)
+    write: createOnly() || isUserForOrganization($organization_id)
+
+  - location: /$organization_id/people/$person_id
+    read: isCurrentPerson($person_id) || isUserForOrganization($organization_id)
+    write: createOnly() || isCurrentPerson($person_id) || isUserForOrganization($organization_id)
+  
+  - location: /$organization_id/purchases
+    read: isUserForOrganization($organization_id)
+    write: isUserForOrganization($organization_id)
+    
+  - location: /$organization_id/settings
+    read: "true"
+    write: createOnly() || isUserForOrganization($organization_id)
+    
+  - location: /$organization_id/users
+    read: isLoggedInForOrganization($organization_id)
+    write: createOnly() || isUserForOrganization($organization_id)

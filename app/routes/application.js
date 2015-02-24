@@ -2,9 +2,13 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 	model: function() {
-		this.store.findAll('event');
-		this.store.findAll('person');
-		this.set('session.ctas', this.store.findAll('cta'));
+    if (this.get('session.organization')) {
+      if (this.get('session.user')) {
+    		this.store.findAll('event');
+    		this.store.findAll('person');
+      }
+  		this.set('session.ctas', this.store.findAll('cta'));
+    }
 	},
 	actions: {
 		loading: function() {
