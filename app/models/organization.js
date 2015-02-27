@@ -8,12 +8,11 @@ export default DS.Model.extend({
 		return window.location.host; 
 	}}),
 	apps: DS.hasMany('apps', { async: true }),
-	users: DS.hasMany('users', { async: true }),
 	peopleInfo: DS.attr({ defaultValue: {} }),
 	stripeCustomerToken: DS.attr('string', { defaultValue: '' }),
 	stripeCardToken: DS.attr('string', { defaultValue: '' }),
 	card: DS.attr({ defaultValue: {} }),
-  createdAt: DS.attr('timestamp', { defaultValue: new Date() }),
+    createdAt: DS.attr('timestamp', { defaultValue: new Date() }),
 	hasCard: function() {
 		return this.get('stripeCustomerToken') !== '' || this.get('stripeCardToken') !== '';
 	}.property('stripeCustomerToken', 'stripeCardToken')

@@ -100,11 +100,7 @@ schema:
         apps:
           type: object
           properties:
-            ~$app_id:                { type: boolean }
-        users:
-          type: object
-          properties:
-            ~$user_id:               { type: boolean }
+            ~$app_id:                {}
         
     person:
       type: object
