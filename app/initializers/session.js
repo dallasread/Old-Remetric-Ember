@@ -27,9 +27,9 @@ var setupTracking = function() {
   };
 	
 	_RMO.api_key = window._RMOID;
-	_RMO.domain = config.remetric.url;
+	_RMO.domain = config.remetric.domain;
 	_RMI.api_key = config.remetric.api_key;
-	_RMI.domain = config.remetric.url;
+	_RMI.domain = config.remetric.domain;
 };
 
 export default {

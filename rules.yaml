@@ -1,8 +1,8 @@
 functions:
   - isLoggedIn(): auth.uid !== null
   - isLoggedInForOrganization(organization_id): isLoggedIn() && (isUserForOrganization(organization_id) || isPersonForOrganization(organization_id))
-  - isUserForOrganization(organization_id): root[organization_id + '/users/' + auth.uid].exists()
-  - isPersonForOrganization(organization_id): root[organization_id + '/people/' + auth.uid].exists()
+  - isUserForOrganization(organization_id): root[organization_id + '/users/' + auth.uid] !== null
+  - isPersonForOrganization(organization_id): root[organization_id + '/people/' + auth.uid] !== null
   - isCurrentPerson(person_id): person_id === auth.uid
   - createOnly(): next.exists() && !prev.exists()
   - deleteOnly(): prev.exists() && !next.exists()
@@ -14,7 +14,7 @@ schema:
     cta:
       type: object
       indexOn: [type, name]
-      required: [name, type, createdAt, disableCSS, isActive, headline, subHeadline, hideForMobile, hideForTablet, hideForDesktop, pagesToShow, pagesToHide, isSticky, isClosable, isMinimizable, isMinimized, ordinal, placement, css, image, giveAway, thankYou, button, spark, fields, notifications, social]
+      required: [name, type]
       additionalProperties: false
       properties:
         name:                       { type: string }
@@ -41,16 +41,10 @@ schema:
         thankYou:                   { type: object }
         button:                     { type: object }
         spark:                      { type: object }
-        fields:
-          type: object
-          properties:
-            ~$field_id:              { $ref: "#/definitions/field" }
-        notifications:
-          type: object
-          properties:
-            ~$notification_id:       { $ref: "#/definitions/notification" }
+        fields:                     { type: object }
+        notifications:              { type: object }
         social:                     { type: object }
-        
+
     event:
       type: object
       indexOn: [story]
@@ -61,7 +55,7 @@ schema:
         info:                       { type: object }
         createdAt:                  { type: string }
         person:                     { type: string }
-        
+
     field:
       type: object
       indexOn: [ordinal]
@@ -74,7 +68,7 @@ schema:
         isRequired:                 { type: boolean }
         ordinal:                    { type: number }
         isForProfile:               { type: boolean }
-        
+
     notification:
       type: object
       required: [to, subject, message, replyTo]
@@ -84,24 +78,20 @@ schema:
         subject:          { type: string }
         message:          { type: string }
         replyTo:          { type: string }
-    
+
     organization:
       type: object
-      required: [name, domain]
       additionalProperties: false
       properties:
         name:                       { type: string }
         domain:                     { type: string }
-        createdAt:                  { type: string }       
+        createdAt:                  { type: string }
         peopleInfo:                 { type: object }
         stripeCustomerToken:        { type: string }
         stripeCardToken:            { type: string }
         card:                       { type: object }
-        apps:
-          type: object
-          properties:
-            ~$app_id:                {}
-        
+        apps:                       { type: object }
+
     person:
       type: object
       indexOn: [info]
@@ -116,7 +106,7 @@ schema:
           type: object
           properties:
             ~$event_id:             { type: object }
-      
+
     purchase:
       type: object
       indexOn: [app, total]
@@ -134,7 +124,7 @@ schema:
         per_quantity:               { type: number }
         month:                      { type: string }
         items:                      { type: object }
-      
+
     user:
       type: object
       required: [name, email, isCreator, isActive, createdAt]
@@ -145,11 +135,10 @@ schema:
         isCreator:                  { type: boolean }
         isActive:                   { type: boolean }
         createdAt:                  { type: string }
-  
+
   properties:
     $organization_id:
       type: object
-      required: [settings]
       additionalProperties: false
       properties:
         ctas:
@@ -168,20 +157,20 @@ schema:
           type: object
           properties:
             ~$purchase_id:           { $ref: "#/definitions/purchase" }
-        settings:                    { $ref: "#/definitions/organization" }
         users:
           type: object
           properties:
             ~$user_id:               { $ref: "#/definitions/user" }
+        settings:                    { $ref: "#/definitions/organization" }
 
 access:
   - location: /$organization_id/ctas
     read: isLoggedInForOrganization($organization_id)
     write: isUserForOrganization($organization_id)
-  
+
   - location: /$organization_id/events
     read: isUserForOrganization($organization_id)
-    
+
   - location: /$organization_id/people
     read: isUserForOrganization($organization_id)
     write: createOnly() || isUserForOrganization($organization_id)
@@ -189,15 +178,19 @@ access:
   - location: /$organization_id/people/$person_id
     read: isCurrentPerson($person_id) || isUserForOrganization($organization_id)
     write: createOnly() || isCurrentPerson($person_id) || isUserForOrganization($organization_id)
-  
+
   - location: /$organization_id/purchases
     read: isUserForOrganization($organization_id)
     write: isUserForOrganization($organization_id)
-    
+
   - location: /$organization_id/settings
     read: "true"
-    write: createOnly() || isUserForOrganization($organization_id)
-    
+    write: isUserForOrganization($organization_id)
+  
+  - location: /$organization_id/settings/apps/$app_id
+    read: "true"
+    write: isUserForOrganization($organization_id)
+
   - location: /$organization_id/users
     read: isLoggedInForOrganization($organization_id)
     write: createOnly() || isUserForOrganization($organization_id)

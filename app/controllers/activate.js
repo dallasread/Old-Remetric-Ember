@@ -36,19 +36,21 @@ export default Ember.Controller.extend({
 				
 					e.store.find('app', 'store').then(function(store_app) {
 						e.store.find('app', 'topbar').then(function(topbar_app) {
-                            organization.get("apps").set(store_app.get('id'), true);
-                            organization.get("apps").set(topbar_app.get('id'), true);
-
-                            var user = e.store.createRecord('user', {
-								id: auth.uid,
-								email: e.get('email'),
-								name: e.get('name'),
-								isCreator: true,
-								isActive: true
-							});
-
-							organization.save().then(function() {
-								user.save().then(function() {
+                            organization.get("apps").then(function(apps) {
+                                var user = e.store.createRecord('user', {
+    								id: auth.uid,
+    								email: e.get('email'),
+    								name: e.get('name'),
+    								isCreator: true,
+    								isActive: true
+    							});
+                                
+                                user.save().then(function() {
+                                    window.org = organization;
+                                    window.user = user;
+                                    window.store_app = store_app;
+                                    window.topbar_app = topbar_app;
+                                    
 									var trackEvent = function() {
 										var event = {
 											person: {
@@ -59,9 +61,9 @@ export default Ember.Controller.extend({
 											story: '{{person.name}} activated {{product.name}}.',
 											product: { name: 'Remetric' }
 										};
-						
+					        
 										_RMO.track(event);
-									
+								
 										event.organization = {
 											id: organization.get('id'),
 											name: organization.get('name'),
@@ -69,13 +71,13 @@ export default Ember.Controller.extend({
 										};
 										event.person.organization_id = e.get('session.organization_id');
 										event.story = '{{person.name}} activated {{product.name}} ({{organization.id}}).';
-
+                            
 										_RMI.track(event);
 									};
-									
+								
 									// window._RMDB.child('accesses/' + user.get('id') + '/' + e.get('session.organization_id')).set(true);
 									e.set('session.organization', organization);
-							
+						    
 									window._RMDB.authWithPassword({
 									  email: e.get('email'),
 									  password: e.get('password')
@@ -84,6 +86,10 @@ export default Ember.Controller.extend({
 											alert(error);
 											e.set('loading', false);
 										} else {
+                                            apps.addObject(store_app);
+                                            apps.addObject(topbar_app);
+                                            organization.save();
+                                            
 											trackEvent();
 											e.set('email', null);
 											e.set('password', null);
@@ -91,7 +97,7 @@ export default Ember.Controller.extend({
 										}
 									});
 								});
-							});
+                            });
 						});
 					});
 			  }

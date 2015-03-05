@@ -4,9 +4,12 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 var app = new EmberApp({
 	storeConfigInMeta: false,
+    emberCliConcat: {
+        outputFileName: 'remetric'
+    },
 	fingerprint: {
 		enabled: false
-  }
+  },
 });
 
 app.import('vendor/track.js');

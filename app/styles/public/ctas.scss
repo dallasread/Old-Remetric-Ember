@@ -59,6 +59,10 @@
 		&.remetric_cta_box {
 			position: absolute;
 			width: 320px;
+            
+            &.remetric_cta_social {
+                width: auto;
+            }
 			
 			.cta_header {
 				padding: 15px;
