@@ -51,15 +51,15 @@ export default {
 		var store = container.lookup('store:main');
 		var router = container.lookup('router:main');
 		var session = Ember.Object.create({
-			organization_id: window._RMOID,
-			afterSignIn: false,
-			isStripeLoaded: false,
-			person: null,
-			user: null,
-      config: config
+            organization_id: window._RMOID,
+            afterSignIn: false,
+            isStripeLoaded: false,
+            person: null,
+            user: null,
+            config: config
 		});
 
-		externalLoader(config.assetsBaseURL + '/assets/remetric.css', function() {
+		externalLoader(config.stylesheetURL, function() {
 			loadComplete( 'styles' );
 		});
 		

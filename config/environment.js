@@ -19,6 +19,7 @@ module.exports = function(environment) {
 			url: 'http://localhost:8888/remetric'
 		};
     ENV.assetsBaseURL = 'http://localhost:4200';
+    ENV.stylesheetURL = ENV.assetsBaseURL + '/assets/remetric.css';
   }
 
   if (environment === 'test') {
@@ -33,9 +34,10 @@ module.exports = function(environment) {
 		ENV.stripePublishableKey = 'pk_live_4gmuwGKc2vyB07nkEG4Zms7O';
 		ENV.remetric = {
 			api_key: 'FROM-TRACK-JS',
-			domain: 'https://secure.remetric.com'
+			domain: 'https://remetric.com'
 		};
-    ENV.assetsBaseURL = 'https://secure.remetric.com';
+    ENV.assetsBaseURL = 'https://remetric.com';
+    ENV.stylesheetURL = ENV.assetsBaseURL + '/rm.css';
   }
 
   return ENV;
