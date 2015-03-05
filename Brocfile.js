@@ -5,7 +5,7 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 var app = new EmberApp({
 	storeConfigInMeta: false,
     emberCliConcat: {
-        outputFileName: 'remetric'
+        outputFileName: 'rm'
     },
 	fingerprint: {
 		enabled: false
