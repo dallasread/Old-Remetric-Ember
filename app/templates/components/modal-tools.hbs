@@ -2,7 +2,7 @@
 	<div class="modal_overlay">
 		<div {{bind-attr class=":modal_yield logoTitle:has_logo_title"}} style="max-width: {{maxWidth}};">
 			{{#if closable}}
-				<a href="#" class="modal_close" {{action 'closeModal'}}>&times;</a>
+				<a href="#" class="modal_close" {{action 'closeModal'}}>x</a>
 			{{/if}}
 			
 			{{#if logoTitle}}
