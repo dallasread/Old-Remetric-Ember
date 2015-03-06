@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import config from './../config/environment';
 
 var App = DS.Model.extend({
   name: DS.attr('string'),
@@ -18,7 +19,7 @@ var App = DS.Model.extend({
 		return 'dashboard/apps/help/' + this.get('id');
 	}.property('id'),
 	icon: function() {
-		return '/assets/imgs/apps/icons/' + this.get('id') + '.jpg';
+		return config.assetsBaseURL + '/assets/imgs/apps/icons/' + this.get('id') + '.jpg';
 	}.property('id')
 });
 
