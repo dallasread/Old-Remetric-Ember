@@ -5,18 +5,18 @@ module.exports = function(environment) {
     modulePrefix: 'remetric',
     environment: environment,
     baseURL: '/',
-    locationType: 'hash',
+    locationType: 'none',
     EmberENV: {
       FEATURES: {}
     },
-		APP: {}
+    APP: {}
   };
 
   if (environment === 'development') {
 		ENV.stripePublishableKey = 'pk_test_KHbiAmJXtsnNVu4uKJ7SMpGi';
 		ENV.remetric = {
-			api_key: 'FROM-TRACK-JS',
-			url: 'http://localhost:8888/remetric'
+			api_key: 'remetric',
+			domain: 'http://localhost:8888/remetric'
 		};
     ENV.assetsBaseURL = 'http://localhost:4200';
     ENV.stylesheetURL = ENV.assetsBaseURL + '/assets/remetric.css';
@@ -33,7 +33,7 @@ module.exports = function(environment) {
   if (environment === 'production') {
 		ENV.stripePublishableKey = 'pk_live_4gmuwGKc2vyB07nkEG4Zms7O';
 		ENV.remetric = {
-			api_key: 'FROM-TRACK-JS',
+			api_key: 'remetric',
 			domain: 'https://remetric.com'
 		};
     ENV.assetsBaseURL = 'https://remetric.com';

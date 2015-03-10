@@ -69,7 +69,7 @@ export default Ember.Component.extend({
 				_RMO.track(event);
 
 				cta.get('notifications').forEach(function(notification) {
-					_RMI.notify(event, cta.get('id'), notification.get('id'));
+					_RMO.notify(event, cta.get('id'), notification.get('id'));
 				});
 				
 				if (cta.get('spark.recurrance') !== -1) {

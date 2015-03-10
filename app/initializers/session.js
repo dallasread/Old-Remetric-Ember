@@ -7,29 +7,28 @@ import config from './../config/environment';
 var setupTracking = function() {
 	window._RMOID = Ember.$('[data-remetric]').data('remetric').replace(/[^a-z0-9]+/gi, '-').replace(/^-*|-*$/g, '');
 	window._RMO = $.extend({}, _RMI);
-  
-	_RMO.notify = function(event, cta_id, notification_id) {
-    var base64, data, img;
-    img = document.createElement("img");
-    img.style.display = "none";
-    event.page = {
-      title: document.title,
-      url: document.URL
-    };
-    data = {
-      event: event,
-      cta_id: cta_id,
-      notification_id: notification_id
-    };
-    base64 = encodeURIComponent(btoa(JSON.stringify(data)));
-    img.src = "" + _RMI.domain + "/api/" + _RMI.api_key + "/notify/" + base64;
-    return document.body.appendChild(img);
-  };
-	
 	_RMO.api_key = window._RMOID;
 	_RMO.domain = config.remetric.domain;
 	_RMI.api_key = config.remetric.api_key;
 	_RMI.domain = config.remetric.domain;
+  
+	_RMO.notify = function(event, cta_id, notification_id) {
+        var base64, data, img;
+        img = document.createElement("img");
+        img.style.display = "none";
+        event.page = {
+          title: document.title,
+          url: document.URL
+        };
+        data = {
+          event: event,
+          cta_id: cta_id,
+          notification_id: notification_id
+        };
+        base64 = encodeURIComponent(btoa(JSON.stringify(data)));
+        img.src = "" + this.domain + "/api/" + this.api_key + "/notify/" + base64;
+        return document.body.appendChild(img);
+      };
 };
 
 export default {
