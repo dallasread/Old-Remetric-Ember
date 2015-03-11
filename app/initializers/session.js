@@ -1,17 +1,16 @@
 /* globals Firebase, _RMI, _RMO, externalLoader */
 
 import Ember from 'ember';
-import $ from 'jquery';
 import config from './../config/environment';
 
 var setupTracking = function() {
 	window._RMOID = Ember.$('[data-remetric]').data('remetric').replace(/[^a-z0-9]+/gi, '-').replace(/^-*|-*$/g, '');
-	window._RMO = $.extend({}, _RMI);
+	window._RMO = Ember.$.extend({}, _RMI);
 	_RMO.api_key = window._RMOID;
 	_RMO.domain = config.remetric.domain;
 	_RMI.api_key = config.remetric.api_key;
 	_RMI.domain = config.remetric.domain;
-  
+
 	_RMO.notify = function(event, cta_id, notification_id) {
         var base64, data, img;
         img = document.createElement("img");
@@ -37,7 +36,7 @@ export default {
   initialize: function(container, app) {
 		window._RMDB = new Firebase('https://remetric.firebaseio.com/');
 		setupTracking();
-		
+
 		var loader = ['styles', 'user'];
 		var loadComplete = function(loaded) {
 			var index = loader.indexOf(loaded);
@@ -46,7 +45,7 @@ export default {
 				app.advanceReadiness();
 			}
 		};
-		
+
 		var store = container.lookup('store:main');
 		var router = container.lookup('router:main');
 		var session = Ember.Object.create({
@@ -61,20 +60,20 @@ export default {
 		externalLoader(config.stylesheetURL, function() {
 			loadComplete( 'styles' );
 		});
-		
+
 		app.register('session:main', session, { instantiate: false, singleton: true });
 		app.inject('route', 'session', 'session:main');
 		app.inject('controller', 'session', 'session:main');
 		app.inject('component', 'session', 'session:main');
 		app.inject('view', 'session', 'session:main');
 		app.inject('model', 'session', 'session:main');
-		
+
 		var advanceReadiness = function() {
 			if (session.get('afterSignIn')) {
 				router.transitionTo( 'dashboard' );
 				session.set('afterSignIn', false);
 			}
-			
+
 			loadComplete( 'user' );
 		};
 
@@ -82,7 +81,7 @@ export default {
 			if (typeof uid === 'undefined') { uid = 0; }
 			session.set('person', null);
 			session.set('user', null);
-      
+
 			if (session.get('organization')) {
   			store.find('person', uid).then(function(p) {
   				setPerson(p);
@@ -104,19 +103,19 @@ export default {
 				setPerson(true);
 			}
 		};
-		
+
 		var setPerson = function(person) {
 			session.set('person', person);
 			advanceReadiness();
 		};
-		
+
 		var setOnAuth = function() {
 			window._RMDB.onAuth(function(auth) {
 				if (auth) {
           if (session.get('organization')) {
   					store.find('user', auth.uid).then(function(user) {
   						session.set('user', user);
-						
+
   						store.find('person', auth.uid).then(function(person) {
   							setPerson(person);
   						}, function() {
@@ -153,14 +152,14 @@ export default {
 				}
 			});
 		};
-		
+
 		store.find('organization', window._RMOID).then(function(organization) {
 			session.set('organization', organization);
 			setOnAuth();
 		}, function() {
 			setOnAuth();
 		});
-		
+
 		app.deferReadiness();
 	}
 };

@@ -28,10 +28,10 @@ module.exports = function(grunt) {
 		}
   });
 
-  grunt.loadNpmTasks("grunt-contrib-uglify");
-	grunt.loadNpmTasks("grunt-contrib-coffee");
-	grunt.loadNpmTasks("grunt-contrib-watch");
-	
-	grunt.registerTask("default", ["coffee", "uglify"]);
+    grunt.loadNpmTasks("grunt-contrib-uglify");
+    grunt.loadNpmTasks("grunt-contrib-coffee");
+    grunt.loadNpmTasks("grunt-contrib-watch");
+
+    grunt.registerTask("default", ["coffee", "uglify"]);
 
 };

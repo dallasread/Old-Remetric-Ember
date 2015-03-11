@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import jQuery from 'jquery';
 
 export default Ember.Component.extend({
 	closable: true,
@@ -14,16 +13,16 @@ export default Ember.Component.extend({
 	},
 	click: function(e) {
 		if (this.get('closable')) {
-			var click = jQuery(e.target);
-		
+			var click = Ember.$(e.target);
+
 			if (!click.hasClass("modal_yield") && !click.closest(".modal_yield").length) {
 				window.history.back();
 			}
 		}
 	},
 	actions: {
-    closeModal: function() {
-			window.history.back();
-    }
+        closeModal: function() {
+    			window.history.back();
+        }
 	}
 });

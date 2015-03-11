@@ -1,7 +1,6 @@
-/* globals _RMO, _RMI */
+/* globals _RMO */
 
 import Ember from 'ember';
-import jQuery from 'jquery';
 
 export default Ember.Component.extend({
 	isSubmitted: false,
@@ -51,15 +50,15 @@ export default Ember.Component.extend({
 	actions: {
 		submitCTA: function(cta) {
 			var e = this;
-			var form = jQuery('.remetric_cta_' + cta.get('id') + ' form:first');
+			var form = Ember.$('.remetric_cta_' + cta.get('id') + ' form:first');
 			var success = true;
-			
+
 			form.find('[required]').each(function() {
-				if (!jQuery(this).val().length) {
+				if (!Ember.$(this).val().length) {
 					success = false;
 				}
 			});
-			
+
 			if (success) {
 				var event = form.serializeObject();
 				event.story = "{{person.name}} submitted {{cta.name}}";
@@ -71,15 +70,15 @@ export default Ember.Component.extend({
 				cta.get('notifications').forEach(function(notification) {
 					_RMO.notify(event, cta.get('id'), notification.get('id'));
 				});
-				
+
 				if (cta.get('spark.recurrance') !== -1) {
-					jQuery.cookie( cta.get('cookie'), true, { expires: cta.get('spark.recurrance'), path: '/' } );
+					Ember.$.cookie( cta.get('cookie'), true, { expires: cta.get('spark.recurrance'), path: '/' } );
 				}
-				
+
 				if (cta.get('thankYou.isRedirect') && cta.get('thankYou.url.length')) {
 					window.location.href = cta.get('thankYou.url');
 				}
-	
+
 				e.set('isSubmitted', true);
 			} else {
 				alert('Please fill in all the required fields.');
@@ -87,7 +86,7 @@ export default Ember.Component.extend({
 		},
 		closeCTA: function() {
 			this.set('isMinimized', false);
-			this.set('isClosed', true);			
+			this.set('isClosed', true);
 		},
 		minimizeCTA: function() {
 			this.set('isMinimized', true);

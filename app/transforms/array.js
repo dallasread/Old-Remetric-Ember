@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import DS from 'ember-data';
-import jQuery from 'jquery';
 
 export default DS.Transform.extend({
 	deserialize: function(serialized) {
@@ -13,7 +12,7 @@ export default DS.Transform.extend({
 			return deserialized;
 		} else if (type === 'string') {
 			return deserialized.split(',').map(function(item) {
-					return jQuery.trim(item);
+					return Ember.$.trim(item);
 			});
 		} else {
 			return [];

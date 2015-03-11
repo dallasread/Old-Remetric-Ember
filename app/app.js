@@ -13,7 +13,6 @@ var App = Ember.Application.extend({
 
 Ember.Inflector.inflector.irregular('cta', 'ctas');
 Ember.Inflector.inflector.irregular('social', 'social');
-
 Ember.deprecate = function(){};
 
 loadInitializers(App, config.modulePrefix);
