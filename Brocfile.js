@@ -4,6 +4,9 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 var app = new EmberApp({
 	storeConfigInMeta: false,
+    minifyJS: {
+        enabled: false
+    },
     emberCliConcat: {
         outputFileName: 'rm'
     },

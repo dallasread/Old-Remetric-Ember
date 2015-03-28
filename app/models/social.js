@@ -1,15 +1,16 @@
 import DS from 'ember-data';
+import config from './../config/environment';
 
 var Social = DS.Model.extend({
   name: DS.attr('string'),
 	ordinal: DS.attr('number'),
 	url: DS.attr('string'),
-  shareURL: function() {
-  	return this.get('url') + encodeURIComponent(window.location.href);
-  }.property('url'),
+    shareURL: function() {
+        return this.get('url') + encodeURIComponent(window.location.href);
+    }.property('url'),
 	colour: DS.attr('string'),
 	icon: function() {
-		return '/assets/imgs/social/' + this.get('id') + '.png';
+		return config.assetsBaseURL + '/assets/imgs/social/' + this.get('id') + '.png';
 	}.property('id')
 });
 

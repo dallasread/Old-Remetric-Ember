@@ -1,4 +1,4 @@
-/* globals Handlebars */	
+/* globals Handlebars */
 import Ember from 'ember';
 
 function applyURLToObject(obj, url) {
@@ -14,10 +14,10 @@ function applyURLToObject(obj, url) {
 export default Ember.Component.extend({
 	realStory: function() {
 		var story = Handlebars.compile( this.get('event_story') + '' );
-		var data = Ember.$.extend(true, {}, this.get('event_info'));
+		var data = Ember.$.extend(true, {}, this.get('event_info') || {});
 		
 		applyURLToObject(data, "/#/dashboard/activity/events/" + this.get('event_id'));
-		data.person = Ember.$.extend(true, {}, this.get('person_info'));
+		data.person = Ember.$.extend(true, {}, this.get('person_info') || {});
 		applyURLToObject(data.person, "/#/dashboard/people/" + this.get('person_id'));
 
 	  return new Handlebars.SafeString( story(data) );

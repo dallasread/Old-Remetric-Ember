@@ -1,19 +1,21 @@
 <div class="meta">
-	<!-- <form>
-		<input type="search" placeholder="Search...">
-		<select>
-			{{!each info in peopleInfoArray}}
-				<option {{!bind-attr value=info.key}} {{!bind-attr data-type=info.type}}>{{!info.name}}</option>
-			{{!each}}
-		</select>
-	</form> -->
-	
-	<!-- <ul class="actions">
-		<li>#link-to "dashboard.messages.new" class="button"Send Message to 31 People/link-to</li>
-		<li>#link-to "dashboard.messages.new" class="button"Add Person/link-to</li>
-		<li>#link-to "dashboard.messages.new" class="button"Segments/link-to</li>
-	</ul> -->
-	
+    <div style="display: none">
+    	<form>
+    		<input type="search" placeholder="Search...">
+    		<select>
+    			{{each info in peopleInfoArray}}
+    				<option>{{info.name}}</option>
+    			{{each}}
+    		</select>
+    	</form>
+
+    	<ul class="actions">
+    		<li>{{#link-to "dashboard.messages.new" class="button"}}Send Message to 31 People{{/link-to}}</li>
+    		<li>{{#link-to "dashboard.messages.new" class="button"}}Add Person{{/link-to}}</li>
+    		<li>{{#link-to "dashboard.messages.new" class="button"}}Segments{{/link-to}}</li>
+    	</ul>
+    </div>
+
 	<div class="clear"></div>
 </div>
 
@@ -26,7 +28,7 @@
 			<th>First Added</th>
 		</tr>
 	</thead>
-	
+
 	<tbody>
 		{{#each person in model}}
 			<tr>

@@ -44,12 +44,12 @@
 		
 		&.remetric_cta_mid-right {
 			right: 0;
-			top: 20%;
+			top: 27%;
 		}
 		
 		&.remetric_cta_mid-left {
 			left: 0;
-			top: 20%;
+			top: 27%;
 		}
 		
 		.cta_header {
@@ -191,6 +191,10 @@
 				  filter: alpha(opacity=80);
 				  opacity: 0.8;
 				}
+                
+                img {
+                    margin-bottom: -4px;
+                }
 			}
 		}
 	}

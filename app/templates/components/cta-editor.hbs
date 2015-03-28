@@ -13,11 +13,11 @@
 			</li>
 		{{/each}}
 	</ul>
-	
+
 	{{#if currentCTA}}
-		
+
 		<form {{action 'saveCTA' on='submit'}}>
-		
+
 			{{#if currentCTA.isActive}}
 				<p class="notice remetric_notice">
 					This {{prettyName}} is <strong>active</strong> and will be shown to visitors.
@@ -29,26 +29,25 @@
 					<a href="#" {{action 'activateCTA'}} class="cancel">Click here to activate it.</a>
 				</p>
 			{{/if}}
-			
+
 			{{#ivy-tabs selected-index=selectedTab}}
 			  {{#ivy-tab-list}}
 					<div class="remetric_tabs">
 				    {{#ivy-tab}}<a>Setup</a>{{/ivy-tab}}
-							
+
 						{{#unless currentCTA.isSocial}}
 					    {{#ivy-tab}}<a>Appearance</a>{{/ivy-tab}}
 						{{/unless}}
-						
+
 				    {{#ivy-tab}}<a>Visibility</a>{{/ivy-tab}}
-							
+
 						{{#if currentCTA.isSocial}}
 							{{#ivy-tab}}<a>Social</a>{{/ivy-tab}}
 						{{else}}
 					    {{#ivy-tab}}<a>Response</a>{{/ivy-tab}}
 					    {{#ivy-tab}}<a>Notifications</a>{{/ivy-tab}}
 						{{/if}}
-						
-						<!-- {{!ivy-tab}}<a>Submissions</a>{{!ivy-tab}} -->
+
 						<div class="clear"></div>
 					</div>
 			  {{/ivy-tab-list}}
@@ -59,20 +58,20 @@
 							<label for="Placement">Name (for your eyes only)</label>
 							{{input type="text" value=currentCTA.name}}
 						</div>
-						
+
 						<div class="field">
 							<label for="placement">Where should this {{prettyName}} be located?</label>
 							{{view 'select' id='placement' content=placements optionValuePath='content.value' optionLabelPath='content.label' valueBinding='currentCTA.placementString'}}
 						</div>
-						
+
 						{{#unless currentCTA.isSocial}}
-							
+
 							{{#unless currentCTA.isBox}}
 								<div class="field">
 									<label for="headline">Headline</label>
 									{{input type="text" id="headline" value=currentCTA.headline}}
 								</div>
-								
+
 								{{#unless currentCTA.isTopbar}}
 									<div class="field">
 										<label for="subheadline">Subheadline</label>
@@ -84,7 +83,7 @@
 									{{input type="checkbox" id="image_use" checked=currentCTA.image.use}}
 									<label for="image_use">Use image for headline</label>
 								</div>
-						
+
 								{{#if currentCTA.image.use}}
 									<div class="field">
 										<label for="image_url">URL of Headline Image</label>
@@ -97,7 +96,7 @@
 									</div>
 								{{/if}}
 							{{/unless}}
-							
+
 							<div class="field">
 								<label for="button_text">Button Text</label>
 								{{input type="text" id="button_text" value=currentCTA.button.text}}
@@ -106,7 +105,7 @@
 								<label for="button_class">Button Class</label>
 								{{input type="text" id="button_class" value=currentCTA.button.class}}
 							</div>
-						
+
 							<div class="field">
 								<table class="table with_cell_padding">
 									<thead>
@@ -132,12 +131,12 @@
 										{{/each}}
 									</tbody>
 								</table>
-						
+
 								<a href="#" class="small white button" {{action 'addField'}}>Add Field</a>
 							</div>
-							
+
 						{{/unless}}
-						
+
 					</div>
 			  {{/ivy-tab-panel}}
 
@@ -160,13 +159,13 @@
 								{{input type="checkbox" id="is_sticky" checked=currentCTA.isSticky}}
 								<label for="is_sticky">Scroll with page</label>
 							</div>
-							
+
 							{{#unless currentCTA.isSocial}}
 								<div class="field is_for_checkbox">
 									{{input type="checkbox" id="disable_css" checked=currentCTA.disableCSS}}
 									<label for="disable_css">Disable CSS</label>
 								</div>
-							
+
 								{{#unless currentCTA.disableCSS}}
 									{{#unless currentCTA.isTopbar}}
 										<div class="field">
@@ -174,24 +173,24 @@
 											{{input type="text" id="css_background" value=currentCTA.css.general.background}}
 										</div>
 									{{/unless}}
-									
+
 									<div class="field">
 										<label for="css_header_background">Header Background</label>
 										{{input type="text" id="css_header_background" value=currentCTA.css.header.background}}
 									</div>
-									
+
 									<div class="field">
 										<label for="css_header_text">Header Text Colour</label>
 										{{input type="text" id="css_header_text" value=currentCTA.css.header.text}}
 									</div>
-									
+
 									{{#unless currentCTA.isTopbar}}
 										<div class="field">
 											<label for="css_text">Text Colour</label>
 											{{input type="text" id="css_text" value=currentCTA.css.general.text}}
 										</div>
 									{{/unless}}
-									
+
 									<div class="field">
 										<label for="css_button_background">Button Background</label>
 										{{input type="text" id="css_button_background" value=currentCTA.css.button.background}}
@@ -202,7 +201,7 @@
 									</div>
 								{{/unless}}
 							{{/unless}}
-							
+
 						</div>
 				  {{/ivy-tab-panel}}
 				{{/unless}}
@@ -225,21 +224,21 @@
 							<label for="spark_event">When should this {{prettyName}} appear?</label>
 							{{view 'select' id='spark_event' content=sparkEvents optionValuePath='content.value' optionLabelPath='content.label' valueBinding='currentCTA.spark.event'}}
 						</div>
-						
+
 						{{#if isSparkDelayed}}
 							<div class="field">
 								<label for="spark_delay">How long after {{currentCTA.spark.event}} should this {{prettyName}} be displayed?</label>
 								{{view 'select' id='spark_delay' content=sparkDelays optionValuePath='content.value' optionLabelPath='content.label' valueBinding='currentCTA.spark.delay'}}
 							</div>
 						{{/if}}
-						
+
 						{{#if isSparkScrollable}}
 							<div class="field">
 								<label for="spark_scroll">How much of the page should be scrolled before showing (eg. 500px or 50%)?</label>
 								{{input type="text" id="spark_scroll" value=currentCTA.spark.scroll}}
 							</div>
 						{{/if}}
-						
+
 						<div class="field">
 							<label for="trigger how often">How often do visitors see this {{prettyName}}?</label>
 							{{view 'select' content=sparkRecurrances optionValuePath='content.value' optionLabelPath='content.label' valueBinding='currentCTA.spark.recurrance'}}
@@ -253,11 +252,6 @@
 							<label for="pages_to_hide">Which pages should <strong>hide</strong> this {{prettyName}} (* is a wildcard)?</label>
 							{{input type="text" id="pages_to_hide" value=currentCTA.pagesToHide}}
 						</div>
-
-						<!-- <div class="field is_for_checkbox">
-							{{!input type="checkbox" id="spark_sole" checked=currentCTA.spark.sole}}
-							<label for="spark_sole">Hide when other {{!prettyName}}s are present?</label>
-						</div> -->
 					</div>
 			  {{/ivy-tab-panel}}
 
@@ -279,51 +273,51 @@
 								<label for="thank_you_text">Thank-You Text</label>
 								{{textarea id="thank_you_text" value=currentCTA.thankYou.text}}
 							</div>
-							
+
 							{{#if hasGiveAwayApp}}
 								<div class="field is_for_checkbox">
 									{{input type="checkbox" id="giveaway_use" checked=currentCTA.giveAway.use}}
 									<label for="giveaway_use">Has a Digital GiveAway</label>
 								</div>
 							{{/if}}
-							
+
 							{{#if currentCTA.giveAway.use}}
-								
+
 								<div class="field">
 									<label for="giveaway_url">What is the URL of the digital good you're giving away?</label>
 									{{input type="text" for="giveaway_url" value=currentCTA.giveAway.url}}
 								</div>
-							
+
 								<div class="field">
 									<label for="giveaway_text">What should the Giveaway button say?</label>
 									{{input type="text" for="giveaway_text" value=currentCTA.giveAway.text}}
 								</div>
-								
+
 							{{else}}
-								
+
 								<div class="field is_for_checkbox">
 									{{input type="checkbox" id="thank_you_is_redirect" checked=currentCTA.thankYou.isRedirect}}
 									<label for="thank_you_is_redirect">Redirect to custom URL upon submission</label>
 								</div>
-						
+
 								{{#if currentCTA.thankYou.isRedirect}}
 									<div class="field">
 										<label for="thank_you_url">Thank-You URL</label>
 										{{input type="text" for="thank_you_url" value=currentCTA.thankYou.url}}
 									</div>
 								{{/if}}
-								
+
 							{{/if}}
-							
+
 						</div>
 				  {{/ivy-tab-panel}}
-					
+
 					{{#ivy-tab-panel}}
 						<div class="remetric_tab_panel" data-title="Notifications">
 							<p>
 								Set up email alerts (to you, the submitter, or anyone else) for when this {{prettyName}} is submitted. Use <strong>\{{person.name}}</strong> to show the person's name, or any other relevant data. The <strong>\{{data}}</strong> tag displays all known data about the user.
 							</p>
-							
+
 							{{#each notification in currentCTA.notifications}}
 								<div class="field notification">
 									<table class="table with_minimal_cell_padding">
@@ -351,42 +345,35 @@
 									</table>
 								</div>
 							{{/each}}
-						
+
 							<a href="#" class="white button inline_block" {{action 'addNotification'}}>Add Notification</a>
 						</div>
 					{{/ivy-tab-panel}}
 				{{/if}}
-
-			  <!-- {{!ivy-tab-panel}}
-					<div class="remetric_tab_panel" data-title="Submissions">
-						Submissions
-						{{#link-to 'dashboard.apps.store.app' 'topbar' class='remetric_help'}}?{{/link-to}}
-					</div>
-				{{!ivy-tab-panel}} -->
 			{{/ivy-tabs}}
-			
+
 			<div class="app_actions">
 				<a href="#" {{action 'deleteCTA'}} class="cancel">Delete</a>
 				<a href="#" {{action 'duplicateCTA'}} class="cancel">Duplicate</a>
-				
+
 				{{!if currentCTA.isDirty}}
 					<a href="#" {{action 'resetCTA'}} class="cancel">Discard Changes</a>
 				{{!if}}
-				
+
 				<button {{bind-attr class=":button currentCTA.isDirty:clickable"}}>
 					Save Changes
 				</button>
 			</div>
-		
+
 		</form>
-		
+
 	{{else}}
-	
+
 		<div class="field">
 			<p>Choose a {{prettyName}} to get started.</p>
 		</div>
-	
+
 	{{/if}}
-	
+
 
 </div>

@@ -17,6 +17,7 @@
     "JavaScript-MD5": "~1.1.0",
     "jquery-serialize-object": "~2.4.5",
     "jquery.cookie": "~1.4.1",
-    "ember-data": "1.0.0-beta.12"
+    "ember-data": "1.0.0-beta.15",
+    "handlebars": "~3.0.0"
   }
 }
